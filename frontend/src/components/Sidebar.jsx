@@ -5,12 +5,20 @@ function Sidebar() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+const handleLogout = () => {
+  const confirmLogout = window.confirm(
+    "Are you sure you want to logout?"
+  );
 
-    navigate("/farmer/login");
-  };
+  if (!confirmLogout) {
+    return;
+  }
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  navigate("/farmer/login");
+};
 
   return (
     <aside className="sidebar">
@@ -76,6 +84,11 @@ function Sidebar() {
           Matches
         </NavLink>
 
+
+
+
+
+
         <NavLink
           to="/farmer/profile"
           className={({ isActive }) =>
@@ -88,14 +101,14 @@ function Sidebar() {
 
       </nav>
 
-      {/* Logout */}
-      <button
-        className="logout-button"
-        onClick={handleLogout}
-      >
-        <span>🚪</span>
-        Logout
-      </button>
+{/* Logout */}
+<button
+  className="logout-button"
+  onClick={handleLogout}
+>
+  <span>🚪</span>
+  Logout
+</button>
 
     </aside>
   );

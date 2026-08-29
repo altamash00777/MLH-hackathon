@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import api from "../../services/api";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-function FarmerRegister() {
+function BuyerRegister() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -13,9 +13,9 @@ function FarmerRegister() {
     password: "",
   });
 
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -27,19 +27,23 @@ function FarmerRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setMessage("");
-    setError("");
-    setLoading(true);
-
     try {
-      const response = await api.post("/auth/register", {
-        ...formData,
-        role: "farmer",
-      });
+      setLoading(true);
+      setError("");
+      setSuccess("");
 
-      console.log("REGISTER RESPONSE:", response.data);
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          ...formData,
+          role: "buyer",
+        }
+      );
 
-      // Get token from backend
+      // Check response
+      console.log("BUYER REGISTER RESPONSE:", response.data);
+
+      // Get JWT token from backend
       const token = response.data.token;
 
       if (!token) {
@@ -52,28 +56,29 @@ function FarmerRegister() {
       // Save authentication token
       localStorage.setItem("token", token);
 
-      // Save user information
+      // Save buyer information
       localStorage.setItem(
         "user",
         JSON.stringify(response.data.user)
       );
 
-      setMessage(
-        "Registration successful! Redirecting to dashboard..."
+      setSuccess(
+        "Buyer registration successful! Redirecting to dashboard..."
       );
 
-      // Redirect directly to farmer dashboard
+      // Go directly to buyer dashboard
       setTimeout(() => {
-        navigate("/farmer/dashboard");
+        navigate("/buyer/dashboard");
       }, 500);
 
     } catch (error) {
-      console.error("Registration Error:", error);
+      console.error("Buyer Registration Error:", error);
 
       setError(
         error.response?.data?.message ||
           "Registration failed. Please try again."
       );
+
     } finally {
       setLoading(false);
     }
@@ -81,22 +86,35 @@ function FarmerRegister() {
 
   return (
     <div className="auth-container">
+
       <div className="auth-card">
 
         <div className="auth-logo">
-          🌱
+          🏢
         </div>
 
-        <h1>AgriMarket</h1>
+        <h1>Buyer Registration</h1>
 
         <p className="auth-subtitle">
-          Create your Farmer Account
+          Create your buyer account
         </p>
+
+        {success && (
+          <div className="success-message">
+            {success}
+          </div>
+        )}
+
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
 
           <div className="form-group">
-            <label>Full Name</label>
+            <label>Name</label>
 
             <input
               type="text"
@@ -125,7 +143,7 @@ function FarmerRegister() {
             <label>Phone</label>
 
             <input
-              type="tel"
+              type="text"
               name="phone"
               placeholder="Enter phone number"
               value={formData.phone}
@@ -140,7 +158,7 @@ function FarmerRegister() {
             <input
               type="text"
               name="location"
-              placeholder="Village / City"
+              placeholder="Enter your location"
               value={formData.location}
               onChange={handleChange}
               required
@@ -160,39 +178,31 @@ function FarmerRegister() {
             />
           </div>
 
-          {message && (
-            <p className="success-message">
-              {message}
-            </p>
-          )}
-
-          {error && (
-            <p className="error-message">
-              {error}
-            </p>
-          )}
-
           <button
             type="submit"
             disabled={loading}
           >
             {loading
               ? "Creating Account..."
-              : "Create Farmer Account"}
+              : "Register"}
           </button>
 
         </form>
 
-        <p className="auth-footer">
+        <div className="auth-footer">
+
           Already have an account?{" "}
-          <Link to="/farmer/login">
+
+          <Link to="/buyer/login">
             Login
           </Link>
-        </p>
+
+        </div>
 
       </div>
+
     </div>
   );
 }
 
-export default FarmerRegister;
+export default BuyerRegister;

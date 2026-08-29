@@ -11,7 +11,6 @@ const { createMatch } = require("../utils/matchGenerator");
 
 const findFarmerMatches = async (req, res) => {
   try {
-
     const farmerId = req.user.userId;
 
     // 1. Get farmer's active listings
@@ -28,26 +27,17 @@ const findFarmerMatches = async (req, res) => {
       });
     }
 
-
     // 2. Get all open buyer requirements
     const requirements = await BuyerRequirement.find({
       status: "open"
     });
 
-
     // 3. Generate matches
     for (const listing of listings) {
-
       for (const requirement of requirements) {
-
-        await createMatch(
-          listing,
-          requirement
-        );
-
+        await createMatch(listing, requirement);
       }
     }
-
 
     // 4. Get farmer's matches
     const matches = await Match.find({
@@ -63,29 +53,21 @@ const findFarmerMatches = async (req, res) => {
         matchScore: -1
       });
 
-
     // 5. Return matches
     return res.status(200).json({
       count: matches.length,
       matches
     });
 
-
   } catch (error) {
-
-    console.error(
-      "Farmer matching error:",
-      error
-    );
+    console.error("Farmer matching error:", error);
 
     return res.status(500).json({
       message: "Error finding farmer matches",
       error: error.message
     });
-
   }
 };
-
 
 
 // ==========================================
@@ -94,7 +76,6 @@ const findFarmerMatches = async (req, res) => {
 
 const findBuyerMatches = async (req, res) => {
   try {
-
     const buyerId = req.user.userId;
 
     // 1. Get buyer's open requirements
@@ -111,26 +92,17 @@ const findBuyerMatches = async (req, res) => {
       });
     }
 
-
     // 2. Get all active farmer listings
     const listings = await FarmerListing.find({
       status: "active"
     });
 
-
     // 3. Generate matches
     for (const requirement of requirements) {
-
       for (const listing of listings) {
-
-        await createMatch(
-          listing,
-          requirement
-        );
-
+        await createMatch(listing, requirement);
       }
     }
-
 
     // 4. Get buyer's matches
     const matches = await Match.find({
@@ -146,42 +118,38 @@ const findBuyerMatches = async (req, res) => {
         matchScore: -1
       });
 
-
     // 5. Return matches
     return res.status(200).json({
       count: matches.length,
       matches
     });
 
-
   } catch (error) {
-
-    console.error(
-      "Buyer matching error:",
-      error
-    );
+    console.error("Buyer matching error:", error);
 
     return res.status(500).json({
       message: "Error finding buyer matches",
       error: error.message
     });
-
   }
 };
 
 
+// ==========================================
+// FARMER SENDS CONNECTION REQUEST
+// ==========================================
+
 const contactMatch = async (req, res) => {
   try {
 
-    const userId = req.user.userId;
-
+    const userId = req.user.userId.toString();
     const { matchId } = req.params;
 
+    console.log("\n========== CONTACT MATCH ==========");
+    console.log("Logged-in User ID:", userId);
+    console.log("Match ID:", matchId);
 
-    // ==========================================
     // 1. Find match
-    // ==========================================
-
     const match = await Match.findById(matchId);
 
     if (!match) {
@@ -190,76 +158,52 @@ const contactMatch = async (req, res) => {
       });
     }
 
+    console.log("Match Farmer ID:", match.farmerId.toString());
+    console.log("Match Buyer ID:", match.buyerId.toString());
+    console.log("Current Status:", match.status);
 
-    // ==========================================
-    // 2. Check whether user belongs to match
-    // ==========================================
-
+    // 2. Check farmer
     const isFarmer =
       match.farmerId.toString() === userId;
 
-    const isBuyer =
-      match.buyerId.toString() === userId;
+    console.log("Is Farmer:", isFarmer);
 
-
-    if (!isFarmer && !isBuyer) {
-
+    if (!isFarmer) {
       return res.status(403).json({
-        message: "You are not part of this match"
+        message: "Only the farmer can send this connection request"
       });
-
     }
 
-
-    // ==========================================
-    // 3. Check current status
-    // ==========================================
-
+    // 3. Check status
     if (match.status === "rejected") {
-
       return res.status(400).json({
         message: "This match has been rejected"
       });
-
     }
 
-
     if (match.status === "accepted") {
-
       return res.status(400).json({
         message: "This match is already accepted"
       });
-
     }
 
-
     if (match.status === "contacted") {
-
       return res.status(400).json({
         message: "Connection request already sent"
       });
-
     }
 
-
-    // ==========================================
-    // 4. Save connection request
-    // ==========================================
-
+    // 4. Farmer sends request
     match.status = "contacted";
-
     match.contactedBy = userId;
 
     await match.save();
 
+    console.log("Connection request saved successfully");
+    console.log("=================================\n");
 
-    // ==========================================
-    // 5. Return updated match
-    // ==========================================
-
-    const updatedMatch = await Match.findById(
-      match._id
-    )
+    // 5. Get updated match
+    const updatedMatch = await Match.findById(match._id)
       .populate(
         "farmerId",
         "name email phone location"
@@ -271,37 +215,39 @@ const contactMatch = async (req, res) => {
       .populate("farmerListingId")
       .populate("buyerRequirementId");
 
-
+    // 6. Return
     return res.status(200).json({
-
       message: "Connection request sent successfully",
-
       match: updatedMatch
-
     });
-
 
   } catch (error) {
 
-    console.error(
-      "Contact match error:",
-      error
-    );
+    console.error("Contact match error:", error);
 
     return res.status(500).json({
       message: "Error sending connection request",
       error: error.message
     });
-
   }
 };
 
 
+// ==========================================
+// BUYER ACCEPTS CONNECTION REQUEST
+// ==========================================
+
 const acceptMatch = async (req, res) => {
   try {
-    const userId = req.user.userId;
+
+    const userId = req.user.userId.toString();
     const { matchId } = req.params;
 
+    console.log("\n========== ACCEPT MATCH ==========");
+    console.log("Logged-in User ID:", userId);
+    console.log("Match ID:", matchId);
+
+    // 1. Find match
     const match = await Match.findById(matchId);
 
     if (!match) {
@@ -310,41 +256,65 @@ const acceptMatch = async (req, res) => {
       });
     }
 
-    // Check that logged-in user belongs to this match
-    const isFarmer =
-      match.farmerId.toString() === userId;
+    console.log("Match Farmer ID:", match.farmerId.toString());
+    console.log("Match Buyer ID:", match.buyerId.toString());
+    console.log("Contacted By:", match.contactedBy);
+    console.log("Current Status:", match.status);
 
+    // 2. Only buyer can accept
     const isBuyer =
       match.buyerId.toString() === userId;
 
-    if (!isFarmer && !isBuyer) {
+    console.log("Is Buyer:", isBuyer);
+
+    if (!isBuyer) {
       return res.status(403).json({
-        message: "You are not part of this match"
+        message: "Only the buyer can accept this connection request"
       });
     }
 
-    // Must have a connection request first
+    // 3. Request must be contacted
     if (match.status !== "contacted") {
       return res.status(400).json({
         message: "There is no pending connection request"
       });
     }
 
-    // The person who sent the request cannot accept their own request
-    if (match.contactedBy.toString() === userId) {
+    // 4. Check who sent request
+    if (
+      match.contactedBy &&
+      match.contactedBy.toString() === userId
+    ) {
       return res.status(403).json({
         message: "You cannot accept your own connection request"
       });
     }
 
-    // Accept
+    // 5. Accept
     match.status = "accepted";
 
     await match.save();
 
+    console.log("Connection accepted successfully");
+    console.log("================================\n");
+
+    // 6. Get updated match
+    const updatedMatch = await Match.findById(match._id)
+      .populate(
+        "farmerId",
+        "name email phone location"
+      )
+      .populate(
+        "buyerId",
+        "name companyName email phone location"
+      )
+      .populate("farmerListingId")
+      .populate("buyerRequirementId");
+
+    // 7. Return
     return res.status(200).json({
       message: "Connection accepted successfully",
-      match
+      match: updatedMatch
     });
 
   } catch (error) {
@@ -359,12 +329,9 @@ const acceptMatch = async (req, res) => {
 };
 
 
-
-
-
-
-
-
+// ==========================================
+// EXPORT
+// ==========================================
 
 module.exports = {
   findFarmerMatches,

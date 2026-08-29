@@ -7,6 +7,15 @@ import AddCrop from "./pages/farmer/AddCrop";
 import MyCrops from "./pages/farmer/MyCrops";
 import EditCrop from "./pages/farmer/EditCrop";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyMatches from "./pages/farmer/MyMatches";
+import BuyerRegister from "./pages/buyer/BuyerRegister";
+import BuyerLogin from "./pages/buyer/BuyerLogin";
+import BuyerDashboard from "./pages/buyer/BuyerDashboard";
+import AddRequirement from "./pages/buyer/AddRequirement";
+import MyRequirements from "./pages/buyer/MyRequirements";
+import EditRequirement from "./pages/buyer/EditRequirement";
+import BuyerMatches from "./pages/buyer/BuyerMatches";
+import FarmerProfile from "./pages/farmer/FarmerProfile";
 
 
 function App() {
@@ -61,6 +70,51 @@ function App() {
     </ProtectedRoute>
   }
 />
+
+<Route
+  path="/farmer/matches"
+  element={
+    <ProtectedRoute role="farmer">
+      <MyMatches />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/buyer/register"
+  element={<BuyerRegister />}
+/>
+<Route
+  path="/buyer/login"
+  element={<BuyerLogin />}
+/>
+
+<Route
+  path="/buyer/dashboard"
+  element={<BuyerDashboard />}
+/>
+
+<Route
+  path="/buyer/add-requirement"
+  element={<AddRequirement />}
+/>
+<Route
+  path="/buyer/requirements"
+  element={<MyRequirements />}
+/>
+<Route
+  path="/buyer/edit-requirement/:id"
+  element={<EditRequirement />}
+/>
+<Route
+  path="/buyer/matches"
+  element={<BuyerMatches />}
+/>
+
+<Route
+  path="/farmer/profile"
+  element={<FarmerProfile />}
+/>
+
 
       </Routes>
 

@@ -2,6 +2,14 @@
    GLOBAL
 ======================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -1063,4 +1071,619 @@ select {
   .my-crop-buttons {
     flex-direction: column;
   }
+}
+
+
+
+
+/* ========================================
+   FARMER MATCHING
+======================================== */
+
+.match-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.match-summary-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.match-summary-icon {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 10px;
+
+  background: #e7f5eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+.match-summary-card p {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.match-summary-card h2 {
+  margin-top: 4px;
+  color: #1f2937;
+}
+
+
+/* ========================================
+   MATCH GRID
+======================================== */
+
+.matches-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 22px;
+}
+
+
+/* ========================================
+   MATCH CARD
+======================================== */
+
+.match-card {
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 24px;
+
+  border: 1px solid #e8eee9;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+  transition: 0.2s;
+}
+
+.match-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ========================================
+   MATCH CARD TOP
+======================================== */
+
+.match-card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.match-crop-icon {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 12px;
+
+  background: #e7f5eb;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 27px;
+}
+
+.match-score {
+  background: #e7f5eb;
+
+  color: #176b36;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ========================================
+   CROP NAME
+======================================== */
+
+.match-crop-name {
+  font-size: 21px;
+
+  color: #1f2937;
+
+  margin-bottom: 18px;
+}
+
+
+/* ========================================
+   BUYER INFO
+======================================== */
+
+.buyer-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 15px 0;
+
+  border-top: 1px solid #eeeeee;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.buyer-avatar {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: #176b36;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-weight: bold;
+
+  font-size: 17px;
+}
+
+.buyer-label {
+  font-size: 12px;
+
+  color: #8a8f98;
+
+  margin-bottom: 3px;
+}
+
+.buyer-info h3 {
+  font-size: 15px;
+
+  color: #374151;
+}
+
+
+/* ========================================
+   MATCH DETAILS
+======================================== */
+
+.match-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+
+  padding: 18px 0;
+}
+
+.match-details div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.match-details span {
+  font-size: 12px;
+
+  color: #8a8f98;
+}
+
+.match-details strong {
+  font-size: 14px;
+
+  color: #374151;
+}
+
+
+/* ========================================
+   MATCH FOOTER
+======================================== */
+
+.match-footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #eeeeee;
+}
+
+.match-status {
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.match-status.pending {
+  background: #fff7e6;
+
+  color: #b7791f;
+}
+
+.match-status.accepted {
+  background: #e7f5eb;
+
+  color: #176b36;
+}
+
+.match-details-btn {
+  border: none;
+
+  background: transparent;
+
+  color: #176b36;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+.match-details-btn:hover {
+  text-decoration: underline;
+}
+
+
+/* ///// */
+
+.contact-button {
+  border: none;
+  background: #176b36;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-button:hover {
+  background: #12582c;
+}
+
+.contact-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+
+/* ========================================
+   MATCH RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+  .match-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .matches-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+/* =========================
+   BUYER REQUIREMENTS
+========================= */
+
+.requirements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.requirement-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.requirement-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.requirement-icon {
+  font-size: 32px;
+}
+
+.requirement-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.requirement-status.open {
+  background: #e8f5e9;
+  color: #237a3b;
+}
+
+.requirement-status.matched {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.requirement-status.closed {
+  background: #eeeeee;
+  color: #555;
+}
+
+.requirement-status.inactive {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.requirement-card h2 {
+  margin-top: 15px;
+  color: #1f2937;
+}
+
+.requirement-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.requirement-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.requirement-details span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.requirement-details strong {
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.requirement-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #eee;
+}
+
+.edit-button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #237a3b;
+  background: white;
+  color: #237a3b;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-button:hover {
+  background: #e8f5e9;
+}
+
+.delete-button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #ffebee;
+  color: #c62828;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.delete-button:hover {
+  background: #ffcdd2;
+}
+
+
+
+
+
+
+/* =========================
+   BUYER MATCHES
+========================= */
+
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.match-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.match-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-crop-icon {
+  font-size: 32px;
+}
+
+.match-score {
+  background: #e8f5e9;
+  color: #237a3b;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.match-crop-name {
+  margin-top: 15px;
+  color: #1f2937;
+}
+
+.buyer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.buyer-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #176b36;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.buyer-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.buyer-info h3 {
+  color: #1f2937;
+  margin-top: 3px;
+}
+
+.match-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 22px;
+}
+
+.match-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.match-details span {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.match-details strong {
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.match-footer {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #eee;
+}
+
+.match-status {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.match-status.contacted {
+  color: #d97706;
+}
+
+.match-status.accepted {
+  color: #237a3b;
+}
+
+.match-status.rejected {
+  color: #c62828;
+}
+
+.match-status.pending {
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+
+  .matches-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+
+.accept-button {
+  border: none;
+  background: #237a3b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.accept-button:hover {
+  background: #1c6330;
+}
+
+.accept-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
