@@ -1,0 +1,1550 @@
+/* =========================================================
+   FPO PAGE
+========================================================= */
+
+.fpo-layout {
+  min-height: 100vh;
+  width: 100%;
+  background: #f5f8f3;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   Sidebar is fixed at 250px
+========================================================= */
+
+.fpo-page {
+  margin-left: 250px;
+  min-height: 100vh;
+
+  padding: 30px 35px 50px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.fpo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-bottom: 28px;
+}
+
+.fpo-header h1 {
+  margin: 0 0 7px;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #294b24;
+}
+
+.fpo-header p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #7b8575;
+}
+
+
+/* =========================================================
+   HEADER BUTTONS
+========================================================= */
+
+.fpo-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+
+/* Join FPO */
+
+.join-fpo-header-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  min-height: 44px;
+
+  padding: 11px 18px;
+
+  border: 1px solid #4f813f;
+  border-radius: 11px;
+
+  background: #ffffff;
+  color: #4f813f;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.join-fpo-header-btn:hover {
+  background: #4f813f;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 14px rgba(79, 129, 63, 0.18);
+}
+
+.join-fpo-header-btn:active {
+  transform: translateY(0);
+}
+
+
+/* Create FPO */
+
+.create-fpo-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  min-height: 44px;
+
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: #4f813f;
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.create-fpo-btn:hover {
+  background: #3e6d32;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 14px rgba(79, 129, 63, 0.18);
+}
+
+.create-fpo-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.fpo-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin-bottom: 32px;
+}
+
+.fpo-summary-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ebe1;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 3px 12px rgba(43, 72, 36, 0.04);
+}
+
+.fpo-summary-card > span {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  background: #edf6e9;
+
+  border-radius: 11px;
+
+  font-size: 21px;
+}
+
+.fpo-summary-card h3 {
+  margin: 0 0 3px;
+
+  color: #35582d;
+
+  font-size: 21px;
+}
+
+.fpo-summary-card p {
+  margin: 0;
+
+  color: #899184;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.fpo-section,
+.my-fpo-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  margin-bottom: 17px;
+}
+
+.section-title h2 {
+  margin: 0 0 5px;
+
+  color: #294b24;
+
+  font-size: 18px;
+}
+
+.section-title p {
+  margin: 0;
+
+  color: #858d80;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   FPO GRID
+========================================================= */
+
+.fpo-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   FPO CARD
+========================================================= */
+
+.fpo-card {
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e3e9df;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 4px 15px rgba(40, 70, 34, 0.045);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.fpo-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #c8dbc0;
+
+  box-shadow:
+    0 8px 22px rgba(40, 70, 34, 0.08);
+}
+
+
+/* =========================================================
+   FPO CARD TOP
+========================================================= */
+
+.fpo-card-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 16px;
+}
+
+.crop-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 43px;
+  height: 43px;
+
+  flex-shrink: 0;
+
+  background: #eef7e9;
+
+  border-radius: 11px;
+
+  font-size: 21px;
+}
+
+.fpo-card-top h3 {
+  margin: 0 0 3px;
+
+  color: #31552b;
+
+  font-size: 15px;
+}
+
+.fpo-card-top p {
+  margin: 0;
+
+  color: #8a9285;
+
+  font-size: 10px;
+}
+
+.fpo-status {
+  margin-left: auto;
+
+  padding: 5px 8px;
+
+  border-radius: 20px;
+
+  background: #edf7e9;
+
+  color: #4f813f;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   FPO INFORMATION
+========================================================= */
+
+.fpo-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 7px;
+
+  margin-bottom: 15px;
+}
+
+.fpo-info div {
+  padding: 10px 8px;
+
+  background: #f8faf7;
+
+  border-radius: 8px;
+
+  text-align: center;
+}
+
+.fpo-info span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8b9387;
+
+  font-size: 9px;
+}
+
+.fpo-info strong {
+  color: #426b37;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-area {
+  margin-bottom: 15px;
+}
+
+.progress-label {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+
+  color: #788174;
+
+  font-size: 10px;
+}
+
+.progress-label strong {
+  color: #4f813f;
+
+  font-size: 11px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 7px;
+
+  overflow: hidden;
+
+  background: #e9eee6;
+
+  border-radius: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+
+  background: #5b9449;
+
+  border-radius: 20px;
+
+  transition: width 0.4s ease;
+}
+
+
+/* =========================================================
+   FPO DETAILS
+========================================================= */
+
+.fpo-details {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 15px;
+}
+
+.fpo-details span {
+  padding: 6px 8px;
+
+  background: #f7f9f5;
+
+  border: 1px solid #e9ede6;
+
+  border-radius: 7px;
+
+  color: #697265;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   FARMERS PREVIEW
+========================================================= */
+
+.farmers-preview {
+  padding-top: 13px;
+
+  border-top: 1px solid #edf0eb;
+
+  margin-bottom: 15px;
+}
+
+.farmers-preview > strong {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #52604d;
+
+  font-size: 10px;
+}
+
+.farmer-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.farmer-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 7px 9px;
+
+  background: #fafbf9;
+
+  border-radius: 7px;
+
+  color: #687265;
+
+  font-size: 10px;
+}
+
+.farmer-row strong {
+  color: #4f813f;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   VIEW FPO BUTTON
+========================================================= */
+
+.view-fpo-btn {
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1px solid #d7e3d2;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #4f813f;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.view-fpo-btn:hover {
+  background: #f0f7ec;
+
+  border-color: #9fbd94;
+}
+
+
+/* =========================================================
+   MY FPO CONTRIBUTION
+========================================================= */
+
+.my-fpo-section {
+  margin-top: 10px;
+}
+
+.contribution-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 17px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e9de;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 12px rgba(43, 72, 36, 0.04);
+}
+
+.contribution-crop {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  min-width: 200px;
+}
+
+.contribution-crop h3 {
+  margin: 0 0 3px;
+
+  color: #31552b;
+
+  font-size: 13px;
+}
+
+.contribution-crop p {
+  margin: 0;
+
+  color: #8a9285;
+
+  font-size: 10px;
+}
+
+.contribution-stat {
+  padding-left: 18px;
+
+  border-left: 1px solid #e7ebe4;
+}
+
+.contribution-stat span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #899184;
+
+  font-size: 9px;
+}
+
+.contribution-stat strong {
+  color: #426b37;
+
+  font-size: 14px;
+}
+
+.contribution-status {
+  margin-left: auto;
+
+  padding: 7px 10px;
+
+  background: #edf7e9;
+
+  border-radius: 20px;
+
+  color: #4f813f;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.fpo-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(20, 35, 18, 0.48);
+
+  backdrop-filter: blur(3px);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.fpo-modal {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 520px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 27px;
+
+  background: #ffffff;
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 20px 60px rgba(20, 40, 18, 0.2);
+
+  box-sizing: border-box;
+
+  animation: fpoModalIn 0.2s ease;
+}
+
+@keyframes fpoModalIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+
+/* Modal scrollbar */
+
+.fpo-modal::-webkit-scrollbar {
+  width: 5px;
+}
+
+.fpo-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fpo-modal::-webkit-scrollbar-thumb {
+  background: #ccd6c7;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-modal {
+  position: absolute;
+
+  top: 13px;
+  right: 15px;
+
+  width: 30px;
+  height: 30px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #f3f6f1;
+
+  color: #667160;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.close-modal:hover {
+  background: #e8eee4;
+
+  color: #31552b;
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.modal-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 12px;
+
+  background: #edf7e9;
+
+  border-radius: 13px;
+
+  font-size: 23px;
+}
+
+.fpo-modal h2 {
+  margin: 0 0 5px;
+
+  color: #294b24;
+
+  font-size: 20px;
+}
+
+.fpo-modal > h3 {
+  margin: 20px 0 10px;
+
+  color: #40513a;
+
+  font-size: 13px;
+}
+
+.modal-buyer {
+  margin: 0 0 20px;
+
+  color: #858e80;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   CREATE FPO FORM
+========================================================= */
+
+.create-fpo-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 13px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.form-group label {
+  color: #52604d;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border: 1px solid #dce5d8;
+
+  border-radius: 9px;
+
+  background: #fbfcfa;
+
+  color: #354330;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #76a965;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(118, 169, 101, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #a3aaa0;
+}
+
+.form-group small {
+  color: #92998e;
+
+  font-size: 9px;
+}
+
+
+/* Form row */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.create-fpo-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 9px;
+
+  margin-top: 8px;
+}
+
+.cancel-fpo-btn,
+.save-fpo-btn {
+  padding: 10px 15px;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.cancel-fpo-btn {
+  border: 1px solid #dce4d9;
+
+  background: #ffffff;
+
+  color: #697465;
+}
+
+.cancel-fpo-btn:hover {
+  background: #f5f7f4;
+}
+
+.save-fpo-btn {
+  border: none;
+
+  background: #4f813f;
+
+  color: #ffffff;
+}
+
+.save-fpo-btn:hover {
+  background: #3e6d32;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   JOIN FPO MODAL
+========================================================= */
+
+.join-fpo-modal {
+  max-width: 590px;
+}
+
+.join-fpo-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  max-height: 58vh;
+
+  overflow-y: auto;
+
+  padding-right: 3px;
+}
+
+.join-fpo-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.join-fpo-list::-webkit-scrollbar-thumb {
+  background: #ccd6c7;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   JOIN FPO OPTION
+========================================================= */
+
+.join-fpo-option {
+  padding: 15px;
+
+  background: #f8faf7;
+
+  border: 1px solid #e4eae0;
+
+  border-radius: 13px;
+
+  transition: 0.2s ease;
+}
+
+.join-fpo-option:hover {
+  border-color: #b7cfad;
+
+  background: #fbfdf9;
+}
+
+
+/* Top */
+
+.join-fpo-option-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 13px;
+}
+
+.join-fpo-option-top h3 {
+  margin: 0 0 3px;
+
+  color: #31552b;
+
+  font-size: 14px;
+}
+
+.join-fpo-option-top p {
+  margin: 0;
+
+  color: #858e80;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   JOIN FPO INFO
+========================================================= */
+
+.join-fpo-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 7px;
+
+  margin-bottom: 12px;
+}
+
+.join-fpo-info div {
+  padding: 9px;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  text-align: center;
+}
+
+.join-fpo-info span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8b9387;
+
+  font-size: 9px;
+}
+
+.join-fpo-info strong {
+  color: #426b37;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   JOIN OPTION BUTTON
+========================================================= */
+
+.join-option-btn {
+  width: 100%;
+
+  padding: 10px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #4f813f;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.join-option-btn:hover {
+  background: #3e6d32;
+
+  transform: translateY(-1px);
+}
+
+.join-option-btn:disabled {
+  background: #b8c1b3;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   CONTRIBUTION MODAL
+========================================================= */
+
+.contribution-modal {
+  max-width: 480px;
+}
+
+
+/* =========================================================
+   MODAL QUANTITY
+========================================================= */
+
+.modal-quantity {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-bottom: 18px;
+}
+
+.modal-quantity div {
+  padding: 11px 8px;
+
+  background: #f7faf5;
+
+  border-radius: 9px;
+
+  text-align: center;
+}
+
+.modal-quantity span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #8a9285;
+
+  font-size: 9px;
+}
+
+.modal-quantity strong {
+  color: #426b37;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CONTRIBUTION INPUT
+========================================================= */
+
+.contribution-input {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-bottom: 14px;
+}
+
+.contribution-input label {
+  color: #52604d;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.contribution-input input {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #dce5d8;
+
+  border-radius: 9px;
+
+  background: #fbfcfa;
+
+  color: #354330;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition: 0.2s ease;
+}
+
+.contribution-input input:focus {
+  border-color: #76a965;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(118, 169, 101, 0.1);
+}
+
+.contribution-input small {
+  color: #92998e;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   CONTRIBUTION NOTE
+========================================================= */
+
+.contribution-note {
+  padding: 11px 12px;
+
+  margin-bottom: 17px;
+
+  background: #f0f7ec;
+
+  border: 1px solid #e0ecd9;
+
+  border-radius: 9px;
+
+  color: #58704e;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   JOIN FPO BUTTON IN DETAILS MODAL
+========================================================= */
+
+.join-fpo-btn {
+  width: 100%;
+
+  padding: 11px;
+
+  margin-top: 17px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #4f813f;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.join-fpo-btn:hover {
+  background: #3e6d32;
+
+  transform: translateY(-1px);
+}
+
+.join-fpo-btn:disabled {
+  background: #b8c1b3;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   MODAL FARMERS
+========================================================= */
+
+.modal-farmers {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  max-height: 240px;
+
+  overflow-y: auto;
+}
+
+.modal-farmer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 12px;
+
+  background: #f8faf7;
+
+  border: 1px solid #e8ede5;
+
+  border-radius: 8px;
+
+  color: #687265;
+
+  font-size: 10px;
+}
+
+.modal-farmer strong {
+  color: #4f813f;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .fpo-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .fpo-summary {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .contribution-card {
+    flex-wrap: wrap;
+  }
+
+  .contribution-status {
+    margin-left: 0;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .fpo-page {
+    margin-left: 250px;
+
+    padding: 22px 18px 40px;
+  }
+
+  .fpo-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .fpo-header-actions {
+    width: 100%;
+
+    justify-content: flex-start;
+  }
+
+  .join-fpo-header-btn,
+  .create-fpo-btn {
+    flex: 1;
+  }
+
+  .fpo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contribution-card {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 13px;
+  }
+
+  .contribution-crop {
+    min-width: 0;
+  }
+
+  .contribution-stat {
+    width: 100%;
+
+    padding: 10px 0 0;
+
+    border-left: none;
+
+    border-top: 1px solid #e7ebe4;
+  }
+
+  .contribution-status {
+    margin-left: 0;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  .fpo-page {
+    padding: 18px 12px 30px;
+  }
+
+  .fpo-header h1 {
+    font-size: 22px;
+  }
+
+  .fpo-header-actions {
+    flex-direction: column;
+  }
+
+  .join-fpo-header-btn,
+  .create-fpo-btn {
+    width: 100%;
+
+    flex: none;
+  }
+
+  .fpo-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .fpo-info {
+    grid-template-columns: 1fr;
+  }
+
+  .join-fpo-info {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-quantity {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .fpo-modal {
+    padding: 22px 17px;
+
+    max-height: 94vh;
+  }
+
+  .create-fpo-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-fpo-btn,
+  .save-fpo-btn {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SAFETY FOR FIXED SIDEBAR
+========================================================= */
+
+/*
+   The sidebar is fixed at 250px.
+   FPO content therefore starts after 250px.
+*/
+
+@media (min-width: 769px) {
+
+  .fpo-page {
+    margin-left: 250px;
+  }
+
+}

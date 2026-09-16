@@ -369,3 +369,15 @@
     gap: 15px;
   }
 }
+/* add crops */
+.optional-label {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #f1f5ea;
+  color: #78905f;
+  font-size: 10px;
+  font-weight: 600;
+  vertical-align: middle;
+}

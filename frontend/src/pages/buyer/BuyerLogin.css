@@ -1,0 +1,924 @@
+
+/* =========================================================
+   BUYER LOGIN — KISSANCONNECT
+   Business / Marketplace Authentication
+   ========================================================= */
+
+.buyer-auth-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(78, 161, 72, 0.14),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 88% 75%,
+      rgba(242, 156, 39, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f5faf5 0%,
+      #eaf5e9 48%,
+      #e2f0e3 100%
+    );
+
+  color: #173b20;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.buyer-auth-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(40, 110, 55, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(40, 110, 55, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8),
+    transparent 90%
+  );
+
+  pointer-events: none;
+}
+
+
+.buyer-auth-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.buyer-glow-one {
+  width: 430px;
+  height: 430px;
+
+  top: -190px;
+  left: -130px;
+
+  background: rgba(79, 167, 73, 0.12);
+
+  filter: blur(8px);
+}
+
+
+.buyer-glow-two {
+  width: 390px;
+  height: 390px;
+
+  right: -150px;
+  bottom: -160px;
+
+  background: rgba(242, 156, 39, 0.10);
+
+  filter: blur(8px);
+}
+
+
+.buyer-floating-icon {
+  position: absolute;
+
+  font-size: 25px;
+
+  opacity: 0.16;
+
+  pointer-events: none;
+}
+
+
+.buyer-float-one {
+  top: 29%;
+  left: 5%;
+}
+
+
+.buyer-float-two {
+  right: 6%;
+  top: 19%;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.buyer-auth-topbar {
+  position: relative;
+  z-index: 10;
+
+  width: min(1180px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  padding: 26px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.buyer-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #174b23;
+
+  text-decoration: none;
+
+  font-size: 19px;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+
+.buyer-auth-brand span span {
+  color: #5d9f35;
+}
+
+
+.buyer-brand-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #176b2c,
+    #5cae3d
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 22px rgba(34, 108, 47, 0.18);
+}
+
+
+.buyer-back-home {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #66806b;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.buyer-back-home:hover {
+  color: #176b2c;
+
+  transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.buyer-auth-main {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+
+.buyer-auth-wrapper {
+  width: min(1080px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(400px, 460px);
+
+  gap: 90px;
+
+  align-items: center;
+
+  padding: 35px 0 70px;
+}
+
+
+/* =========================================================
+   LEFT INTRO
+   ========================================================= */
+
+.buyer-auth-intro {
+  max-width: 520px;
+}
+
+
+.buyer-intro-badge {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 12px;
+
+  border: 1px solid rgba(47, 126, 57, 0.13);
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.52);
+
+  color: #4c8d52;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+
+  backdrop-filter: blur(10px);
+}
+
+
+.buyer-auth-intro h1 {
+  margin: 22px 0 16px;
+
+  color: #173b20;
+
+  font-size: clamp(47px, 5vw, 69px);
+
+  line-height: 0.98;
+
+  letter-spacing: -3.5px;
+
+  font-weight: 800;
+}
+
+
+.buyer-auth-intro h1 span {
+  color: #d78a18;
+
+  position: relative;
+}
+
+
+.buyer-auth-intro h1 span::after {
+  content: "";
+
+  position: absolute;
+
+  left: 3px;
+  right: 3px;
+  bottom: -6px;
+
+  height: 3px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #e1a23d,
+    rgba(225, 162, 61, 0)
+  );
+}
+
+
+.buyer-intro-description {
+  max-width: 475px;
+
+  margin: 0 0 32px;
+
+  color: #6a806f;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+
+.buyer-intro-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 13px;
+}
+
+
+.buyer-intro-feature {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+.buyer-feature-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(55, 120, 60, 0.09);
+
+  color: #438c3b;
+
+  box-shadow:
+    0 5px 16px rgba(39, 99, 44, 0.06);
+}
+
+
+.buyer-intro-feature div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.buyer-intro-feature strong {
+  color: #315a38;
+
+  font-size: 12px;
+
+  font-weight: 750;
+}
+
+
+.buyer-intro-feature span {
+  color: #849689;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.buyer-login-card {
+  position: relative;
+
+  padding: 32px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.74);
+
+  border: 1px solid rgba(70, 130, 73, 0.14);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 30px 70px rgba(32, 83, 39, 0.11),
+    0 8px 25px rgba(32, 83, 39, 0.06);
+}
+
+
+.buyer-login-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 25px;
+  right: 25px;
+
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #e1a03c,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.buyer-login-card-header {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+.buyer-login-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #fff0d9,
+    #ffe4bc
+  );
+
+  color: #d78a18;
+
+  border: 1px solid rgba(213, 143, 36, 0.12);
+}
+
+
+.buyer-login-card-header span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #7a917d;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+
+.buyer-login-card-header h2 {
+  margin: 0;
+
+  color: #1c4825;
+
+  font-size: 25px;
+
+  letter-spacing: -0.7px;
+}
+
+
+.buyer-login-description {
+  margin: 16px 0 25px;
+
+  color: #788b7d;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.buyer-form-group {
+  margin-bottom: 18px;
+}
+
+
+.buyer-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #45634b;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.buyer-input-wrapper {
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 14px;
+
+  border-radius: 12px;
+
+  background: rgba(248, 252, 248, 0.9);
+
+  border: 1px solid rgba(70, 120, 73, 0.14);
+
+  color: #87a08b;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.buyer-input-wrapper:focus-within {
+  background: white;
+
+  border-color: rgba(211, 143, 30, 0.55);
+
+  box-shadow:
+    0 0 0 4px rgba(225, 158, 49, 0.08),
+    0 8px 20px rgba(50, 110, 53, 0.06);
+
+  transform: translateY(-1px);
+
+  color: #d58a1d;
+}
+
+
+.buyer-input-wrapper input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #25472c;
+
+  font-family: inherit;
+
+  font-size: 13px;
+}
+
+
+.buyer-input-wrapper input::placeholder {
+  color: #a4b2a6;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.buyer-login-error {
+  margin: 4px 0 15px;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: rgba(218, 75, 60, 0.07);
+
+  border: 1px solid rgba(218, 75, 60, 0.12);
+
+  color: #c34f45;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.buyer-login-button {
+  width: 100%;
+
+  height: 51px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #19682d,
+    #398b38
+  );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 12px 25px rgba(39, 113, 48, 0.18);
+
+  transition:
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+
+.buyer-login-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 15px 32px rgba(39, 113, 48, 0.25);
+}
+
+
+.buyer-login-button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.75;
+}
+
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+.buyer-login-spinner {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation: buyerLoginSpin 0.7s linear infinite;
+}
+
+
+@keyframes buyerLoginSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.buyer-login-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 22px;
+
+  color: #87988b;
+
+  font-size: 11px;
+}
+
+
+.buyer-login-footer a {
+  color: #d58a1d;
+
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+
+.buyer-login-footer a:hover {
+  color: #398b38;
+}
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+.buyer-login-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 17px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(60, 110, 65, 0.08);
+
+  color: #a0aea2;
+
+  font-size: 9px;
+}
+
+
+.buyer-login-security svg {
+  color: #72a477;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .buyer-auth-wrapper {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    max-width: 520px;
+
+    padding-top: 25px;
+  }
+
+
+  .buyer-auth-intro {
+    max-width: 100%;
+
+    text-align: center;
+  }
+
+
+  .buyer-intro-badge {
+    margin: 0 auto;
+  }
+
+
+  .buyer-auth-intro h1 {
+    font-size: 52px;
+  }
+
+
+  .buyer-intro-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .buyer-intro-features {
+    max-width: 390px;
+
+    margin: 0 auto;
+
+    text-align: left;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .buyer-auth-topbar {
+    width: calc(100% - 32px);
+
+    padding: 18px 0;
+  }
+
+
+  .buyer-auth-brand {
+    font-size: 16px;
+  }
+
+
+  .buyer-brand-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+
+  .buyer-back-home {
+    font-size: 11px;
+  }
+
+
+  .buyer-auth-wrapper {
+    width: calc(100% - 30px);
+
+    padding: 20px 0 45px;
+
+    gap: 30px;
+  }
+
+
+  .buyer-auth-intro h1 {
+    margin-top: 18px;
+
+    font-size: 42px;
+
+    letter-spacing: -2.3px;
+  }
+
+
+  .buyer-intro-description {
+    font-size: 13px;
+
+    line-height: 1.65;
+  }
+
+
+  .buyer-intro-feature span {
+    font-size: 10px;
+  }
+
+
+  .buyer-login-card {
+    padding: 24px 20px;
+
+    border-radius: 20px;
+  }
+
+
+  .buyer-login-card-header h2 {
+    font-size: 22px;
+  }
+
+
+  .buyer-floating-icon {
+    display: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+
+  .buyer-back-home {
+    font-size: 0;
+  }
+
+
+  .buyer-back-home svg {
+    width: 18px;
+    height: 18px;
+  }
+
+
+  .buyer-auth-intro h1 {
+    font-size: 37px;
+  }
+
+
+  .buyer-login-card {
+    padding: 21px 17px;
+  }
+}

@@ -1,14 +1,11 @@
 /* ========================================
    GLOBAL
 ======================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
 }
-
-
 
 * {
   margin: 0;
@@ -178,20 +175,23 @@ select {
 .dashboard-layout {
   min-height: 100vh;
   display: flex;
-  background: #f4f8f5;
+  /* background: #f4f8f5; */
+background: linear-gradient(
+  135deg,
+  #e8efd9 0%,
+  #d7d9d5 35%,
+  #a2bc80 65%,
+  #e2dfc4 100%
+);
 }
-
-
-/* ========================================
-   SIDEBAR
-======================================== */
 
 .sidebar {
   width: 250px;
-  min-height: 100vh;
-  background: #176b36;
-  color: white;
-  padding: 25px 15px;
+  height: 100vh;
+color:white;
+background: #176821;
+
+padding: 25px 15px;
 
   display: flex;
   flex-direction: column;
@@ -202,25 +202,64 @@ select {
   bottom: 0;
 
   z-index: 100;
+
+  /* Enable vertical scrolling */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Prevent scrollbar from changing layout */
+  box-sizing: border-box;
 }
+
+
+/* ============================= */
+/* Sidebar Scrollbar */
+/* ============================= */
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ============================= */
+/* Sidebar Logo */
+/* ============================= */
 
 .sidebar-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-
   padding: 0 10px 25px;
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  /* Don't shrink logo when scrolling */
+  flex-shrink: 0;
 }
 
 .sidebar-logo span {
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .sidebar-logo h2 {
-  font-size: 20px;
+  font-size: 40px;
+  color: #fefffd;
+  font-weight: 700;
 }
+
+
 
 
 /* ========================================
@@ -266,10 +305,40 @@ select {
    SIDEBAR NAVIGATION
 ======================================== */
 
+/* ========================================
+   SIDEBAR NAVIGATION
+======================================== */
+
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  /* Make only navigation scrollable */
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Sidebar navigation scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .nav-item {
@@ -278,14 +347,15 @@ select {
   gap: 13px;
 
   padding: 13px 14px;
-
   border-radius: 8px;
 
   color: rgba(255, 255, 255, 0.8);
-
   text-decoration: none;
 
   transition: 0.2s;
+
+  /* Prevent menu items from shrinking */
+  flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -302,7 +372,6 @@ select {
 .nav-item span {
   font-size: 18px;
 }
-
 
 /* ========================================
    LOGOUT
@@ -324,7 +393,7 @@ select {
   cursor: pointer;
 
   text-align: left;
-
+flex-shrink: 0;
   font-size: 15px;
 }
 
@@ -620,7 +689,7 @@ select {
 
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
 
-  max-width: 900px;
+  max-width: 1300px;
 }
 
 .form-grid {
@@ -1686,4 +1755,1531 @@ select {
 .accept-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+
+/* ========================================
+   MARKET PRICE SECTION
+======================================== */
+
+.market-price-section {
+  margin-top: 30px;
+}
+
+
+/* ========================================
+   MARKET PRICE CARD
+======================================== */
+
+.market-price-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  border: 1px solid #e5eee8;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.market-price-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 14px;
+  background: #e8f5ec;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.market-price-content {
+  flex: 1;
+}
+
+.market-price-content h3 {
+  margin: 0 0 6px;
+
+  font-size: 20px;
+  color: #176b36;
+}
+
+.market-price-content p {
+  margin: 0 0 20px;
+
+  color: #666;
+  font-size: 14px;
+}
+
+
+/* ========================================
+   MARKET PRICE FORM
+======================================== */
+
+.market-price-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+
+  flex-wrap: wrap;
+}
+
+.market-price-input {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 220px;
+
+  position: relative;
+}
+
+.market-price-input label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+
+/* ========================================
+   INPUT + SELECT
+======================================== */
+
+.market-price-input input,
+.market-price-input select {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 11px 14px;
+
+  border: 1px solid #d8e2dc;
+  border-radius: 8px;
+
+  font-size: 14px;
+  background: white;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.market-price-input input:focus,
+.market-price-input select:focus {
+  border-color: #176b36;
+  box-shadow: 0 0 0 2px rgba(23, 107, 54, 0.08);
+}
+
+
+/* ========================================
+   MANDI AUTOCOMPLETE
+======================================== */
+
+.mandi-input {
+  position: relative;
+}
+
+.mandi-suggestions {
+  position: absolute;
+
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  margin-top: 5px;
+
+  background: white;
+
+  border: 1px solid #d8e2dc;
+  border-radius: 8px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+
+  z-index: 50;
+}
+
+.mandi-suggestion {
+  padding: 11px 14px;
+
+  font-size: 14px;
+  color: #333;
+
+  cursor: pointer;
+
+  transition: 0.15s;
+}
+
+.mandi-suggestion:hover {
+  background: #f0f8f2;
+  color: #176b36;
+}
+
+
+/* ========================================
+   VIEW PRICE BUTTON
+======================================== */
+
+.market-price-button {
+  padding: 11px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #176b36;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  white-space: nowrap;
+}
+
+.market-price-button:hover {
+  background: #12572c;
+}
+
+.market-price-button:disabled {
+  background: #b8c7bd;
+  cursor: not-allowed;
+}
+
+
+/* ========================================
+   PRICE TREND CARD
+======================================== */
+
+.price-trend-card {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 25px;
+
+  border: 1px solid #e5eee8;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ========================================
+   PRICE SUMMARY
+======================================== */
+
+.price-summary {
+  display: flex;
+
+  gap: 50px;
+
+  margin-bottom: 30px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #edf2ee;
+}
+
+.price-summary > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.price-summary span {
+  font-size: 13px;
+  color: #777;
+}
+
+.price-summary strong {
+  font-size: 22px;
+  color: #176b36;
+}
+
+.price-summary small {
+  font-size: 11px;
+  color: #999;
+}
+
+
+/* ========================================
+   PRICE CHART
+======================================== */
+
+.price-chart {
+  display: flex;
+
+  width: 100%;
+  height: 320px;
+
+  margin-top: 10px;
+}
+
+
+/* ========================================
+   Y AXIS
+======================================== */
+
+.chart-y-axis {
+  width: 65px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 5px 10px 35px 0;
+
+  box-sizing: border-box;
+
+  font-size: 12px;
+
+  color: #777;
+
+  text-align: right;
+}
+
+
+/* ========================================
+   CHART AREA
+======================================== */
+
+.chart-area {
+  position: relative;
+
+  flex: 1;
+
+  height: 100%;
+
+  border-left: 1px solid #dfe7e1;
+  border-bottom: 1px solid #dfe7e1;
+}
+
+
+/* ========================================
+   GRID LINES
+======================================== */
+
+.chart-grid-lines {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 35px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.chart-grid-lines div {
+  width: 100%;
+
+  border-top: 1px dashed #e5ebe7;
+}
+
+
+/* ========================================
+   CHART POINTS
+======================================== */
+
+.chart-points {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.chart-point-wrapper {
+  position: absolute;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.chart-point {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: #176b36;
+
+  border: 3px solid white;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  position: relative;
+}
+
+.chart-point span {
+  position: absolute;
+
+  bottom: 20px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+
+  background: #176b36;
+
+  color: white;
+
+  padding: 4px 7px;
+
+  border-radius: 5px;
+
+  font-size: 11px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: 0.2s;
+}
+
+.chart-point:hover span {
+  opacity: 1;
+}
+
+.chart-point-wrapper small {
+  position: absolute;
+
+  top: 22px;
+
+  white-space: nowrap;
+
+  font-size: 11px;
+
+  color: #777;
+}
+
+
+/* ========================================
+   CHART NOTE
+======================================== */
+
+.chart-note {
+  margin-top: 20px;
+
+  padding: 12px 15px;
+
+  background: #f4f8f5;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+
+  color: #666;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+
+  .market-price-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .market-price-input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .market-price-button {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .market-price-card {
+    flex-direction: column;
+  }
+
+  .price-summary {
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .price-chart {
+    height: 280px;
+  }
+
+  .chart-y-axis {
+    width: 50px;
+    font-size: 10px;
+  }
+
+}
+
+
+
+
+
+
+/* //add crops details */
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 24px;
+}
+
+.section-title > span {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    #e8f8d8,
+    #fff3c4
+  );
+  font-size: 23px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #263b25;
+}
+
+.section-title p {
+  margin: 4px 0 0;
+  color: #7b8778;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   AI ASSESSMENT
+========================================================= */
+
+.ai-assessment-section {
+  margin-top: 35px;
+  padding: 28px;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7fff0,
+      #fffdf0
+    );
+
+  border: 1px solid #e0edcf;
+}
+
+.ai-upload-box {
+  text-align: center;
+  padding: 38px 20px;
+
+  border: 2px dashed #b8cf9d;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.upload-icon {
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.ai-upload-box h3 {
+  margin: 5px 0;
+  color: #31462d;
+}
+
+.ai-upload-box p {
+  color: #7d8877;
+  margin-bottom: 20px;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #78a942,
+    #f1b938
+  );
+
+  color: white;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(100, 130, 50, 0.2);
+}
+
+.ai-upload-box small {
+  display: block;
+  margin-top: 12px;
+  color: #9a9f94;
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+.image-preview-container {
+  margin-top: 25px;
+}
+
+.image-preview-container h3 {
+  margin-bottom: 15px;
+  color: #34452f;
+}
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(140px, 1fr)
+  );
+
+  gap: 15px;
+}
+
+.image-preview {
+  height: 150px;
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  border: 1px solid #dce7d3;
+
+  background: white;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.remove-image {
+  position: absolute;
+
+  top: 8px;
+  right: 8px;
+
+  width: 28px;
+  height: 28px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  color: white;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   AI BUTTON
+========================================================= */
+
+.ai-analyze-button {
+  width: 100%;
+
+  margin-top: 22px;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #4d8b35,
+    #dba72e
+  );
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.ai-analyze-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(73, 120, 48, 0.22);
+}
+
+.ai-analyze-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   AI RESULT
+========================================================= */
+
+.ai-result-card {
+  margin-top: 25px;
+
+  padding: 22px;
+
+  border-radius: 18px;
+
+  background: white;
+
+  border: 1px solid #dcebcf;
+
+  box-shadow:
+    0 8px 25px rgba(80, 100, 50, 0.08);
+}
+
+.ai-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.ai-result-header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ai-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #eef8df;
+
+  font-size: 21px;
+}
+
+.ai-result-header h3 {
+  margin: 0;
+  color: #30482c;
+}
+
+.ai-result-header p {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #899184;
+}
+
+.ai-badge {
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  background: #f5eecf;
+
+  color: #896c17;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ai-result-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 12px;
+}
+
+.ai-result-item {
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: #f8fbf5;
+
+  border: 1px solid #e8efdf;
+}
+
+.ai-result-item span {
+  display: block;
+
+  font-size: 12px;
+
+  color: #8a9484;
+
+  margin-bottom: 5px;
+}
+
+.ai-result-item strong {
+  color: #3f6631;
+  font-size: 15px;
+}
+
+.ai-recommendation {
+  margin-top: 15px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #fff9df,
+    #f5fbe9
+  );
+}
+
+.ai-recommendation strong {
+  color: #6d681e;
+}
+
+.ai-recommendation p {
+  margin: 7px 0 0;
+
+  color: #68705f;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ADDITIONAL DETAILS
+========================================================= */
+
+.additional-details-section {
+  margin-top: 35px;
+  padding-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+  position: relative;
+}
+
+.form-group textarea {
+  width: 100%;
+
+  resize: vertical;
+
+  padding: 14px 15px;
+
+  border: 1px solid #dce3d8;
+
+  border-radius: 12px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+
+  box-sizing: border-box;
+}
+
+.form-group textarea:focus {
+  border-color: #79a94d;
+
+  box-shadow:
+    0 0 0 3px rgba(121, 169, 77, 0.1);
+}
+
+.character-count {
+  display: block;
+
+  text-align: right;
+
+  margin-top: 5px;
+
+  color: #9ba397;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .ai-assessment-section {
+    padding: 18px;
+  }
+
+  .ai-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-result-header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ai-badge {
+    display: none;
+  }
+
+  .image-preview-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* //notification */
+
+/* =========================================================
+   FARMER NOTIFICATIONS PAGE
+========================================================= */
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  max-width: 900px;
+}
+
+/* =========================================================
+   NOTIFICATION SUMMARY
+========================================================= */
+
+.notification-summary {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* =========================================================
+   NOTIFICATION CARD
+========================================================= */
+
+.notification-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.08);
+
+  border-color: #86efac;
+}
+
+/* =========================================================
+   UNREAD / READ
+========================================================= */
+
+.notification-card.unread {
+  background: #f0fdf4;
+  border-left: 4px solid #16a34a;
+}
+
+.notification-card.read {
+  background: #ffffff;
+  opacity: 0.9;
+}
+
+/* =========================================================
+   NOTIFICATION ICON
+========================================================= */
+
+.notification-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #dcfce7;
+  border-radius: 50%;
+
+  font-size: 23px;
+}
+
+/* =========================================================
+   NOTIFICATION CONTENT
+========================================================= */
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.notification-header h3 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #1f2937;
+}
+
+.notification-message {
+  margin: 0 0 10px;
+
+  font-size: 14px;
+  color: #6b7280;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   NEW BADGE
+========================================================= */
+
+.unread-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 9px;
+
+  border-radius: 20px;
+
+  background: #16a34a;
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   CROP INFORMATION
+========================================================= */
+
+.notification-crop {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 11px;
+  margin-bottom: 8px;
+
+  background: #f3f4f6;
+
+  border-radius: 7px;
+
+  color: #374151;
+
+  font-size: 13px;
+}
+
+.notification-crop span {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TIME
+========================================================= */
+
+.notification-time {
+  display: block;
+
+  font-size: 12px;
+
+  color: #9ca3af;
+
+  margin-top: 3px;
+}
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.notification-arrow {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  color: #6b7280;
+
+  font-size: 20px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.notification-card:hover .notification-arrow {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* =========================================================
+   BUYER MODAL OVERLAY
+========================================================= */
+
+.buyer-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  z-index: 1000;
+}
+
+/* =========================================================
+   BUYER MODAL
+========================================================= */
+
+.buyer-modal {
+  width: 100%;
+  max-width: 520px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.2);
+
+  animation: modalFadeIn 0.2s ease;
+}
+
+/* =========================================================
+   MODAL ANIMATION
+========================================================= */
+
+@keyframes modalFadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+}
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.buyer-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.buyer-modal-header h2 {
+  margin: 0;
+
+  font-size: 22px;
+
+  color: #1f2937;
+}
+
+.buyer-modal-header p {
+  margin: 5px 0 0;
+
+  color: #16a34a;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   CLOSE ICON
+========================================================= */
+
+.modal-close {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  color: #374151;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* =========================================================
+   BUYER PROFILE
+========================================================= */
+
+.buyer-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 22px 0;
+}
+
+.buyer-large-avatar {
+  width: 62px;
+  height: 62px;
+
+  min-width: 62px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #16a34a;
+
+  color: #ffffff;
+
+  font-size: 24px;
+
+  font-weight: 600;
+}
+
+.buyer-profile h3 {
+  margin: 0 0 4px;
+
+  color: #1f2937;
+
+  font-size: 18px;
+}
+
+.buyer-profile p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   BUYER DETAILS
+========================================================= */
+
+.buyer-details-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.buyer-detail {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 13px 15px;
+
+  background: #f9fafb;
+
+  border-radius: 9px;
+}
+
+.buyer-detail span {
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.buyer-detail strong {
+  color: #1f2937;
+
+  font-size: 13px;
+
+  text-align: right;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   CONNECTION DETAILS
+========================================================= */
+
+.connection-details {
+  margin-top: 22px;
+
+  padding: 18px;
+
+  background: #f0fdf4;
+
+  border: 1px solid #dcfce7;
+
+  border-radius: 12px;
+}
+
+.connection-details h3 {
+  margin: 0 0 14px;
+
+  color: #166534;
+
+  font-size: 15px;
+}
+
+.connection-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 9px 0;
+
+  border-bottom: 1px solid #dcfce7;
+}
+
+.connection-row:last-child {
+  border-bottom: none;
+}
+
+.connection-row span {
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.connection-row strong {
+  color: #166534;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   MODAL CLOSE BUTTON
+========================================================= */
+
+.modal-close-button {
+  width: 100%;
+
+  margin-top: 22px;
+
+  padding: 12px 18px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #16a34a;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.modal-close-button:hover {
+  background: #15803d;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .notifications-list {
+    max-width: 100%;
+  }
+
+  .notification-card {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .notification-icon {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    font-size: 19px;
+  }
+
+  .notification-header h3 {
+    font-size: 14px;
+  }
+
+  .notification-message {
+    font-size: 13px;
+  }
+
+  .notification-arrow {
+    display: none;
+  }
+
+  .buyer-modal {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .buyer-detail {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .buyer-detail strong {
+    text-align: left;
+  }
+
+  .connection-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
 }

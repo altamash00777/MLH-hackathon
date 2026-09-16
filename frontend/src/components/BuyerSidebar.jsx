@@ -23,7 +23,7 @@ function BuyerSidebar() {
 
         <span>🌾</span>
 
-        <h2>AgriMarket</h2>
+        <h2>Dishaa</h2>
 
       </div>
 

@@ -9,6 +9,8 @@ const farmerRoutes = require("./routes/farmerRoutes");
 const buyerRoutes = require("./routes/buyerRoutes");
 const matchingRoutes = require("./routes/matchingRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
+
 
 const app = express();
 app.use(
@@ -28,7 +30,7 @@ app.use("/api/farmer", farmerRoutes);
 app.use("/api/buyer", buyerRoutes);
 app.use("/api/matches", matchingRoutes);
 app.use("/api/profile", profileRoutes);
-
+app.use("/api/notifications", notificationRoutes);
 
 app.get("/", (req, res) => {
   res.json({

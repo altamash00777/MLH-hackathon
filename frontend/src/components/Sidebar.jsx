@@ -5,20 +5,20 @@ function Sidebar() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-const handleLogout = () => {
-  const confirmLogout = window.confirm(
-    "Are you sure you want to logout?"
-  );
+  const handleLogout = () => {
+    const confirmLogout = window.confirm(
+      "Are you sure you want to logout?"
+    );
 
-  if (!confirmLogout) {
-    return;
-  }
+    if (!confirmLogout) {
+      return;
+    }
 
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-  navigate("/farmer/login");
-};
+    navigate("/farmer/login");
+  };
 
   return (
     <aside className="sidebar">
@@ -26,11 +26,12 @@ const handleLogout = () => {
       {/* Logo */}
       <div className="sidebar-logo">
         <span>🌱</span>
-        <h2>AgriMarket</h2>
+        <h2>Dishaa</h2>
+        
       </div>
 
       {/* Farmer Info */}
-      <div className="farmer-info">
+      {/* <div className="farmer-info">
         <div className="farmer-avatar">
           {user?.name?.charAt(0).toUpperCase()}
         </div>
@@ -39,11 +40,12 @@ const handleLogout = () => {
           <h4>{user?.name || "Farmer"}</h4>
           <p>Farmer</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Navigation */}
       <nav className="sidebar-nav">
 
+        {/* Dashboard */}
         <NavLink
           to="/farmer/dashboard"
           className={({ isActive }) =>
@@ -54,6 +56,7 @@ const handleLogout = () => {
           Dashboard
         </NavLink>
 
+        {/* Add Crop */}
         <NavLink
           to="/farmer/add-crop"
           className={({ isActive }) =>
@@ -64,6 +67,7 @@ const handleLogout = () => {
           Add Crop
         </NavLink>
 
+        {/* My Crops */}
         <NavLink
           to="/farmer/crops"
           className={({ isActive }) =>
@@ -74,6 +78,7 @@ const handleLogout = () => {
           My Crops
         </NavLink>
 
+        {/* Matches */}
         <NavLink
           to="/farmer/matches"
           className={({ isActive }) =>
@@ -84,11 +89,132 @@ const handleLogout = () => {
           Matches
         </NavLink>
 
+        {/* Notification */}
+        <NavLink
+          to="/farmer/notifications"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>🔔</span>
+          Notification
+        </NavLink>
+
+        {/* Orders */}
+        <NavLink
+          to="/farmer/orders"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>📋</span>
+          Orders
+        </NavLink>
+
+        {/* Payment */}
+        <NavLink
+          to="/farmer/payment"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>💳</span>
+          Payment
+        </NavLink>
+
+        {/* Transaction */}
+        <NavLink
+          to="/farmer/transactions"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>💰</span>
+          Transaction
+        </NavLink>
+
+        {/* Storage */}
+        <NavLink
+          to="/farmer/storage"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>🏪</span>
+          Storage
+        </NavLink>
+
+        {/* Verified Buyer */}
+        <NavLink
+          to="/farmer/verified-buyer"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>✅</span>
+          Verified Buyer
+        </NavLink>
+
+        {/* Price Trend */}
+        <NavLink
+          to="/farmer/price-trend"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>📈</span>
+          Price Trend
+        </NavLink>
+
+{/* AI Price Prediction */}
+<NavLink
+  to="/farmer/ai-price-prediction"
+  className={({ isActive }) =>
+    isActive ? "nav-item active" : "nav-item"
+  }
+>
+  <span>🤖</span>
+  AI Price Prediction
+</NavLink>
+
+
+{/* Bidding */}
+<NavLink
+  to="/farmer/bidding"
+  className={({ isActive }) =>
+    isActive ? "nav-item active" : "nav-item"
+  }
+>
+  <span>⚖️</span>
+  Bidding
+</NavLink>
+
+{/* FPO */}
+<NavLink
+  to="/farmer/fpo"
+  className={({ isActive }) =>
+    isActive ? "nav-item active" : "nav-item"
+  }
+>
+  <span>🏢</span>
+  FPO//Group Transaction
+</NavLink>
 
 
 
 
+        {/* FPO / Group Transaction
+        <NavLink
+          to="/farmer/fpo-transactions"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <span>👥</span>
+          FPO/Group Transaction
+        </NavLink> */}
 
+        {/* Profile */}
         <NavLink
           to="/farmer/profile"
           className={({ isActive }) =>
@@ -101,14 +227,14 @@ const handleLogout = () => {
 
       </nav>
 
-{/* Logout */}
-<button
-  className="logout-button"
-  onClick={handleLogout}
->
-  <span>🚪</span>
-  Logout
-</button>
+      {/* Logout */}
+      <button
+        className="logout-button"
+        onClick={handleLogout}
+      >
+        <span>🚪</span>
+        Logout
+      </button>
 
     </aside>
   );

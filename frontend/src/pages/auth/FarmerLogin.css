@@ -1,0 +1,926 @@
+
+/* =========================================================
+   FARMER LOGIN — KISSANCONNECT
+   Futuristic • Minimal • Agriculture
+   ========================================================= */
+
+.farmer-auth-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(81, 190, 91, 0.16),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(244, 166, 35, 0.09),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #f5faf5 0%,
+      #e9f5e9 48%,
+      #e1f0e3 100%
+    );
+
+  color: #173b20;
+}
+
+
+/* =========================================================
+   BACKGROUND EFFECTS
+   ========================================================= */
+
+.auth-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(40, 110, 55, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(40, 110, 55, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8),
+    transparent 90%
+  );
+
+  pointer-events: none;
+}
+
+
+.auth-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(5px);
+
+  pointer-events: none;
+}
+
+
+.auth-glow-one {
+  width: 420px;
+  height: 420px;
+
+  top: -180px;
+  left: -120px;
+
+  background: rgba(80, 170, 75, 0.14);
+}
+
+
+.auth-glow-two {
+  width: 360px;
+  height: 360px;
+
+  right: -120px;
+  bottom: -150px;
+
+  background: rgba(244, 166, 35, 0.10);
+}
+
+
+.floating-seed {
+  position: absolute;
+
+  font-size: 25px;
+
+  opacity: 0.18;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+
+.seed-one {
+  top: 30%;
+  left: 5%;
+}
+
+
+.seed-two {
+  right: 7%;
+  top: 18%;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.auth-topbar {
+  position: relative;
+  z-index: 10;
+
+  width: min(1180px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  padding: 26px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #174b23;
+
+  text-decoration: none;
+
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+
+.auth-brand span span {
+  color: #5d9f35;
+}
+
+
+.auth-brand-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #176b2c,
+    #5cae3d
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 22px rgba(34, 108, 47, 0.18);
+}
+
+
+.back-home {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #66806b;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.back-home:hover {
+  color: #176b2c;
+  transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.farmer-auth-main {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+
+.farmer-auth-wrapper {
+  width: min(1080px, calc(100% - 48px));
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(400px, 460px);
+
+  gap: 90px;
+
+  align-items: center;
+
+  padding: 35px 0 70px;
+}
+
+
+/* =========================================================
+   LEFT INTRO
+   ========================================================= */
+
+.farmer-auth-intro {
+  max-width: 520px;
+}
+
+
+.intro-badge {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 12px;
+
+  border: 1px solid rgba(47, 126, 57, 0.13);
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.52);
+
+  color: #4c8d52;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+
+  backdrop-filter: blur(10px);
+}
+
+
+.farmer-auth-intro h1 {
+  margin: 22px 0 16px;
+
+  color: #173b20;
+
+  font-size: clamp(48px, 5vw, 72px);
+
+  line-height: 0.98;
+
+  letter-spacing: -3.5px;
+
+  font-weight: 800;
+}
+
+
+.farmer-auth-intro h1 span {
+  color: #4c9b3c;
+
+  position: relative;
+}
+
+
+.farmer-auth-intro h1 span::after {
+  content: "";
+
+  position: absolute;
+
+  left: 3px;
+  right: 3px;
+  bottom: -6px;
+
+  height: 3px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #65ad45,
+    rgba(101, 173, 69, 0)
+  );
+}
+
+
+.intro-description {
+  max-width: 475px;
+
+  margin: 0 0 32px;
+
+  color: #6a806f;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.intro-features {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+
+.intro-feature {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+
+.intro-feature-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(55, 120, 60, 0.09);
+
+  color: #438c3b;
+
+  box-shadow:
+    0 5px 16px rgba(39, 99, 44, 0.06);
+}
+
+
+.intro-feature div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+
+.intro-feature strong {
+  color: #315a38;
+
+  font-size: 12px;
+  font-weight: 750;
+}
+
+
+.intro-feature span {
+  color: #849689;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.farmer-login-card {
+  position: relative;
+
+  padding: 32px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.74);
+
+  border: 1px solid rgba(70, 130, 73, 0.14);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 30px 70px rgba(32, 83, 39, 0.11),
+    0 8px 25px rgba(32, 83, 39, 0.06);
+}
+
+
+.farmer-login-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 25px;
+  right: 25px;
+
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #5aa843,
+    transparent
+  );
+
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   LOGIN HEADER
+   ========================================================= */
+
+.login-card-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+
+.login-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #e0f2df,
+    #cfeacb
+  );
+
+  color: #398339;
+
+  border: 1px solid rgba(65, 130, 64, 0.10);
+}
+
+
+.login-card-header span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #7a917d;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+
+.login-card-header h2 {
+  margin: 0;
+
+  color: #1c4825;
+
+  font-size: 25px;
+
+  letter-spacing: -0.7px;
+}
+
+
+.login-description {
+  margin: 16px 0 25px;
+
+  color: #788b7d;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.modern-form-group {
+  margin-bottom: 18px;
+}
+
+
+.modern-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #45634b;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+.modern-input-wrapper {
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 14px;
+
+  border-radius: 12px;
+
+  background: rgba(248, 252, 248, 0.9);
+
+  border: 1px solid rgba(70, 120, 73, 0.14);
+
+  color: #87a08b;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.modern-input-wrapper:focus-within {
+  background: white;
+
+  border-color: rgba(64, 145, 67, 0.55);
+
+  box-shadow:
+    0 0 0 4px rgba(76, 155, 60, 0.08),
+    0 8px 20px rgba(50, 110, 53, 0.06);
+
+  transform: translateY(-1px);
+
+  color: #438c3b;
+}
+
+
+.modern-input-wrapper input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #25472c;
+
+  font-family: inherit;
+
+  font-size: 13px;
+}
+
+
+.modern-input-wrapper input::placeholder {
+  color: #a4b2a6;
+}
+
+
+.modern-input-wrapper input:-webkit-autofill,
+.modern-input-wrapper input:-webkit-autofill:hover,
+.modern-input-wrapper input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #25472c;
+
+  -webkit-box-shadow: 0 0 0 1000px #f8fcf8 inset;
+
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.farmer-login-error {
+  margin: 4px 0 15px;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: rgba(218, 75, 60, 0.07);
+
+  border: 1px solid rgba(218, 75, 60, 0.12);
+
+  color: #c34f45;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.farmer-login-button {
+  width: 100%;
+
+  height: 51px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #19682d,
+    #398b38
+  );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 12px 25px rgba(39, 113, 48, 0.18);
+
+  transition:
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+
+.farmer-login-button:hover:not(:disabled) {
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 15px 32px rgba(39, 113, 48, 0.25);
+}
+
+
+.farmer-login-button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.75;
+}
+
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+.login-spinner {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation: loginSpin 0.7s linear infinite;
+}
+
+
+@keyframes loginSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.login-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 22px;
+
+  color: #87988b;
+
+  font-size: 11px;
+}
+
+
+.login-card-footer a {
+  color: #3f8d3d;
+
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+
+.login-card-footer a:hover {
+  color: #e08a16;
+}
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+.login-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 17px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(60, 110, 65, 0.08);
+
+  color: #a0aea2;
+
+  font-size: 9px;
+}
+
+
+.login-security svg {
+  color: #72a477;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .farmer-auth-wrapper {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    max-width: 520px;
+
+    padding-top: 25px;
+  }
+
+
+  .farmer-auth-intro {
+    text-align: center;
+
+    max-width: 100%;
+  }
+
+
+  .intro-badge {
+    margin: 0 auto;
+  }
+
+
+  .farmer-auth-intro h1 {
+    font-size: 52px;
+  }
+
+
+  .intro-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .intro-features {
+    max-width: 390px;
+
+    margin: 0 auto;
+
+    text-align: left;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .auth-topbar {
+    width: calc(100% - 32px);
+
+    padding: 18px 0;
+  }
+
+
+  .auth-brand {
+    font-size: 16px;
+  }
+
+
+  .auth-brand-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+
+  .back-home {
+    font-size: 11px;
+  }
+
+
+  .farmer-auth-wrapper {
+    width: calc(100% - 30px);
+
+    padding: 20px 0 45px;
+
+    gap: 30px;
+  }
+
+
+  .farmer-auth-intro h1 {
+    margin-top: 18px;
+
+    font-size: 43px;
+
+    letter-spacing: -2.3px;
+  }
+
+
+  .intro-description {
+    font-size: 13px;
+
+    line-height: 1.65;
+  }
+
+
+  .intro-feature span {
+    font-size: 10px;
+  }
+
+
+  .farmer-login-card {
+    padding: 24px 20px;
+
+    border-radius: 20px;
+  }
+
+
+  .login-card-header h2 {
+    font-size: 22px;
+  }
+
+
+  .floating-seed {
+    display: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+
+  .back-home {
+    font-size: 0;
+  }
+
+
+  .back-home svg {
+    width: 18px;
+    height: 18px;
+  }
+
+
+  .farmer-auth-intro h1 {
+    font-size: 38px;
+  }
+
+
+  .farmer-login-card {
+    padding: 21px 17px;
+  }
+}

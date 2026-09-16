@@ -16,11 +16,16 @@ import MyRequirements from "./pages/buyer/MyRequirements";
 import EditRequirement from "./pages/buyer/EditRequirement";
 import BuyerMatches from "./pages/buyer/BuyerMatches";
 import FarmerProfile from "./pages/farmer/FarmerProfile";
+import FarmerNotifications from "./pages/farmer/FarmerNotifications";
+import AIPricePrediction from "./pages/farmer/AIPricePrediction";
+import Bidding from "./pages/farmer/Bidding";
+import FPO from "./pages/farmer/FPO";
+import LandingPage from "./pages/LandingPage";
 
 
 function App() {
   return (
-    <BrowserRouter>
+<BrowserRouter>
 
       <Routes>
 
@@ -115,6 +120,30 @@ function App() {
   element={<FarmerProfile />}
 />
 
+<Route
+  path="/farmer/notifications"
+  element={<FarmerNotifications />}
+/>
+<Route
+  path="/farmer/ai-price-prediction"
+  element={
+    <ProtectedRoute role="farmer">
+      <AIPricePrediction />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/farmer/bidding"
+  element={
+    <ProtectedRoute role="farmer">
+      <Bidding />
+    </ProtectedRoute>
+  }
+/>
+<Route path="/farmer/fpo" element={<FPO />} />
+
+
+<Route path="/Landing" element={<LandingPage />} />
 
       </Routes>
 

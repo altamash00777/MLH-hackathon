@@ -10,6 +10,43 @@ function FarmerDashboard() {
   const [crops, setCrops] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // =========================
+  // MARKET PRICE STATES
+  // =========================
+
+  const [cropName, setCropName] = useState("");
+  const [mandiName, setMandiName] = useState("");
+  const [period, setPeriod] = useState("30");
+
+  const [showMandiSuggestions, setShowMandiSuggestions] =
+    useState(false);
+
+  const [priceData, setPriceData] = useState([]);
+  const [showPriceTrend, setShowPriceTrend] = useState(false);
+
+
+  // =========================
+  // PROTOTYPE MANDI DATA
+  // =========================
+
+  const mandiList = [
+    "Varanasi",
+    "Lucknow",
+    "Kanpur",
+    "Agra",
+    "Prayagraj",
+    "Gorakhpur",
+    "Ayodhya",
+    "Meerut",
+    "Bareilly",
+    "Jaunpur",
+  ];
+
+
+  // =========================
+  // FETCH FARMER CROPS
+  // =========================
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -19,6 +56,7 @@ function FarmerDashboard() {
 
     fetchCrops();
   }, []);
+
 
   const fetchCrops = async () => {
     try {
@@ -38,9 +76,9 @@ function FarmerDashboard() {
   };
 
 
-  /* =========================
-     CALCULATE STATS
-  ========================= */
+  // =========================
+  // CALCULATE STATS
+  // =========================
 
   const totalCrops = crops.length;
 
@@ -57,6 +95,71 @@ function FarmerDashboard() {
   ).length;
 
 
+  // =========================
+  // FILTER MANDI SUGGESTIONS
+  // =========================
+
+  const filteredMandis = mandiList.filter((mandi) =>
+    mandi.toLowerCase().includes(mandiName.toLowerCase())
+  );
+
+
+  // =========================
+  // PROTOTYPE PRICE DATA
+  // =========================
+
+  const generatePriceData = () => {
+
+    const data = [
+      { date: "20 Aug", price: 2400 },
+      { date: "21 Aug", price: 2500 },
+      { date: "22 Aug", price: 2600 },
+      { date: "23 Aug", price: 2550 },
+      { date: "24 Aug", price: 2700 },
+      { date: "25 Aug", price: 2800 },
+    ];
+
+    return data;
+  };
+
+
+  // =========================
+  // VIEW PRICE TREND
+  // =========================
+
+  const handleViewPriceTrend = () => {
+
+    if (!cropName.trim() || !mandiName.trim()) {
+      return;
+    }
+
+    // Temporary prototype data
+    const data = generatePriceData();
+
+    setPriceData(data);
+    setShowPriceTrend(true);
+
+    console.log("Crop:", cropName);
+    console.log("Mandi:", mandiName);
+    console.log("Period:", period);
+  };
+
+
+  // =========================
+  // GRAPH HELPERS
+  // =========================
+
+  const maxPrice =
+    priceData.length > 0
+      ? Math.max(...priceData.map((item) => item.price))
+      : 0;
+
+  const minPrice =
+    priceData.length > 0
+      ? Math.min(...priceData.map((item) => item.price))
+      : 0;
+
+
   return (
     <div className="dashboard-layout">
 
@@ -64,11 +167,14 @@ function FarmerDashboard() {
 
       <main className="dashboard-main">
 
-        {/* Header */}
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <div className="dashboard-header">
 
           <div>
+
             <h1>
               Welcome, {user?.name || "Farmer"} 👋
             </h1>
@@ -76,12 +182,16 @@ function FarmerDashboard() {
             <p>
               Manage your crops and connect with buyers.
             </p>
+
           </div>
 
+
           <div className="profile-circle">
+
             {user?.name
               ? user.name.charAt(0).toUpperCase()
               : "F"}
+
           </div>
 
         </div>
@@ -102,11 +212,13 @@ function FarmerDashboard() {
             </div>
 
             <div>
+
               <p>Total Crops</p>
 
               <h2>
                 {loading ? "..." : totalCrops}
               </h2>
+
             </div>
 
           </div>
@@ -121,11 +233,13 @@ function FarmerDashboard() {
             </div>
 
             <div>
+
               <p>Active Crops</p>
 
               <h2>
                 {loading ? "..." : activeCrops}
               </h2>
+
             </div>
 
           </div>
@@ -140,11 +254,13 @@ function FarmerDashboard() {
             </div>
 
             <div>
+
               <p>Matched</p>
 
               <h2>
                 {loading ? "..." : matchedCrops}
               </h2>
+
             </div>
 
           </div>
@@ -159,16 +275,377 @@ function FarmerDashboard() {
             </div>
 
             <div>
+
               <p>Sold</p>
 
               <h2>
                 {loading ? "..." : soldCrops}
               </h2>
+
             </div>
 
           </div>
 
         </div>
+
+
+        {/* =========================
+            MARKET PRICE
+        ========================= */}
+
+        <div className="dashboard-section market-price-section">
+
+          <div className="section-header">
+
+            <h2>
+              📈 Market Prices
+            </h2>
+
+            <p>
+              Check current and historical mandi prices
+              for your crop.
+            </p>
+
+          </div>
+
+
+          <div className="market-price-card">
+
+
+            <div className="market-price-icon">
+              🌾
+            </div>
+
+
+            <div className="market-price-content">
+
+              <h3>
+                Check Crop Price
+              </h3>
+
+              <p>
+                Enter a crop and mandi to view its
+                historical market price trend.
+              </p>
+
+
+              <div className="market-price-form">
+
+
+                {/* CROP */}
+
+                <div className="market-price-input">
+
+                  <label>
+                    Enter Crop Name
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="e.g. Wheat"
+                    value={cropName}
+                    onChange={(e) =>
+                      setCropName(e.target.value)
+                    }
+                  />
+
+                </div>
+
+
+                {/* MANDI */}
+
+                <div className="market-price-input mandi-input">
+
+                  <label>
+                    Enter Mandi
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="e.g. Varanasi"
+                    value={mandiName}
+                    onChange={(e) => {
+                      setMandiName(e.target.value);
+                      setShowMandiSuggestions(true);
+                    }}
+                    onFocus={() =>
+                      setShowMandiSuggestions(true)
+                    }
+                  />
+
+
+                  {/* AUTOCOMPLETE */}
+
+                  {showMandiSuggestions &&
+                    mandiName &&
+                    filteredMandis.length > 0 && (
+
+                      <div className="mandi-suggestions">
+
+                        {filteredMandis.map((mandi) => (
+
+                          <div
+                            key={mandi}
+                            className="mandi-suggestion"
+                            onClick={() => {
+
+                              setMandiName(mandi);
+
+                              setShowMandiSuggestions(false);
+
+                            }}
+                          >
+
+                            📍 {mandi}
+
+                          </div>
+
+                        ))}
+
+                      </div>
+
+                    )}
+
+                </div>
+
+
+                {/* PERIOD */}
+
+                <div className="market-price-input">
+
+                  <label>
+                    Price History
+                  </label>
+
+                  <select
+                    value={period}
+                    onChange={(e) =>
+                      setPeriod(e.target.value)
+                    }
+                  >
+
+                    <option value="7">
+                      Last 7 Days
+                    </option>
+
+                    <option value="30">
+                      Last 30 Days
+                    </option>
+
+                    <option value="90">
+                      Last 3 Months
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                {/* BUTTON */}
+
+                <button
+                  className="market-price-button"
+                  disabled={
+                    !cropName.trim() ||
+                    !mandiName.trim()
+                  }
+                  onClick={handleViewPriceTrend}
+                >
+                  View Price Trend →
+                </button>
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* =========================
+            PRICE TREND
+        ========================= */}
+
+        {showPriceTrend && priceData.length > 0 && (
+
+          <div className="dashboard-section">
+
+            <div className="section-header">
+
+              <h2>
+                {cropName} Price Trend
+              </h2>
+
+              <p>
+                {mandiName} Mandi • Last {period === "7"
+                  ? "7 Days"
+                  : period === "30"
+                  ? "30 Days"
+                  : "3 Months"}
+              </p>
+
+            </div>
+
+
+            <div className="price-trend-card">
+
+
+              {/* PRICE SUMMARY */}
+
+              <div className="price-summary">
+
+                <div>
+
+                  <span>
+                    Latest Price
+                  </span>
+
+                  <strong>
+                    ₹{priceData[priceData.length - 1].price}
+                  </strong>
+
+                  <small>
+                    per quintal
+                  </small>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Lowest
+                  </span>
+
+                  <strong>
+                    ₹{minPrice}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Highest
+                  </span>
+
+                  <strong>
+                    ₹{maxPrice}
+                  </strong>
+
+                </div>
+
+              </div>
+
+
+              {/* GRAPH */}
+
+              <div className="price-chart">
+
+                <div className="chart-y-axis">
+
+                  <span>
+                    ₹2800
+                  </span>
+
+                  <span>
+                    ₹2700
+                  </span>
+
+                  <span>
+                    ₹2600
+                  </span>
+
+                  <span>
+                    ₹2500
+                  </span>
+
+                  <span>
+                    ₹2400
+                  </span>
+
+                </div>
+
+
+                <div className="chart-area">
+
+                  <div className="chart-grid-lines">
+
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+
+                  </div>
+
+
+                  <div className="chart-points">
+
+                    {priceData.map((item, index) => {
+
+                      const range = maxPrice - minPrice || 1;
+
+                      const bottom =
+                        ((item.price - minPrice) / range) *
+                        75 + 10;
+
+                      const left =
+                        (index /
+                          (priceData.length - 1)) *
+                        90 + 5;
+
+                      return (
+
+                        <div
+                          key={item.date}
+                          className="chart-point-wrapper"
+                          style={{
+                            left: `${left}%`,
+                            bottom: `${bottom}%`,
+                          }}
+                        >
+
+                          <div className="chart-point">
+
+                            <span>
+                              ₹{item.price}
+                            </span>
+
+                          </div>
+
+                          <small>
+                            {item.date}
+                          </small>
+
+                        </div>
+
+                      );
+
+                    })}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div className="chart-note">
+
+                📊 Showing available market price
+                observations for {mandiName}.
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )}
 
 
         {/* =========================
@@ -191,6 +668,7 @@ function FarmerDashboard() {
 
 
           <div className="action-grid">
+
 
             {/* Add Crop */}
 
@@ -324,9 +802,11 @@ function FarmerDashboard() {
 
                   </div>
 
+
                   <h2>
                     {crop.cropName}
                   </h2>
+
 
                   <div className="my-crop-info">
 
@@ -369,17 +849,17 @@ function FarmerDashboard() {
                     </div>
 
 
-                    <div className="my-crop-info-item">
+<div className="my-crop-info-item">
 
-                      <span>
-                        Grade
-                      </span>
+  <span>
+    Grade
+  </span>
 
-                      <strong>
-                        {crop.grade}
-                      </strong>
+  <strong>
+    {crop.grade}
+  </strong>
 
-                    </div>
+</div>
 
                   </div>
 
@@ -394,7 +874,9 @@ function FarmerDashboard() {
         </div>
 
 
-        {/* View all */}
+        {/* =========================
+            VIEW ALL
+        ========================= */}
 
         {crops.length > 3 && (
 

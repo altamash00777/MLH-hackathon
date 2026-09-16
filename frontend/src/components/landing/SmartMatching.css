@@ -1,0 +1,575 @@
+/* ========================================
+   SMART MATCHING SECTION
+======================================== */
+
+.smart-section {
+  position: relative;
+  padding: 120px 7%;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 30%,
+      rgba(91, 170, 91, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 65%,
+      rgba(245, 166, 35, 0.07),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f3faf3 0%,
+      #e8f5e9 45%,
+      #dfeee1 100%
+    );
+}
+
+
+/* ========================================
+   BACKGROUND GLOWS
+======================================== */
+
+.smart-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.smart-glow-1 {
+  width: 350px;
+  height: 350px;
+  left: -150px;
+  top: 25%;
+  background: rgba(63, 145, 73, 0.08);
+}
+
+.smart-glow-2 {
+  width: 350px;
+  height: 350px;
+  right: -150px;
+  bottom: 10%;
+  background: rgba(245, 166, 35, 0.06);
+}
+
+
+/* ========================================
+   HEADING
+======================================== */
+
+.smart-heading {
+  position: relative;
+  z-index: 2;
+
+  max-width: 760px;
+  margin: 0 auto 75px;
+
+  text-align: center;
+}
+
+.smart-heading .section-tag {
+  display: inline-block;
+  margin-bottom: 15px;
+
+  color: #3f9149;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.smart-heading h2 {
+  margin: 0;
+
+  color: #173b20;
+
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.smart-heading h2 span {
+  color: #3f9149;
+}
+
+.smart-heading p {
+  max-width: 650px;
+
+  margin: 20px auto 0;
+
+  color: #5b705f;
+
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   SHOWCASE
+======================================== */
+
+.smart-showcase {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1250px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 230px 1fr;
+
+  align-items: center;
+  gap: 35px;
+}
+
+
+/* ========================================
+   LISTING CARDS
+======================================== */
+
+.listing-card {
+  position: relative;
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  border: 1px solid rgba(49, 112, 57, 0.13);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 20px 50px rgba(40, 100, 48, 0.08);
+
+  transition: all 0.3s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-6px);
+
+  background: rgba(255, 255, 255, 0.82);
+
+  box-shadow:
+    0 25px 60px rgba(40, 100, 48, 0.13);
+}
+
+
+/* ========================================
+   CARD TOP
+======================================== */
+
+.listing-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.listing-label {
+  color: #6b8370;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.verified-small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #3f9149;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.buyer-status {
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  color: #398b43;
+
+  background: rgba(63, 145, 73, 0.09);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* ========================================
+   CROP HEADER
+======================================== */
+
+.crop-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  margin-bottom: 28px;
+}
+
+.crop-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 16px;
+
+  color: #398b43;
+
+  background: rgba(63, 145, 73, 0.10);
+}
+
+.buyer-crop-icon {
+  color: #df8e16;
+
+  background: rgba(245, 166, 35, 0.10);
+}
+
+.crop-header h3 {
+  margin: 0 0 5px;
+
+  color: #173b20;
+
+  font-size: 19px;
+}
+
+.crop-header span {
+  color: #708174;
+
+  font-size: 12px;
+}
+
+
+/* ========================================
+   DETAILS
+======================================== */
+
+.listing-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid rgba(50, 100, 55, 0.09);
+}
+
+.listing-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.listing-details small {
+  color: #819187;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.listing-details strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  color: #234a2a;
+
+  font-size: 13px;
+}
+
+
+/* ========================================
+   SMART ENGINE
+======================================== */
+
+.smart-engine {
+  position: relative;
+
+  width: 210px;
+  height: 210px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+}
+
+
+/* orbit */
+
+.engine-orbit {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 1px dashed rgba(63, 145, 73, 0.3);
+}
+
+.orbit-one {
+  width: 205px;
+  height: 125px;
+}
+
+.orbit-two {
+  width: 145px;
+  height: 205px;
+
+  border-color: rgba(245, 166, 35, 0.25);
+}
+
+
+/* core */
+
+.engine-core {
+  position: relative;
+  z-index: 3;
+
+  width: 125px;
+  height: 125px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #398b43;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95),
+      rgba(226, 242, 227, 0.9)
+    );
+
+  border: 1px solid rgba(63, 145, 73, 0.25);
+
+  box-shadow:
+    0 0 45px rgba(63, 145, 73, 0.15);
+}
+
+.engine-core svg {
+  margin-bottom: 5px;
+}
+
+.engine-core span {
+  color: #77907d;
+
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.engine-core strong {
+  color: #398b43;
+
+  font-size: 30px;
+  line-height: 1;
+}
+
+.engine-core small {
+  margin-top: 3px;
+
+  color: #77907d;
+
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+
+/* ========================================
+   PARTICLES
+======================================== */
+
+.match-particle {
+  position: absolute;
+  z-index: 2;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #4a9b52;
+
+  box-shadow:
+    0 0 12px rgba(63, 145, 73, 0.5);
+}
+
+.particle-one {
+  left: -5px;
+  top: 50%;
+}
+
+.particle-two {
+  right: -5px;
+  top: 50%;
+
+  background: #e3a02b;
+}
+
+
+/* ========================================
+   MATCHING FACTORS
+======================================== */
+
+.matching-factors {
+  position: relative;
+  z-index: 2;
+
+  max-width: 900px;
+
+  margin: 65px auto 0;
+
+  padding: 24px 28px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.48);
+
+  border: 1px solid rgba(49, 112, 57, 0.10);
+
+  backdrop-filter: blur(12px);
+}
+
+.factor-title {
+  text-align: center;
+
+  margin-bottom: 20px;
+
+  color: #6d8272;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.factor-list {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.factor-list div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 9px 13px;
+
+  border-radius: 20px;
+
+  background: rgba(63, 145, 73, 0.06);
+
+  color: #55705b;
+
+  font-size: 11px;
+}
+
+.factor-list svg {
+  color: #4a9b52;
+}
+
+.factor-list strong {
+  color: #398b43;
+}
+
+
+/* ========================================
+   BOTTOM STATEMENT
+======================================== */
+
+.smart-bottom {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 45px;
+
+  color: #66806b;
+
+  font-size: 13px;
+}
+
+.smart-bottom strong {
+  color: #398b43;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1050px) {
+  .smart-showcase {
+    grid-template-columns: 1fr;
+    max-width: 550px;
+  }
+
+  .smart-engine {
+    order: 2;
+  }
+
+  .buyer-listing {
+    order: 3;
+  }
+
+  .farmer-listing {
+    order: 1;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .smart-section {
+    padding: 80px 20px;
+  }
+
+  .smart-heading {
+    margin-bottom: 50px;
+  }
+
+  .listing-card {
+    padding: 22px;
+  }
+
+  .listing-details {
+    gap: 14px;
+  }
+
+  .smart-engine {
+    transform: scale(0.9);
+  }
+
+  .matching-factors {
+    padding: 20px 15px;
+  }
+
+  .smart-bottom {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+}
