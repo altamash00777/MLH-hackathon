@@ -540,7 +540,7 @@
 
   padding: 7px 9px;
 
-  background: #fafbf9;
+  background: #f1f7eb;
 
   border-radius: 7px;
 
@@ -569,7 +569,13 @@
 
   border-radius: 9px;
 
-  background: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #fff9dc 0%,
+      #fffef1 48%,
+      #edf8e9 100%
+    );
 
   color: #4f813f;
 
@@ -607,7 +613,13 @@
 
   padding: 17px 20px;
 
-  background: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #fff9dc 0%,
+      #fffef1 48%,
+      #edf8e9 100%
+    );
 
   border: 1px solid #e2e9de;
 
@@ -724,7 +736,13 @@
 
   padding: 27px;
 
-  background: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #f9f6e7 0%,
+      #ffffff 48%,
+      #d5e1d1 100%
+    );
 
   border-radius: 17px;
 
@@ -787,7 +805,7 @@
 
   background: #f3f6f1;
 
-  color: #667160;
+  color: #7ea962;
 
   font-size: 20px;
 
@@ -873,7 +891,7 @@
 }
 
 .form-group label {
-  color: #52604d;
+  color: #000000;
 
   font-size: 11px;
   font-weight: 600;
@@ -885,11 +903,11 @@
 
   padding: 11px 12px;
 
-  border: 1px solid #dce5d8;
+  border: 1px solid #d3c9c9;
 
   border-radius: 9px;
 
-  background: #fbfcfa;
+  background: #e9ece5;
 
   color: #354330;
 
@@ -1036,7 +1054,13 @@
 .join-fpo-option {
   padding: 15px;
 
-  background: #f8faf7;
+  background:
+    linear-gradient(
+      135deg,
+      #fff9dc 0%,
+      #fffef1 48%,
+      #edf8e9 100%
+    );
 
   border: 1px solid #e4eae0;
 
@@ -1194,7 +1218,13 @@
 .modal-quantity div {
   padding: 11px 8px;
 
-  background: #f7faf5;
+  background:
+    linear-gradient(
+      135deg,
+      #fff9dc 0%,
+      #fffef1 48%,
+      #edf8e9 100%
+    );
 
   border-radius: 9px;
 
