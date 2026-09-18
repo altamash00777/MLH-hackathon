@@ -9,6 +9,10 @@ function BuyerMatches() {
   const [acceptingId, setAcceptingId] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
+  // ================================
+  // Fetch Buyer Matches
+  // ================================
+
   const fetchMatches = async () => {
     try {
       setLoading(true);
@@ -24,6 +28,8 @@ function BuyerMatches() {
           },
         }
       );
+
+      console.log("BUYER MATCHES API:", response.data);
 
       setMatches(response.data.matches || []);
 
@@ -44,73 +50,77 @@ function BuyerMatches() {
     fetchMatches();
   }, []);
 
+  // ================================
+  // Accept Connection
+  // ================================
 
-const handleAccept = async (matchId) => {
-  try {
-    setAcceptingId(matchId);
-    setError("");
-    setSuccessMessage("");
+  const handleAccept = async (matchId) => {
+    try {
+      setAcceptingId(matchId);
+      setError("");
+      setSuccessMessage("");
 
-    const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
-    if (!token) {
-      setError("You are not logged in");
-      return;
-    }
-
-    console.log("Sending accept request:", matchId);
-
-    const response = await axios.patch(
-      `http://localhost:5000/api/matches/${matchId}/accept`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      if (!token) {
+        setError("You are not logged in");
+        return;
       }
-    );
 
-    console.log("Accept API response:", response.data);
+      const response = await axios.patch(
+        `http://localhost:5000/api/matches/${matchId}/accept`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    // Update UI
-    setMatches((prevMatches) =>
-      prevMatches.map((match) =>
-        match._id === matchId
-          ? {
-              ...match,
-              status: "accepted",
-            }
-          : match
-      )
-    );
+      console.log("Accept API response:", response.data);
 
-    setSuccessMessage(
-      response.data.message || "Connection accepted successfully"
-    );
 
-  } catch (error) {
-    console.error("Accept API error:", error);
 
-    if (error.response) {
-      console.error("Status:", error.response.status);
-      console.error("Data:", error.response.data);
+setMatches((prevMatches) =>
+  prevMatches.map((item) =>
+    item.match?._id === matchId
+      ? {
+          ...item,
+          match: {
+            ...item.match,
+            ...(response.data.match || {}),
+            status: "accepted",
+          },
+        }
+      : item
+  )
+);
+
+
+
+
+      setSuccessMessage(
+        response.data.message ||
+        "Connection accepted successfully"
+      );
+
+    } catch (error) {
+      console.error("Accept API error:", error);
 
       setError(
-        error.response.data.message ||
+        error.response?.data?.message ||
         "Failed to accept connection"
       );
-    } else {
-      setError(
-        "Cannot connect to server. Make sure backend is running."
-      );
+
+    } finally {
+      setAcceptingId(null);
     }
+  };
 
-  } finally {
-    setAcceptingId(null);
-  }
-};
-
+  // ================================
+  // Render
+  // ================================
 
   return (
     <div className="dashboard-layout">
@@ -119,36 +129,37 @@ const handleAccept = async (matchId) => {
 
       <main className="dashboard-main">
 
-        {/* Header */}
-
+        {/* =========================
+            HEADER
+        ========================== */}
 
         <div className="page-header">
 
-
-
-
-
-
-
           <div>
+
             <h1>Farmer Matches</h1>
 
             <p>
               Farmers matched with your requirements
             </p>
+
           </div>
 
         </div>
 
+        {/* =========================
+            SUCCESS
+        ========================== */}
 
-{successMessage && (
-  <div className="success-message">
-    ✓ {successMessage}
-  </div>
-)}
+        {successMessage && (
+          <div className="success-message">
+            ✓ {successMessage}
+          </div>
+        )}
 
-
-        {/* Loading */}
+        {/* =========================
+            LOADING
+        ========================== */}
 
         {loading && (
           <div className="empty-state">
@@ -168,8 +179,9 @@ const handleAccept = async (matchId) => {
           </div>
         )}
 
-
-        {/* Error */}
+        {/* =========================
+            ERROR
+        ========================== */}
 
         {!loading && error && (
           <div className="empty-state">
@@ -193,8 +205,9 @@ const handleAccept = async (matchId) => {
           </div>
         )}
 
-
-        {/* No Matches */}
+        {/* =========================
+            NO MATCHES
+        ========================== */}
 
         {!loading &&
           !error &&
@@ -218,8 +231,9 @@ const handleAccept = async (matchId) => {
           </div>
         )}
 
-
-        {/* Matches */}
+        {/* =========================
+            MATCHES
+        ========================== */}
 
         {!loading &&
           !error &&
@@ -227,25 +241,40 @@ const handleAccept = async (matchId) => {
 
           <div className="matches-grid">
 
-            {matches.map((match) => {
+            {matches.map((item) => {
+
+
+
+              const match = item?.match;
 
               const farmer =
-                match.farmerId;
+                match?.farmerId;
 
               const crop =
-                match.farmerListingId;
+                match?.farmerListingId;
 
               const requirement =
-                match.buyerRequirementId;
+                match?.buyerRequirementId;
+
+              const distance =
+                item?.distance;
+
+              const transport =
+                item?.transport;
+
+              const net =
+                item?.netRealization;
 
 
               return (
                 <div
                   className="match-card"
-                  key={match._id}
+                  key={match?._id}
                 >
 
-                  {/* Top */}
+                  {/* =========================
+                      TOP
+                  ========================== */}
 
                   <div className="match-card-top">
 
@@ -254,20 +283,26 @@ const handleAccept = async (matchId) => {
                     </div>
 
                     <div className="match-score">
-                      {match.matchScore}% Match
+                      {match?.matchScore || 0}% Match
                     </div>
 
                   </div>
 
 
-                  {/* Crop */}
+                  {/* =========================
+                      CROP
+                  ========================== */}
 
                   <h2 className="match-crop-name">
+
                     {crop?.cropName || "Crop"}
+
                   </h2>
 
 
-                  {/* Farmer */}
+                  {/* =========================
+                      FARMER
+                  ========================== */}
 
                   <div className="buyer-info">
 
@@ -286,8 +321,11 @@ const handleAccept = async (matchId) => {
                       </p>
 
                       <h3>
+
                         {farmer?.name ||
+                          farmer?.fullName ||
                           "Unknown Farmer"}
+
                       </h3>
 
                     </div>
@@ -295,33 +333,42 @@ const handleAccept = async (matchId) => {
                   </div>
 
 
-                  {/* Details */}
+                  {/* =========================
+                      FARMER DETAILS
+                  ========================== */}
 
                   <div className="match-details">
 
                     <div>
+
                       <span>
                         Available Quantity
                       </span>
 
                       <strong>
-                        {crop?.quantity || 0} kg
+                        {crop?.quantity || 0} quintals
                       </strong>
+
                     </div>
 
 
                     <div>
+
                       <span>
                         Expected Price
                       </span>
 
                       <strong>
-                        ₹{crop?.expectedPrice || 0}/kg
+                        ₹{Number(
+                          crop?.expectedPrice || 0
+                        ).toLocaleString("en-IN")}/quintal
                       </strong>
+
                     </div>
 
 
                     <div>
+
                       <span>
                         Quality
                       </span>
@@ -329,10 +376,12 @@ const handleAccept = async (matchId) => {
                       <strong>
                         {crop?.quality || "-"}
                       </strong>
+
                     </div>
 
 
                     <div>
+
                       <span>
                         Grade
                       </span>
@@ -340,12 +389,14 @@ const handleAccept = async (matchId) => {
                       <strong>
                         {crop?.grade || "-"}
                       </strong>
+
                     </div>
 
 
                     <div>
+
                       <span>
-                        Location
+                        Farmer Location
                       </span>
 
                       <strong>
@@ -353,92 +404,246 @@ const handleAccept = async (matchId) => {
                           farmer?.location ||
                           "-"}
                       </strong>
+
                     </div>
 
 
                     <div>
+
                       <span>
                         Your Requirement
                       </span>
 
                       <strong>
-                        {requirement?.requiredQuantity ||
-                          0} kg
+                        {item?.matchedQuantity ||
+                          requirement?.requiredQuantity ||
+                          0} quintals
                       </strong>
+
                     </div>
 
                   </div>
 
 
-                  {/* Connection Status */}
+                  {/* =========================
+                      LOGISTICS
+                  ========================== */}
 
-<div className="match-footer">
+                  <div className="realization-section">
 
-  {/* Status */}
+                    <h3>
+                      🚛 Logistics
+                    </h3>
 
-  <span className={`match-status ${match.status}`}>
+                    <div className="realization-grid">
 
-    {match.status === "accepted" &&
-      "✓ Accepted"}
+                      <div>
 
-    {match.status === "contacted" &&
-      "📨 Connection Request"}
+                        <span>
+                          Distance
+                        </span>
 
-    {match.status === "pending" &&
-      "⏳ Pending"}
+                        <strong>
+                          {distance?.distanceKm || 0} km
+                        </strong>
 
-  </span>
-
-
-  {/* Accept button */}
-
-  {match.status === "contacted" && (
-    <button
-      className="accept-button"
-      onClick={() => handleAccept(match._id)}
-      disabled={acceptingId === match._id}
-    >
-      {acceptingId === match._id
-        ? "Accepting..."
-        : "✅ Accept Connection"}
-    </button>
-
- 
- 
- )}
-
-</div>
+                      </div>
 
 
+                      <div>
+
+                        <span>
+                          Travel Time
+                        </span>
+
+                        <strong>
+                          {distance?.durationMinutes || 0} min
+                        </strong>
+
+                      </div>
 
 
+                      <div>
+
+                        <span>
+                          Vehicles
+                        </span>
+
+                        <strong>
+                          {transport?.vehiclesRequired || 0}
+                        </strong>
+
+                      </div>
 
 
+                      <div>
+
+                        <span>
+                          Transport Cost
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            transport?.transportCost || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+                  </div>
 
 
+                  {/* =========================
+                      NET REALIZATION
+                  ========================== */}
+
+                  <div className="realization-section net-section">
+
+                    <h3>
+                      💰 Net Realization
+                    </h3>
+
+                    <div className="realization-grid">
+
+                      <div>
+
+                        <span>
+                          Gross Revenue
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.grossRevenue || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
 
 
-                   {/* <div className="match-footer">
+                      <div>
 
-                    {match.status === "contacted" ? (
+                        <span>
+                          Total Selling Cost
+                        </span>
 
-                      <span className="match-status contacted">
-                        📨 Farmer sent you a connection request
-                      </span>
+                        <strong>
+                          ₹{Number(
+                            net?.totalSellingCost || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
 
-                    ) : match.status === "accepted" ? (
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Break-even Price
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.breakEvenPrice || 0
+                          ).toFixed(2)}/q
+                        </strong>
+
+                      </div>
+
+
+                      <div className="net-highlight">
+
+                        <span>
+                          Net Amount Received
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.netAmountReceived || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="profit-highlight">
+
+                        <span>
+                          Profit
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.profit || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="profit-highlight">
+
+                        <span>
+                          Profit / Quintal
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.profitPerQuintal || 0
+                          ).toFixed(2)}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* =========================
+                      CONNECTION STATUS
+                  ========================== */}
+
+                  <div className="match-footer">
+
+                    {match?.status === "accepted" && (
 
                       <span className="match-status accepted">
                         ✓ Connection Accepted
                       </span>
 
-                    ) : match.status === "rejected" ? (
+                    )}
 
-                      <span className="match-status rejected">
-                        ✕ Connection Rejected
-                      </span>
+                    {match?.status === "contacted" && (
 
-                    ) : (
+                      <>
+
+                        <span className="match-status contacted">
+                          📨 Farmer sent you a connection request
+                        </span>
+
+                        <button
+                          className="accept-button"
+                          onClick={() =>
+                            handleAccept(match?._id)
+                          }
+                          disabled={
+                            acceptingId === match?._id
+                          }
+                        >
+
+                          {acceptingId === match?._id
+                            ? "Accepting..."
+                            : "✅ Accept Connection"}
+
+                        </button>
+
+                      </>
+
+                    )}
+
+                    {match?.status === "new" && (
 
                       <span className="match-status pending">
                         ⏳ Waiting for farmer
@@ -446,24 +651,15 @@ const handleAccept = async (matchId) => {
 
                     )}
 
-                  </div> */}
+                    {match?.status === "rejected" && (
 
+                      <span className="match-status rejected">
+                        ✕ Connection Rejected
+                      </span>
 
+                    )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  </div>
 
                 </div>
               );

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
@@ -24,7 +25,6 @@ function FarmerDashboard() {
   const [priceData, setPriceData] = useState([]);
   const [showPriceTrend, setShowPriceTrend] = useState(false);
 
-
   // =========================
   // PROTOTYPE MANDI DATA
   // =========================
@@ -42,7 +42,6 @@ function FarmerDashboard() {
     "Jaunpur",
   ];
 
-
   // =========================
   // FETCH FARMER CROPS
   // =========================
@@ -57,7 +56,6 @@ function FarmerDashboard() {
     fetchCrops();
   }, []);
 
-
   const fetchCrops = async () => {
     try {
       const response = await api.get("/farmer/listings");
@@ -67,14 +65,12 @@ function FarmerDashboard() {
       const data = response.data.listings || response.data;
 
       setCrops(data);
-
     } catch (error) {
       console.error("Dashboard error:", error);
     } finally {
       setLoading(false);
     }
   };
-
 
   // =========================
   // CALCULATE STATS
@@ -94,7 +90,6 @@ function FarmerDashboard() {
     (crop) => crop.status === "sold"
   ).length;
 
-
   // =========================
   // FILTER MANDI SUGGESTIONS
   // =========================
@@ -103,13 +98,11 @@ function FarmerDashboard() {
     mandi.toLowerCase().includes(mandiName.toLowerCase())
   );
 
-
   // =========================
   // PROTOTYPE PRICE DATA
   // =========================
 
   const generatePriceData = () => {
-
     const data = [
       { date: "20 Aug", price: 2400 },
       { date: "21 Aug", price: 2500 },
@@ -122,13 +115,11 @@ function FarmerDashboard() {
     return data;
   };
 
-
   // =========================
   // VIEW PRICE TREND
   // =========================
 
   const handleViewPriceTrend = () => {
-
     if (!cropName.trim() || !mandiName.trim()) {
       return;
     }
@@ -144,7 +135,6 @@ function FarmerDashboard() {
     console.log("Period:", period);
   };
 
-
   // =========================
   // GRAPH HELPERS
   // =========================
@@ -159,9 +149,12 @@ function FarmerDashboard() {
       ? Math.min(...priceData.map((item) => item.price))
       : 0;
 
-
   return (
     <div className="dashboard-layout">
+
+      {/* =========================
+          SIDEBAR
+      ========================= */}
 
       <Sidebar />
 
@@ -174,7 +167,6 @@ function FarmerDashboard() {
         <div className="dashboard-header">
 
           <div>
-
             <h1>
               Welcome, {user?.name || "Farmer"} 👋
             </h1>
@@ -182,15 +174,41 @@ function FarmerDashboard() {
             <p>
               Manage your crops and connect with buyers.
             </p>
-
           </div>
 
 
-          <div className="profile-circle">
+          <div className="header-actions">
 
-            {user?.name
-              ? user.name.charAt(0).toUpperCase()
-              : "F"}
+
+<button
+  className="notification-button"
+  onClick={() => navigate("/farmer/notifications")}
+  title="Notifications"
+>
+  🔔
+</button>
+
+            {/* PROFILE */}
+
+            {/* <div className="profile-circle">
+              {user?.name
+                ? user.name.charAt(0).toUpperCase()
+                : "F"}
+
+            </div> */}
+{/* PROFILE */}
+<div
+  className="profile-circle"
+  onClick={() => navigate("/farmer/profile")}
+  title="View Profile"
+>
+  {user?.name
+    ? user.name.charAt(0).toUpperCase()
+    : "F"}
+</div>
+
+
+
 
           </div>
 
@@ -311,7 +329,6 @@ function FarmerDashboard() {
 
           <div className="market-price-card">
 
-
             <div className="market-price-icon">
               🌾
             </div>
@@ -330,7 +347,6 @@ function FarmerDashboard() {
 
 
               <div className="market-price-form">
-
 
                 {/* CROP */}
 
@@ -454,7 +470,6 @@ function FarmerDashboard() {
                   View Price Trend →
                 </button>
 
-
               </div>
 
             </div>
@@ -479,7 +494,8 @@ function FarmerDashboard() {
               </h2>
 
               <p>
-                {mandiName} Mandi • Last {period === "7"
+                {mandiName} Mandi • Last{" "}
+                {period === "7"
                   ? "7 Days"
                   : period === "30"
                   ? "30 Days"
@@ -579,6 +595,7 @@ function FarmerDashboard() {
                     <div></div>
                     <div></div>
                     <div></div>
+                    <div></div>
 
                   </div>
 
@@ -587,16 +604,20 @@ function FarmerDashboard() {
 
                     {priceData.map((item, index) => {
 
-                      const range = maxPrice - minPrice || 1;
+                      const range =
+                        maxPrice - minPrice || 1;
 
                       const bottom =
-                        ((item.price - minPrice) / range) *
-                        75 + 10;
+                        ((item.price - minPrice) /
+                          range) *
+                          75 +
+                        10;
 
                       const left =
                         (index /
                           (priceData.length - 1)) *
-                        90 + 5;
+                          90 +
+                        5;
 
                       return (
 
@@ -849,17 +870,17 @@ function FarmerDashboard() {
                     </div>
 
 
-<div className="my-crop-info-item">
+                    <div className="my-crop-info-item">
 
-  <span>
-    Grade
-  </span>
+                      <span>
+                        Grade
+                      </span>
 
-  <strong>
-    {crop.grade}
-  </strong>
+                      <strong>
+                        {crop.grade}
+                      </strong>
 
-</div>
+                    </div>
 
                   </div>
 

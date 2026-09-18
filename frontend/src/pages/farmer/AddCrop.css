@@ -1,0 +1,863 @@
+/* =========================================================
+   ADD CROP PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.add-crop-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+
+/*
+   The existing global .sidebar is fixed.
+   This makes the Add Crop page work correctly
+   beside the sidebar.
+*/
+
+.add-crop-main {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   ADD CROP PAGE
+   ========================================================= */
+
+.add-crop-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 0;
+
+  color: #1f2937;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.add-crop-container {
+  width: 100%;
+  max-width: 1350px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.add-crop-page .page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+.add-crop-page .page-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  color: #17351f;
+  letter-spacing: -0.5px;
+}
+
+.add-crop-page .page-header p {
+  margin: 7px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+.add-crop-page .success-message {
+  margin-bottom: 22px;
+
+  padding: 14px 17px;
+
+  border: 1px solid #b7dfc0;
+  border-left: 4px solid #176b36;
+
+  border-radius: 9px;
+
+  background: #f0faf2;
+
+  color: #176b36;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  animation: addCropMessageIn 0.25s ease;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+.add-crop-page .error-message {
+  margin-bottom: 22px;
+
+  padding: 14px 17px;
+
+  border: 1px solid #f1b9b9;
+  border-left: 4px solid #dc2626;
+
+  border-radius: 9px;
+
+  background: #fff5f5;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  animation: addCropMessageIn 0.25s ease;
+}
+
+
+@keyframes addCropMessageIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.add-crop-page form {
+  width: 100%;
+}
+
+
+/* =========================================================
+   FORM SECTION
+   ========================================================= */
+
+.add-crop-page .form-section {
+  width: 100%;
+
+  margin-bottom: 24px;
+
+  padding: 27px 30px;
+
+  border: 1px solid #e1e9e3;
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 16px rgba(27, 70, 40, 0.055);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-crop-page .form-section:hover {
+  border-color: #d3e0d6;
+
+  box-shadow:
+    0 5px 20px rgba(27, 70, 40, 0.075);
+}
+
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.add-crop-page .form-section h2 {
+  position: relative;
+
+  margin: 0 0 22px;
+
+  padding-bottom: 13px;
+
+  border-bottom: 1px solid #edf1ee;
+
+  color: #176b36;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.add-crop-page .form-section h2::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -1px;
+
+  width: 70px;
+  height: 3px;
+
+  border-radius: 10px;
+
+  background: #e5a928;
+}
+
+
+/* =========================================================
+   SECTION DESCRIPTION
+   ========================================================= */
+
+.add-crop-page .section-description {
+  margin: -10px 0 20px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.add-crop-page .form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px 24px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.add-crop-page .form-group {
+  width: 100%;
+
+  margin-bottom: 3px;
+}
+
+.add-crop-page .form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #344137;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   OPTIONAL BADGE
+   ========================================================= */
+
+.add-crop-page .optional-label {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-left: 8px;
+
+  padding: 3px 8px;
+
+  border-radius: 20px;
+
+  background: #fff5d6;
+
+  color: #8a6500;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   INPUT / SELECT / TEXTAREA
+   ========================================================= */
+
+.add-crop-page .form-group input,
+.add-crop-page .form-group select,
+.add-crop-page .form-group textarea {
+  display: block;
+
+  width: 100%;
+
+  border: 1px solid #d6e0d8;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* =========================================================
+   INPUT / SELECT
+   ========================================================= */
+
+.add-crop-page .form-group input,
+.add-crop-page .form-group select {
+  height: 46px;
+
+  padding: 0 14px;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.add-crop-page .form-group textarea {
+  min-height: 130px;
+
+  padding: 13px 14px;
+
+  resize: vertical;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.add-crop-page .form-group input::placeholder,
+.add-crop-page .form-group textarea::placeholder {
+  color: #9aa5a0;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.add-crop-page .form-group input:hover,
+.add-crop-page .form-group select:hover,
+.add-crop-page .form-group textarea:hover {
+  border-color: #aebdb2;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.add-crop-page .form-group input:focus,
+.add-crop-page .form-group select:focus,
+.add-crop-page .form-group textarea:focus {
+  border-color: #176b36;
+
+  box-shadow:
+    0 0 0 3px rgba(23, 107, 54, 0.09);
+
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   DISABLED SELECT
+   ========================================================= */
+
+.add-crop-page .form-group select:disabled {
+  background: #f5f7f6;
+
+  color: #9ca3af;
+
+  cursor: not-allowed;
+
+  border-color: #e1e6e2;
+}
+
+
+/* =========================================================
+   DATE INPUT
+   ========================================================= */
+
+.add-crop-page input[type="date"] {
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   NUMBER INPUT
+   ========================================================= */
+
+.add-crop-page input[type="number"] {
+  appearance: textfield;
+}
+
+.add-crop-page input[type="number"]::-webkit-inner-spin-button,
+.add-crop-page input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   FILE INPUT
+   ========================================================= */
+
+.add-crop-page input[type="file"] {
+  height: auto;
+
+  padding: 11px;
+
+  border: 1px dashed #b8c9bc;
+
+  background: #f8fbf8;
+
+  cursor: pointer;
+}
+
+.add-crop-page input[type="file"]:hover {
+  border-color: #176b36;
+
+  background: #f3f9f4;
+}
+
+
+/* File button */
+
+.add-crop-page input[type="file"]::file-selector-button {
+  margin-right: 12px;
+
+  padding: 8px 13px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #176b36;
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.add-crop-page input[type="file"]::file-selector-button:hover {
+  background: #0f592c;
+}
+
+
+/* =========================================================
+   AI ASSESSMENT RESULT
+   ========================================================= */
+
+.add-crop-page .ai-assessment-result {
+  margin-top: 18px;
+
+  padding: 17px 18px;
+
+  border: 1px solid #d7eadb;
+  border-left: 4px solid #176b36;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7fcf8,
+      #f0f8f2
+    );
+}
+
+.add-crop-page .ai-assessment-result p {
+  margin: 5px 0;
+
+  color: #4b5563;
+
+  font-size: 13px;
+}
+
+.add-crop-page .ai-assessment-result p:first-child {
+  margin-top: 0;
+}
+
+.add-crop-page .ai-assessment-result p:last-child {
+  margin-bottom: 0;
+}
+
+.add-crop-page .ai-assessment-result strong {
+  color: #176b36;
+}
+
+
+/* =========================================================
+   UPLOADED IMAGES
+   ========================================================= */
+
+.add-crop-page .uploaded-images {
+  margin-top: 18px;
+
+  padding: 17px 18px;
+
+  border: 1px solid #e0e8e2;
+
+  border-radius: 10px;
+
+  background: #f8faf9;
+}
+
+.add-crop-page .uploaded-images > p {
+  margin-bottom: 10px;
+
+  color: #176b36;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   IMAGE LIST
+   ========================================================= */
+
+.add-crop-page .uploaded-images ul {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.add-crop-page .uploaded-images li {
+  position: relative;
+
+  padding: 9px 12px 9px 30px;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  border: 1px solid #e7ece8;
+
+  color: #4b5563;
+
+  font-size: 12px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-crop-page .uploaded-images li::before {
+  content: "✓";
+
+  position: absolute;
+
+  left: 11px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #176b36;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.add-crop-page .form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-top: 5px;
+  padding: 22px 4px 5px;
+
+  border-top: 1px solid #e1e8e3;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.add-crop-page .submit-button {
+  min-width: 190px;
+
+  height: 47px;
+
+  padding: 0 23px;
+
+  border: none;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #237a3b,
+      #176b36
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 12px rgba(23, 107, 54, 0.16);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.add-crop-page .submit-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #1c6b34,
+      #0f592c
+    );
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(23, 107, 54, 0.23);
+}
+
+.add-crop-page .submit-button:active {
+  transform: translateY(0);
+}
+
+.add-crop-page .submit-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   SCROLLBAR FOR SIDEBAR
+   ========================================================= */
+
+/*
+   Your Sidebar is independently scrollable.
+   This makes its scrollbar cleaner without
+   affecting the Add Crop page scrollbar.
+*/
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+
+/* =========================================================
+   SIDEBAR NAV SCROLLBAR
+   ========================================================= */
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .add-crop-page .form-section {
+    padding: 24px;
+  }
+
+  .add-crop-page .form-grid {
+    gap: 18px;
+  }
+}
+
+
+/* =========================================================
+   768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .add-crop-page .page-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 8px;
+  }
+
+  .add-crop-page .page-header h1 {
+    font-size: 26px;
+  }
+
+  .add-crop-page .form-section {
+    padding: 22px 20px;
+
+    border-radius: 13px;
+  }
+
+  .add-crop-page .form-grid {
+    grid-template-columns: 1fr;
+
+    gap: 17px;
+  }
+
+  .add-crop-page .form-actions {
+    padding-top: 18px;
+  }
+
+  .add-crop-page .submit-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .add-crop-page .page-header h1 {
+    font-size: 23px;
+  }
+
+  .add-crop-page .page-header p {
+    font-size: 13px;
+  }
+
+  .add-crop-page .form-section {
+    padding: 19px 16px;
+
+    margin-bottom: 18px;
+  }
+
+  .add-crop-page .form-section h2 {
+    font-size: 17px;
+
+    margin-bottom: 18px;
+  }
+
+  .add-crop-page .form-group input,
+  .add-crop-page .form-group select {
+    height: 44px;
+  }
+
+  .add-crop-page .form-actions {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .add-crop-page .form-section {
+    padding: 16px 13px;
+  }
+
+  .add-crop-page .form-group label {
+    font-size: 12px;
+  }
+
+  .add-crop-page .form-group input,
+  .add-crop-page .form-group select,
+  .add-crop-page .form-group textarea {
+    font-size: 13px;
+  }
+
+  .add-crop-page .submit-button {
+    min-width: 0;
+
+    font-size: 13px;
+  }
+}

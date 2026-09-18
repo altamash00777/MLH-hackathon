@@ -899,7 +899,7 @@ flex-shrink: 0;
 }
 
 .my-crop-card h2 {
-  font-size: 21px;
+  font-size: 20px;
 
   color: #1f2937;
 
@@ -3298,4 +3298,155 @@ flex-shrink: 0;
     gap: 4px;
   }
 
+}
+
+
+
+
+/* =========================================
+   DASHBOARD HEADER
+========================================= */
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+
+/* =========================================
+   HEADER RIGHT SIDE
+========================================= */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
+/* =========================================
+   NOTIFICATION BUTTON
+========================================= */
+
+.notification-button {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+
+/* Hover */
+
+.notification-button:hover {
+  transform: translateY(-2px);
+
+  background: #f0fdf4;
+
+  box-shadow:
+    0 6px 20px rgba(23, 107, 54, 0.20);
+}
+
+
+/* Click */
+
+.notification-button:active {
+  transform: scale(0.94);
+}
+
+
+/* =========================================
+   PROFILE CIRCLE
+========================================= */
+
+.profile-circle {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    #176b36,
+    #065e10
+  );
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  box-shadow:
+    0 5px 15px rgba(23, 107, 54, 0.25);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .dashboard-header {
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .notification-button,
+  .profile-circle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .notification-button {
+    font-size: 19px;
+  }
+
+  .profile-circle {
+    font-size: 16px;
+  }
+
+}
+
+.profile-circle {
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.profile-circle:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 0 3px rgba(23, 107, 54, 0.15),
+    0 5px 15px rgba(23, 107, 54, 0.2);
 }

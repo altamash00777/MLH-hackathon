@@ -8,12 +8,11 @@ const Notification = require("../models/Notification");
 const getFarmerNotifications = async (req, res) => {
   try {
 
-    const farmerId = req.user.userId;
+    const farmerId = req.user._id;
 
     console.log("\n========== GET NOTIFICATIONS ==========");
     console.log("Farmer ID:", farmerId);
 
-    // Find notifications belonging to logged-in farmer
     const notifications = await Notification.find({
       recipientId: farmerId
     })
@@ -70,7 +69,8 @@ const getFarmerNotifications = async (req, res) => {
 const markNotificationAsRead = async (req, res) => {
   try {
 
-    const farmerId = req.user.userId;
+    const farmerId = req.user._id;
+
     const { notificationId } = req.params;
 
     console.log(
@@ -88,20 +88,22 @@ const markNotificationAsRead = async (req, res) => {
     );
 
 
-    // Find notification belonging to this farmer
-    const notification = await Notification.findOne({
-      _id: notificationId,
-      recipientId: farmerId
-    });
+    const notification =
+      await Notification.findOne({
+        _id: notificationId,
+        recipientId: farmerId
+      });
+
 
     if (!notification) {
+
       return res.status(404).json({
         message: "Notification not found"
       });
+
     }
 
 
-    // Mark as read
     notification.isRead = true;
 
     await notification.save();
@@ -132,6 +134,7 @@ const markNotificationAsRead = async (req, res) => {
       message: "Error updating notification",
       error: error.message
     });
+
   }
 };
 

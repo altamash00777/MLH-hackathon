@@ -1,7 +1,10 @@
 const BuyerRequirement = require("../models/BuyerRequirement");
 
 
-// Create requirement
+// ==========================================
+// CREATE REQUIREMENT
+// ==========================================
+
 const createRequirement = async (req, res) => {
   try {
     const {
@@ -19,7 +22,7 @@ const createRequirement = async (req, res) => {
       !quality ||
       !grade ||
       !location ||
-      !expectedPrice
+      expectedPrice === undefined
     ) {
       return res.status(400).json({
         message: "All fields are required"
@@ -27,7 +30,9 @@ const createRequirement = async (req, res) => {
     }
 
     const requirement = await BuyerRequirement.create({
-      buyerId: req.user.userId,
+      // IMPORTANT: Get buyer ID from authenticated user
+      buyerId: req.user._id,
+
       cropName,
       requiredQuantity,
       quality,
@@ -42,20 +47,24 @@ const createRequirement = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Create requirement error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
 
 
-// Get all requirements of logged-in buyer
+// ==========================================
+// GET ALL REQUIREMENTS OF LOGGED-IN BUYER
+// ==========================================
+
 const getMyRequirements = async (req, res) => {
   try {
     const requirements = await BuyerRequirement.find({
-      buyerId: req.user.userId
+      buyerId: req.user._id
     }).sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -64,21 +73,25 @@ const getMyRequirements = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Get requirements error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
 
 
-// Get single requirement
+// ==========================================
+// GET SINGLE REQUIREMENT
+// ==========================================
+
 const getRequirementById = async (req, res) => {
   try {
     const requirement = await BuyerRequirement.findOne({
       _id: req.params.id,
-      buyerId: req.user.userId
+      buyerId: req.user._id
     });
 
     if (!requirement) {
@@ -92,21 +105,25 @@ const getRequirementById = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Get requirement error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
 
 
-// Update requirement
+// ==========================================
+// UPDATE REQUIREMENT
+// ==========================================
+
 const updateRequirement = async (req, res) => {
   try {
     const requirement = await BuyerRequirement.findOne({
       _id: req.params.id,
-      buyerId: req.user.userId
+      buyerId: req.user._id
     });
 
     if (!requirement) {
@@ -154,21 +171,25 @@ const updateRequirement = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Update requirement error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
 
 
-// Delete requirement
+// ==========================================
+// DELETE REQUIREMENT
+// ==========================================
+
 const deleteRequirement = async (req, res) => {
   try {
     const requirement = await BuyerRequirement.findOne({
       _id: req.params.id,
-      buyerId: req.user.userId
+      buyerId: req.user._id
     });
 
     if (!requirement) {
@@ -186,14 +207,19 @@ const deleteRequirement = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Delete requirement error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
 
+
+// ==========================================
+// EXPORT
+// ==========================================
 
 module.exports = {
   createRequirement,

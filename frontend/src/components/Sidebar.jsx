@@ -30,17 +30,6 @@ function Sidebar() {
         
       </div>
 
-      {/* Farmer Info */}
-      {/* <div className="farmer-info">
-        <div className="farmer-avatar">
-          {user?.name?.charAt(0).toUpperCase()}
-        </div>
-
-        <div>
-          <h4>{user?.name || "Farmer"}</h4>
-          <p>Farmer</p>
-        </div>
-      </div> */}
 
       {/* Navigation */}
       <nav className="sidebar-nav">

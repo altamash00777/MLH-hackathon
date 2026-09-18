@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
+import "./MyMatches.css"
 
 function MyMatches() {
   const [matches, setMatches] = useState([]);
@@ -49,22 +50,98 @@ function MyMatches() {
   // Contact Buyer
   // ================================
 
-  const handleContact = async (matchId) => {
-    try {
-      setContactingId(matchId);
-      setError("");
-      setSuccessMessage("");
+  // const handleContact = async (matchId) => {
+  //   try {
+  //     setContactingId(matchId);
+  //     setError("");
+  //     setSuccessMessage("");
 
-      const token = localStorage.getItem("token");
+  //     const token = localStorage.getItem("token");
 
-      const response = await axios.post(
-        `http://localhost:5000/api/matches/${matchId}/contact`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+  //     const response = await axios.post(
+  //       `http://localhost:5000/api/matches/${matchId}/contact`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     setSuccessMessage(
+  //       response.data.message ||
+  //       "Connection request sent successfully"
+  //     );
+
+  //     // Update UI immediately
+  //     setMatches((prevMatches) =>
+  //       prevMatches.map((item) =>
+  //         item.match?._id === matchId
+  //           ? {
+  //               ...item,
+  //               match: {
+  //                 ...item.match,
+  //                 status: "contacted",
+  //               },
+  //             }
+  //           : item
+  //       )
+  //     );
+
+  //   } catch (error) {
+  //     console.error("Contact Match Error:", error);
+
+  //     alert(
+  //       error.response?.data?.message ||
+  //       "Failed to contact buyer"
+  //     );
+
+  //   } finally {
+  //     setContactingId(null);
+  //   }
+  // };
+
+const handleContact = async (matchId) => {
+  try {
+    setContactingId(matchId);
+    setError("");
+    setSuccessMessage("");
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setError("You are not logged in");
+      return;
+    }
+
+    const response = await axios.post(
+      `http://localhost:5000/api/matches/${matchId}/contact`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        timeout: 15000,
+      }
+    );
+
+    console.log("CONTACT RESPONSE:", response.data);
+
+    if (response.data.success) {
+
+      setMatches((prevMatches) =>
+        prevMatches.map((item) =>
+          item.match?._id === matchId
+            ? {
+                ...item,
+                match: {
+                  ...item.match,
+                  ...(response.data.match || {}),
+                  status: "contacted",
+                },
+              }
+            : item
+        )
       );
 
       setSuccessMessage(
@@ -72,34 +149,30 @@ function MyMatches() {
         "Connection request sent successfully"
       );
 
-      // Update UI immediately
-      setMatches((prevMatches) =>
-        prevMatches.map((match) =>
-          match._id === matchId
-            ? {
-                ...match,
-                status: "contacted",
-              }
-            : match
-        )
-      );
-
-    } catch (error) {
-      console.error("Contact Match Error:", error);
-
-      alert(
-        error.response?.data?.message ||
+    } else {
+      setError(
+        response.data.message ||
         "Failed to contact buyer"
       );
-
-    } finally {
-      setContactingId(null);
     }
-  };
+
+  } catch (error) {
+
+    console.error("Contact Match Error:", error);
+
+    setError(
+      error.response?.data?.message ||
+      "Unable to contact buyer. Please try again."
+    );
+
+  } finally {
+    setContactingId(null);
+  }
+};
 
 
   // ================================
-  // Load matches when page opens
+  // Load matches
   // ================================
 
   useEffect(() => {
@@ -133,6 +206,7 @@ function MyMatches() {
         </div>
 
 
+        {/* SUCCESS */}
 
         {successMessage && (
           <div className="success-message">
@@ -228,19 +302,43 @@ function MyMatches() {
 
           <div className="matches-grid">
 
-            {matches.map((match) => {
+            {matches.map((item) => {
+
+              // =========================
+              // IMPORTANT:
+              // API structure is:
+              // item.match
+              // item.matchedQuantity
+              // item.distance
+              // item.transport
+              // item.netRealization
+              // =========================
+
+              const match = item.match;
 
               const crop =
-                match.farmerListingId;
+                match?.farmerListingId;
 
-              const buyer =
-                match.buyerId;
+              const buyerRequirement =
+                match?.buyerRequirementId;
+
+              const buyerId =
+                match?.buyerId;
+
+              const net =
+                item.netRealization;
+
+              const distance =
+                item.distance;
+
+              const transport =
+                item.transport;
 
 
               return (
                 <div
                   className="match-card"
-                  key={match._id}
+                  key={match?._id}
                 >
 
                   {/* =================
@@ -254,7 +352,7 @@ function MyMatches() {
                     </div>
 
                     <div className="match-score">
-                      {match.matchScore}% Match
+                      {match?.matchScore || 0}% Match
                     </div>
 
                   </div>
@@ -279,9 +377,7 @@ function MyMatches() {
 
                     <div className="buyer-avatar">
 
-                      {buyer?.name
-                        ?.charAt(0)
-                        ?.toUpperCase() || "B"}
+                      B
 
                     </div>
 
@@ -292,12 +388,12 @@ function MyMatches() {
                       </p>
 
                       <h3>
-
-                        {buyer?.companyName ||
-                          buyer?.name ||
-                          "Unknown Buyer"}
-
+                        Buyer
                       </h3>
+
+                      <small>
+                        ID: {buyerId || "Unknown"}
+                      </small>
 
                     </div>
 
@@ -305,7 +401,7 @@ function MyMatches() {
 
 
                   {/* =================
-                      DETAILS
+                      BASIC DETAILS
                   ================== */}
 
                   <div className="match-details">
@@ -313,11 +409,11 @@ function MyMatches() {
                     <div>
 
                       <span>
-                        Your Quantity
+                        Required Quantity
                       </span>
 
                       <strong>
-                        {crop?.quantity || 0} kg
+                        {item.matchedQuantity || 0} quintals
                       </strong>
 
                     </div>
@@ -326,11 +422,11 @@ function MyMatches() {
                     <div>
 
                       <span>
-                        Expected Price
+                        Buyer Price
                       </span>
 
                       <strong>
-                        ₹{crop?.expectedPrice || 0}/kg
+                        ₹{buyerRequirement?.expectedPrice || 0}/quintal
                       </strong>
 
                     </div>
@@ -343,7 +439,7 @@ function MyMatches() {
                       </span>
 
                       <strong>
-                        {crop?.quality || "-"}
+                        {buyerRequirement?.quality || "-"}
                       </strong>
 
                     </div>
@@ -352,14 +448,214 @@ function MyMatches() {
                     <div>
 
                       <span>
-                        Location
+                        Grade
                       </span>
 
                       <strong>
-                        {crop?.sellingLocation ||
-                          buyer?.location ||
-                          "-"}
+                        {buyerRequirement?.grade || "-"}
                       </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Buyer Location
+                      </span>
+
+                      <strong>
+                        {buyerRequirement?.location || "-"}
+                      </strong>
+
+                    </div>
+
+
+                    <div>
+
+                      <span>
+                        Your Location
+                      </span>
+
+                      <strong>
+                        {crop?.sellingLocation || "-"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* =========================
+                      DISTANCE & TRANSPORT
+                  ========================== */}
+
+                  <div className="realization-section">
+
+                    <h3>
+                      🚛 Logistics
+                    </h3>
+
+                    <div className="realization-grid">
+
+                      <div>
+
+                        <span>
+                          Distance
+                        </span>
+
+                        <strong>
+                          {distance?.distanceKm || 0} km
+                        </strong>
+
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Travel Time
+                        </span>
+
+                        <strong>
+                          {distance?.durationMinutes || 0} min
+                        </strong>
+
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Vehicles
+                        </span>
+
+                        <strong>
+                          {transport?.vehiclesRequired || 0}
+                        </strong>
+
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Transport Cost
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            transport?.transportCost || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* =========================
+                      NET REALIZATION
+                  ========================== */}
+
+                  <div className="realization-section net-section">
+
+                    <h3>
+                      💰 Net Realization
+                    </h3>
+
+                    <div className="realization-grid">
+
+                      <div>
+
+                        <span>
+                          Gross Revenue
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.grossRevenue || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Total Selling Cost
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.totalSellingCost || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div>
+
+                        <span>
+                          Break-even Price
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.breakEvenPrice || 0
+                          ).toFixed(2)}/q
+                        </strong>
+
+                      </div>
+
+
+                      <div className="net-highlight">
+
+                        <span>
+                          Net Amount Received
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.netAmountReceived || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="profit-highlight">
+
+                        <span>
+                          Profit
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.profit || 0
+                          ).toLocaleString("en-IN")}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="profit-highlight">
+
+                        <span>
+                          Profit / Quintal
+                        </span>
+
+                        <strong>
+                          ₹{Number(
+                            net?.profitPerQuintal || 0
+                          ).toFixed(2)}
+                        </strong>
+
+                      </div>
 
                     </div>
 
@@ -372,21 +668,19 @@ function MyMatches() {
 
                   <div className="match-footer">
 
-                    {/* Status / Contact Button */}
-
-                    {match.status === "contacted" ? (
+                    {match?.status === "contacted" ? (
 
                       <span className="match-status contacted">
                         📨 Contacted
                       </span>
 
-                    ) : match.status === "accepted" ? (
+                    ) : match?.status === "accepted" ? (
 
                       <span className="match-status accepted">
                         ✓ Accepted
                       </span>
 
-                    ) : match.status === "rejected" ? (
+                    ) : match?.status === "rejected" ? (
 
                       <span className="match-status rejected">
                         ✕ Rejected
@@ -397,14 +691,14 @@ function MyMatches() {
                       <button
                         className="contact-button"
                         onClick={() =>
-                          handleContact(match._id)
+                          handleContact(match?._id)
                         }
                         disabled={
-                          contactingId === match._id
+                          contactingId === match?._id
                         }
                       >
 
-                        {contactingId === match._id
+                        {contactingId === match?._id
                           ? "Sending..."
                           : "🤝 Contact Buyer"}
 
