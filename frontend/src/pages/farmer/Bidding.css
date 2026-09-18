@@ -67,10 +67,16 @@
 ================================ */
 
 .auction-setup {
-  background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #fff9dc 0%,
+      #fffef1 48%,
+      #edf8e9 100%
+    );
   padding: 24px;
   border-radius: 15px;
-  border: 1px solid #e1e9df;
+  border: 1px solid #ccdccc;
   max-width: 900px;
 }
 
@@ -98,7 +104,7 @@
 .crop-selector label {
   display: block;
   margin-bottom: 7px;
-  color: #456047;
+  color: #030303;
   font-size: 12px;
   font-weight: 700;
 }
@@ -109,8 +115,8 @@
   padding: 11px 13px;
   border: 1px solid #d5dfd2;
   border-radius: 9px;
-  background: #fbfcfa;
-  color: #304e34;
+  background: #f5ffeb;
+  color: #000000;
   font-size: 13px;
   outline: none;
   cursor: pointer;
@@ -189,7 +195,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #e8e7e2 0%,
+      #fffef1 48%,
+      #ecf4ea 100%
+    );
   border: 1px solid #e1e9df;
   border-radius: 14px;
   margin-bottom: 15px;
@@ -289,7 +301,13 @@
 .buyer-card {
   position: relative;
   padding: 16px;
-  background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #e8e7e2 0%,
+      #fffef1 48%,
+      #ecf4ea 100%
+    );
   border: 1px solid #e1e9df;
   border-radius: 12px;
   transition: 0.2s;
@@ -431,7 +449,13 @@
 .auction-result {
   padding: 25px;
   text-align: center;
-  background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #e8e7e2 0%,
+      #fffef1 48%,
+      #ecf4ea 100%
+    );
   border: 1px solid #e1e9df;
   border-radius: 15px;
 }
