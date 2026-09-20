@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import Sidebar from "../../components/Sidebar";
+import "./FarmerProfile.css";
 
 function FarmerProfile() {
   const [formData, setFormData] = useState({
@@ -15,20 +17,14 @@ function FarmerProfile() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // ==========================================
-  // Get Farmer Profile
-  // ==========================================
-
   const fetchProfile = async () => {
     try {
       setLoading(true);
       setError("");
 
       const response = await api.get("/profile");
-
       const user = response.data.user;
 
-      // Make sure this is farmer
       if (user.role !== "farmer") {
         setError("This profile does not belong to a farmer.");
         return;
@@ -40,36 +36,27 @@ function FarmerProfile() {
         phone: user.phone || "",
         location: user.location || "",
       });
-
     } catch (error) {
       console.error("Fetch Profile Error:", error);
 
       setError(
         error.response?.data?.message ||
-        "Failed to load profile"
+          "Failed to load profile"
       );
-
     } finally {
       setLoading(false);
     }
   };
-
-
-  // ==========================================
-  // Handle Input
-  // ==========================================
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    setSuccess("");
+    setError("");
   };
-
-
-  // ==========================================
-  // Update Profile
-  // ==========================================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,10 +73,9 @@ function FarmerProfile() {
 
       setSuccess(
         response.data.message ||
-        "Profile updated successfully"
+          "Profile updated successfully"
       );
 
-      // Update localStorage user information
       const oldUser = JSON.parse(
         localStorage.getItem("user") || "{}"
       );
@@ -98,221 +84,243 @@ function FarmerProfile() {
         ...oldUser,
         name: response.data.user.name,
         email: response.data.user.email,
+        phone: response.data.user.phone,
+        location: response.data.user.location,
       };
 
       localStorage.setItem(
         "user",
         JSON.stringify(updatedUser)
       );
-
     } catch (error) {
       console.error("Update Profile Error:", error);
 
       setError(
         error.response?.data?.message ||
-        "Failed to update profile"
+          "Failed to update profile"
       );
-
     } finally {
       setSaving(false);
     }
   };
 
-
-  // ==========================================
-  // Load Profile
-  // ==========================================
-
   useEffect(() => {
     fetchProfile();
   }, []);
 
-
-  // ==========================================
-  // Loading
-  // ==========================================
-
   if (loading) {
     return (
       <div className="dashboard-layout">
-
         <Sidebar />
 
-        <main className="dashboard-main">
-
-          <div className="empty-state">
-
-            <div className="empty-icon">
-              ⏳
-            </div>
-
-            <h3>
-              Loading profile...
-            </h3>
-
+        <main className="dashboard-main farmer-profile-main">
+          <div className="profile-loading">
+            <div className="loading-spinner"></div>
+            <h3>Loading your profile...</h3>
+            <p>Please wait a moment.</p>
           </div>
-
         </main>
-
       </div>
     );
   }
 
-
   return (
     <div className="dashboard-layout">
-
       <Sidebar />
 
-      <main className="dashboard-main">
+      <main className="dashboard-main farmer-profile-main">
 
         {/* Header */}
-
-        <div className="page-header">
-
+        <div className="profile-page-header">
           <div>
+            <span className="profile-label">
+              FARMER ACCOUNT
+            </span>
 
             <h1>My Profile</h1>
 
             <p>
-              Manage your farmer account information
+              Manage your personal information and
+              marketplace account.
             </p>
-
           </div>
-
         </div>
 
-
-        {/* Error */}
-
+        {/* Alerts */}
         {error && (
-          <div className="error-message">
-            ⚠️ {error}
+          <div className="profile-alert error">
+            <span>⚠</span>
+            {error}
           </div>
         )}
-
-
-        {/* Success */}
 
         {success && (
-          <div className="success-message">
-            ✓ {success}
+          <div className="profile-alert success">
+            <span>✓</span>
+            {success}
           </div>
         )}
-
-
-        {/* Profile Card */}
 
         {!error && (
+          <div className="profile-layout">
 
-          <div className="crop-form-card">
+            {/* Profile Overview */}
+            <section className="profile-overview">
 
-            <form onSubmit={handleSubmit}>
-
-              <div className="form-grid">
-
-                {/* Name */}
-
-                <div className="form-group">
-
-                  <label>
-                    Full Name
-                  </label>
-
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                {/* Email */}
-
-                <div className="form-group">
-
-                  <label>
-                    Email
-                  </label>
-
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                {/* Phone */}
-
-                <div className="form-group">
-
-                  <label>
-                    Phone
-                  </label>
-
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                {/* Location */}
-
-                <div className="form-group">
-
-                  <label>
-                    Location
-                  </label>
-
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
+              <div className="profile-avatar">
+                {formData.name
+                  ? formData.name
+                      .charAt(0)
+                      .toUpperCase()
+                  : "F"}
               </div>
 
+              <h2>
+                {formData.name || "Farmer"}
+              </h2>
 
-              {/* Actions */}
+              <span className="farmer-badge">
+                🌾 Farmer
+              </span>
 
-              <div className="form-actions">
+              <p className="profile-location">
+                📍 {formData.location || "Location not set"}
+              </p>
 
-                <button
-                  type="submit"
-                  className="submit-button"
-                  disabled={saving}
-                >
-                  {saving
-                    ? "Saving..."
-                    : "💾 Save Changes"}
-                </button>
+              <div className="profile-divider"></div>
 
+              <div className="profile-info">
+                <div>
+                  <span>Account Type</span>
+                  <strong>Farmer</strong>
+                </div>
+
+                <div>
+                  <span>Marketplace</span>
+                  <strong>Disha</strong>
+                </div>
+
+                <div>
+                  <span>Status</span>
+                  <strong className="active-status">
+                    ● Active
+                  </strong>
+                </div>
+              </div>
+            </section>
+
+            {/* Edit Profile */}
+            <section className="profile-form-card">
+
+              <div className="form-card-header">
+                <div>
+                  <h2>Personal Information</h2>
+                  <p>
+                    Keep your contact details up to date.
+                  </p>
+                </div>
+
+                <div className="edit-icon">
+                  ✎
+                </div>
               </div>
 
-            </form>
+              <form onSubmit={handleSubmit}>
 
+                <div className="profile-form-grid">
+
+                  <div className="profile-form-group">
+                    <label>Full Name</label>
+
+                    <div className="input-wrapper">
+                      <span>👤</span>
+
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter your full name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-form-group">
+                    <label>Email Address</label>
+
+                    <div className="input-wrapper">
+                      <span>✉</span>
+
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-form-group">
+                    <label>Phone Number</label>
+
+                    <div className="input-wrapper">
+                      <span>☎</span>
+
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Enter phone number"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-form-group">
+                    <label>Location</label>
+
+                    <div className="input-wrapper">
+                      <span>📍</span>
+
+                      <input
+                        type="text"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                        placeholder="Village, City"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="profile-form-footer">
+                  <p>
+                    Your information helps buyers
+                    connect with you.
+                  </p>
+
+                  <button
+                    type="submit"
+                    className="profile-save-btn"
+                    disabled={saving}
+                  >
+                    {saving
+                      ? "Saving..."
+                      : "Save Changes"}
+                  </button>
+                </div>
+
+              </form>
+            </section>
           </div>
-
         )}
-
       </main>
-
     </div>
   );
 }

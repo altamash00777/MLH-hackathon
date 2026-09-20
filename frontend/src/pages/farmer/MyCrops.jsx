@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import api from "../../services/api";
+import "./MyCrops.css"
+import cropBg from "../../assets/land-morning.jpg";
+import croImage from "../../assets/CRO.png";
 
 function MyCrops() {
+
   const navigate = useNavigate();
 
   const [crops, setCrops] = useState([]);
@@ -75,11 +79,18 @@ const handleDelete = async (id) => {
 
 
   return (
-    <div className="dashboard-layout">
+    // <div className="dashboard-layout">
+
+<div className="dashboard-layout">
 
       <Sidebar />
 
-      <main className="dashboard-main">
+      {/* <main className="dashboard-main"> */}
+
+<main
+  className="dashboard-main my-crops-page"
+  style={{ backgroundImage: `url(${cropBg})` }}
+>
 
         {/* Header */}
 
@@ -106,9 +117,14 @@ const handleDelete = async (id) => {
 
         {loading && (
           <div className="my-crops-empty">
-            <div className="my-crops-empty-icon">
+            {/* <div className="my-crops-empty-icon">
               🌾
-            </div>
+            </div> */}
+
+<div className="my-crops-empty-icon">
+  <img src={croImage} alt="Crops" />
+</div>
+
 
             <h3>
               Loading crops...
@@ -126,7 +142,7 @@ const handleDelete = async (id) => {
 
         {/* No crops */}
 
-        {!loading && !error && crops.length === 0 && (
+        {/* {!loading && !error && crops.length === 0 && (
           <div className="my-crops-empty">
 
             <div className="my-crops-empty-icon">
@@ -151,7 +167,32 @@ const handleDelete = async (id) => {
             </button>
 
           </div>
-        )}
+        )} */}
+
+{!loading && !error && crops.length === 0 && (
+  <div className="my-crops-empty">
+
+    <div className="my-crops-empty-icon">
+      <img src={croImage} alt="Crops" />
+    </div>
+
+    <h3>
+      No crops listed yet
+    </h3>
+
+    <p>
+      Add your first crop to start
+      connecting with buyers.
+    </p>
+
+    <button
+      onClick={() => navigate("/farmer/add-crop")}
+    >
+      Add Your First Crop
+    </button>
+
+  </div>
+)}
 
         {/* Crops */}
 
@@ -171,6 +212,9 @@ const handleDelete = async (id) => {
                   <div className="my-crop-icon">
                     🌾
                   </div>
+
+
+
 
                   <span className="my-crop-status">
                     {crop.status}

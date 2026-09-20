@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Nunito:wght@400;600;700&display=swap");
+
+.nf-page {
+  --sky-top: #cfe6e0;
+  --sky-low: #f7e6a8;
+  --soil: #3d2b1a;
+  --soil-soft: #6b5238;
+  --straw: #e0b04a;
+  --straw-dark: #b98a2a;
+  --barn: #b23a2b;
+  --barn-dark: #8f2c20;
+  --leaf: #4f7a34;
+  --leaf-dark: #3a5c26;
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem 12rem;
+  color: var(--soil);
+  font-family: "Nunito", system-ui, sans-serif;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-low) 100%);
+}
+
+/* ---------- Sky ---------- */
+.nf-sun {
+  position: absolute;
+  top: 4%;
+  right: 6%;
+  color: var(--straw);
+  pointer-events: none;
+}
+
+.nf-cloud {
+  position: absolute;
+  color: #ffffff;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.nf-cloud-a { top: 9%; left: 12%; }
+.nf-cloud-b { top: 22%; left: 52%; }
+
+/* ---------- Floating produce ---------- */
+.nf-floater {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  cursor: default;
+  filter: drop-shadow(0 4px 4px rgba(61, 43, 26, 0.2));
+}
+
+/* ---------- Content ---------- */
+.nf-content {
+  position: relative;
+  z-index: 2;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.nf-digits {
+  --digit: clamp(6.5rem, 22vw, 12rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.25rem, 1.5vw, 0.75rem);
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 900;
+  font-size: var(--digit);
+  line-height: 1;
+  color: var(--barn);
+  text-shadow: 0 0.04em 0 var(--barn-dark), 0 0.09em 0 rgba(61, 43, 26, 0.25);
+}
+
+/* The hay bale that plays the role of "0" */
+.nf-bale {
+  position: relative;
+  display: inline-block;
+  width: 0.78em;
+  height: 0.78em;
+  border-radius: 50%;
+  background:
+    /* spiral of straw */
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      var(--straw) 0,
+      var(--straw) 5%,
+      var(--straw-dark) 5.6%,
+      var(--straw-dark) 6.4%
+    );
+  border: 0.03em solid var(--straw-dark);
+  box-shadow:
+    inset 0 -0.05em 0.08em rgba(61, 43, 26, 0.35),
+    0 0.08em 0 rgba(61, 43, 26, 0.25);
+  cursor: pointer;
+}
+
+.nf-bale-hole {
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--soil) 0%, var(--soil-soft) 100%);
+  box-shadow: inset 0 0.03em 0.06em rgba(0, 0, 0, 0.5);
+}
+
+.nf-content h1 {
+  margin: 1.75rem 0 0.75rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  line-height: 1.15;
+  color: var(--soil);
+}
+
+.nf-content p {
+  margin: 0 auto 1.75rem;
+  max-width: 30rem;
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--soil-soft);
+}
+
+/* ---------- Buttons ---------- */
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+.nf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nf-btn:focus-visible {
+  outline: 3px solid var(--soil);
+  outline-offset: 3px;
+}
+
+.nf-btn-primary {
+  border: none;
+  color: #fff8e6;
+  background: var(--leaf);
+  box-shadow: 0 5px 0 var(--leaf-dark);
+}
+.nf-btn-primary:hover {
+  background: #5a8a3b;
+}
+
+.nf-btn-ghost {
+  color: var(--soil);
+  background: transparent;
+  border: 2px solid var(--soil);
+}
+.nf-btn-ghost:hover {
+  background: var(--soil);
+  color: #fff8e6;
+}
+
+/* ---------- Hills ---------- */
+.nf-hills {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: clamp(9rem, 24vh, 13rem);
+  z-index: 0;
+  pointer-events: none;
+}
+.nf-hill-back { fill: #8fb35c; }
+.nf-hill-front { fill: var(--leaf); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 640px) {
+  .nf-page {
+    padding-bottom: 9rem;
+  }
+  .nf-sun svg {
+    width: 72px;
+    height: 72px;
+  }
+  /* keep the icons from crowding the text on phones */
+  .nf-floater {
+    opacity: 0.55 !important;
+    transform-origin: center;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .nf-btn {
+    transition: none;
+  }
+}

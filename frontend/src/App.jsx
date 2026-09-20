@@ -21,7 +21,7 @@ import AIPricePrediction from "./pages/farmer/AIPricePrediction";
 import Bidding from "./pages/farmer/Bidding";
 import FPO from "./pages/farmer/FPO";
 import LandingPage from "./pages/LandingPage";
-
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -144,6 +144,9 @@ function App() {
 
 
 <Route path="/Landing" element={<LandingPage />} />
+
+<Route path="*" element={<NotFound />} />
+
 
       </Routes>
 

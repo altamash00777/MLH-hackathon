@@ -1,8 +1,42 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+
+// import api, {
+//   getMandiCrops,
+//   getMandis,
+//   getMandiPrices
+// } from "../../services/api";
+
+
+
+import {
+  Bell,
+  User,
+  Wheat,
+  Sprout,
+  Handshake,
+  IndianRupee,
+  TrendingUp,
+  MapPin,
+  Plus,
+  ArrowRight,
+  Package,
+  ShoppingBasket,
+  BarChart3,
+  ChevronDown,
+  Leaf,
+} from "lucide-react";
+import landBg from "../../assets/LAND.JPG";
 import Sidebar from "../../components/Sidebar";
 import api from "../../services/api";
+import './FarmerDashboard.css'
+import wheatImage from "../../assets/crop.png";
+import listImage from "../../assets/listing.png";
+import hand from "../../assets/handshake.png"
+import rupees from "../../assets/rupees.png"
+
 
 function FarmerDashboard() {
   const navigate = useNavigate();
@@ -26,7 +60,7 @@ function FarmerDashboard() {
   const [showPriceTrend, setShowPriceTrend] = useState(false);
 
   // =========================
-  // PROTOTYPE MANDI DATA
+  // MANDI DATA
   // =========================
 
   const mandiList = [
@@ -43,14 +77,61 @@ function FarmerDashboard() {
   ];
 
   // =========================
-  // FETCH FARMER CROPS
+  // ANIMATION VARIANTS
+  // =========================
+
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 25,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.55,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // =========================
+  // FETCH USER + CROPS
   // =========================
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("User parsing error:", error);
+      }
     }
 
     fetchCrops();
@@ -73,7 +154,7 @@ function FarmerDashboard() {
   };
 
   // =========================
-  // CALCULATE STATS
+  // STATS
   // =========================
 
   const totalCrops = crops.length;
@@ -91,7 +172,7 @@ function FarmerDashboard() {
   ).length;
 
   // =========================
-  // FILTER MANDI SUGGESTIONS
+  // MANDI SEARCH
   // =========================
 
   const filteredMandis = mandiList.filter((mandi) =>
@@ -99,11 +180,11 @@ function FarmerDashboard() {
   );
 
   // =========================
-  // PROTOTYPE PRICE DATA
+  // PRICE DATA
   // =========================
 
   const generatePriceData = () => {
-    const data = [
+    return [
       { date: "20 Aug", price: 2400 },
       { date: "21 Aug", price: 2500 },
       { date: "22 Aug", price: 2600 },
@@ -111,8 +192,6 @@ function FarmerDashboard() {
       { date: "24 Aug", price: 2700 },
       { date: "25 Aug", price: 2800 },
     ];
-
-    return data;
   };
 
   // =========================
@@ -124,7 +203,6 @@ function FarmerDashboard() {
       return;
     }
 
-    // Temporary prototype data
     const data = generatePriceData();
 
     setPriceData(data);
@@ -136,7 +214,7 @@ function FarmerDashboard() {
   };
 
   // =========================
-  // GRAPH HELPERS
+  // PRICE HELPERS
   // =========================
 
   const maxPrice =
@@ -149,8 +227,27 @@ function FarmerDashboard() {
       ? Math.min(...priceData.map((item) => item.price))
       : 0;
 
+  // =========================
+  // STATUS CLASS
+  // =========================
+
+  const getStatusClass = (status) => {
+    if (status === "active") return "status-active";
+    if (status === "matched") return "status-matched";
+    if (status === "sold") return "status-sold";
+
+    return "status-inactive";
+  };
+
   return (
     <div className="dashboard-layout">
+
+      {/* =========================
+          BACKGROUND MOTION
+      ========================= */}
+
+      <div className="background-orb green"></div>
+      <div className="background-orb orange"></div>
 
       {/* =========================
           SIDEBAR
@@ -158,179 +255,308 @@ function FarmerDashboard() {
 
       <Sidebar />
 
-      <main className="dashboard-main">
+      {/* =========================
+          MAIN
+      ========================= */}
 
+      {/* <main className="dashboard-main"> */}
+  <main
+    className="dashboard-main my-crops-page"
+    style={{
+      backgroundImage: `url(${landBg})`,
+    }}
+  >
         {/* =========================
             HEADER
         ========================= */}
 
-        <div className="dashboard-header">
+        <motion.div
+          className="dashboard-header"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
+          <div className="dashboard-heading">
 
-          <div>
+            <span className="dashboard-eyebrow">
+              <Leaf size={13} />
+              FARMER DASHBOARD
+            </span>
+
             <h1>
-              Welcome, {user?.name || "Farmer"} 👋
+              Welcome,{" "}
+              <span>
+                {user?.name || "Farmer"}
+              </span>{" "}
+              👋
             </h1>
 
             <p>
-              Manage your crops and connect with buyers.
+              Manage your crops, track market prices and connect
+              with potential buyers.
             </p>
-          </div>
 
+          </div>
 
           <div className="header-actions">
 
+            {/* Notification */}
 
-<button
-  className="notification-button"
-  onClick={() => navigate("/farmer/notifications")}
-  title="Notifications"
->
-  🔔
-</button>
+            <motion.button
+              className="notification-button"
+              onClick={() =>
+                navigate("/farmer/notifications")
+              }
+              title="Notifications"
+              whileHover={{
+                scale: 1.08,
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+            >
+              <Bell size={19} />
 
-            {/* PROFILE */}
+              <span className="notification-dot"></span>
+            </motion.button>
 
-            {/* <div className="profile-circle">
+            {/* Profile */}
+
+            <motion.div
+              className="profile-circle"
+              onClick={() =>
+                navigate("/farmer/profile")
+              }
+              title="View Profile"
+              whileHover={{
+                scale: 1.08,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+            >
               {user?.name
                 ? user.name.charAt(0).toUpperCase()
                 : "F"}
-
-            </div> */}
-{/* PROFILE */}
-<div
-  className="profile-circle"
-  onClick={() => navigate("/farmer/profile")}
-  title="View Profile"
->
-  {user?.name
-    ? user.name.charAt(0).toUpperCase()
-    : "F"}
-</div>
-
-
-
+            </motion.div>
 
           </div>
-
-        </div>
-
+        </motion.div>
 
         {/* =========================
             STAT CARDS
         ========================= */}
 
-        <div className="stats-grid">
+        <motion.div
+          className="stats-grid"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
 
-          {/* Total */}
+          {/* TOTAL */}
 
-          <div className="stat-card">
+          <motion.div
+            className="stat-card stat-green"
+            variants={cardVariants}
+            whileHover={{
+              y: -6,
+              scale: 1.02,
+            }}
+          >
+            <div className="stat-card-top">
 
-            <div className="stat-icon">
-              🌾
+              {/* <div className="stat-icon">
+                <Wheat size={20} />
+              </div> */}
+<div className="stat-icon">
+  <img src={wheatImage} alt="Wheat" />
+</div>
+
+
+              <span className="stat-label">
+                TOTAL
+              </span>
+
             </div>
 
-            <div>
-
-              <p>Total Crops</p>
+            <div className="stat-bottom">
 
               <h2>
                 {loading ? "..." : totalCrops}
               </h2>
 
+              <span>
+                Crop Listings
+              </span>
+
+            </div>
+          </motion.div>
+
+
+          {/* ACTIVE */}
+
+          <motion.div
+            className="stat-card stat-active-card"
+            variants={cardVariants}
+            whileHover={{
+              y: -6,
+              scale: 1.02,
+            }}
+          >
+            <div className="stat-card-top">
+
+<div className="stat-icon">
+  <img src={listImage} alt="Sprout" />
+</div>
+
+              <span className="stat-label">
+                ACTIVE
+              </span>
+
             </div>
 
-          </div>
-
-
-          {/* Active */}
-
-          <div className="stat-card">
-
-            <div className="stat-icon">
-              🟢
-            </div>
-
-            <div>
-
-              <p>Active Crops</p>
+            <div className="stat-bottom">
 
               <h2>
                 {loading ? "..." : activeCrops}
               </h2>
 
+              <span>
+                Available
+              </span>
+
+            </div>
+          </motion.div>
+
+
+          {/* MATCHED */}
+
+          <motion.div
+            className="stat-card stat-match-card"
+            variants={cardVariants}
+            whileHover={{
+              y: -6,
+              scale: 1.02,
+            }}
+          >
+            <div className="stat-card-top">
+
+<div className="stat-icon">
+  <img src={hand} alt="Handshake" />
+</div>
+
+              <span className="stat-label">
+                MATCHED
+              </span>
+
             </div>
 
-          </div>
-
-
-          {/* Matched */}
-
-          <div className="stat-card">
-
-            <div className="stat-icon">
-              🤝
-            </div>
-
-            <div>
-
-              <p>Matched</p>
+            <div className="stat-bottom">
 
               <h2>
                 {loading ? "..." : matchedCrops}
               </h2>
 
+              <span>
+                Buyer Matches
+              </span>
+
+            </div>
+          </motion.div>
+
+
+          {/* SOLD */}
+
+          <motion.div
+            className="stat-card stat-sold-card"
+            variants={cardVariants}
+            whileHover={{
+              y: -6,
+              scale: 1.02,
+            }}
+          >
+            <div className="stat-card-top">
+
+              {/* <div className="stat-icon">
+                <IndianRupee size={20} />
+              </div> */}
+<div className="stat-icon">
+  <img src={rupees} alt="paisa" />
+</div>
+              <span className="stat-label">
+                SOLD
+              </span>
+
             </div>
 
-          </div>
-
-
-          {/* Sold */}
-
-          <div className="stat-card">
-
-            <div className="stat-icon">
-              💰
-            </div>
-
-            <div>
-
-              <p>Sold</p>
+            <div className="stat-bottom">
 
               <h2>
                 {loading ? "..." : soldCrops}
               </h2>
 
+              <span>
+                Completed
+              </span>
+
             </div>
+          </motion.div>
 
-          </div>
-
-        </div>
+        </motion.div>
 
 
         {/* =========================
             MARKET PRICE
         ========================= */}
 
-        <div className="dashboard-section market-price-section">
+        <motion.section
+          className="dashboard-section market-price-section"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
 
-          <div className="section-header">
+          <div className="section-header compact-header">
 
-            <h2>
-              📈 Market Prices
-            </h2>
+            <div>
+              <span className="section-tag">
+                MARKET INTELLIGENCE
+              </span>
 
-            <p>
-              Check current and historical mandi prices
-              for your crop.
-            </p>
+              <h2>
+                Market Prices
+              </h2>
+
+              <p>
+                Check historical mandi prices for your crop.
+              </p>
+            </div>
+
+            <div className="section-header-icon">
+              <TrendingUp size={22} />
+            </div>
 
           </div>
 
 
-          <div className="market-price-card">
+          <motion.div
+            className="market-price-card"
+            whileHover={{
+              y: -4,
+            }}
+            transition={{
+              duration: 0.25,
+            }}
+          >
 
             <div className="market-price-icon">
-              🌾
+              <BarChart3 size={24} />
             </div>
 
 
@@ -341,8 +567,8 @@ function FarmerDashboard() {
               </h3>
 
               <p>
-                Enter a crop and mandi to view its
-                historical market price trend.
+                Enter your crop and mandi to view the
+                available price trend.
               </p>
 
 
@@ -353,16 +579,16 @@ function FarmerDashboard() {
                 <div className="market-price-input">
 
                   <label>
-                    Enter Crop Name
+                    Crop Name
                   </label>
 
                   <input
                     type="text"
                     placeholder="e.g. Wheat"
                     value={cropName}
-                    onChange={(e) =>
-                      setCropName(e.target.value)
-                    }
+                    onChange={(e) => {
+                      setCropName(e.target.value);
+                    }}
                   />
 
                 </div>
@@ -373,30 +599,44 @@ function FarmerDashboard() {
                 <div className="market-price-input mandi-input">
 
                   <label>
-                    Enter Mandi
+                    Mandi
                   </label>
 
-                  <input
-                    type="text"
-                    placeholder="e.g. Varanasi"
-                    value={mandiName}
-                    onChange={(e) => {
-                      setMandiName(e.target.value);
-                      setShowMandiSuggestions(true);
-                    }}
-                    onFocus={() =>
-                      setShowMandiSuggestions(true)
-                    }
-                  />
+                  <div className="input-with-icon">
 
+                    <MapPin size={15} />
 
-                  {/* AUTOCOMPLETE */}
+                    <input
+                      type="text"
+                      placeholder="e.g. Varanasi"
+                      value={mandiName}
+                      onChange={(e) => {
+                        setMandiName(e.target.value);
+                        setShowMandiSuggestions(true);
+                      }}
+                      onFocus={() =>
+                        setShowMandiSuggestions(true)
+                      }
+                    />
+
+                  </div>
+
 
                   {showMandiSuggestions &&
                     mandiName &&
                     filteredMandis.length > 0 && (
 
-                      <div className="mandi-suggestions">
+                      <motion.div
+                        className="mandi-suggestions"
+                        initial={{
+                          opacity: 0,
+                          y: -5,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                      >
 
                         {filteredMandis.map((mandi) => (
 
@@ -404,21 +644,17 @@ function FarmerDashboard() {
                             key={mandi}
                             className="mandi-suggestion"
                             onClick={() => {
-
                               setMandiName(mandi);
-
                               setShowMandiSuggestions(false);
-
                             }}
                           >
-
-                            📍 {mandi}
-
+                            <MapPin size={14} />
+                            {mandi}
                           </div>
 
                         ))}
 
-                      </div>
+                      </motion.div>
 
                     )}
 
@@ -430,278 +666,387 @@ function FarmerDashboard() {
                 <div className="market-price-input">
 
                   <label>
-                    Price History
+                    History
                   </label>
 
-                  <select
-                    value={period}
-                    onChange={(e) =>
-                      setPeriod(e.target.value)
-                    }
-                  >
+                  <div className="select-wrapper">
 
-                    <option value="7">
-                      Last 7 Days
-                    </option>
+                    <select
+                      value={period}
+                      onChange={(e) =>
+                        setPeriod(e.target.value)
+                      }
+                    >
 
-                    <option value="30">
-                      Last 30 Days
-                    </option>
+                      <option value="7">
+                        Last 7 Days
+                      </option>
 
-                    <option value="90">
-                      Last 3 Months
-                    </option>
+                      <option value="30">
+                        Last 30 Days
+                      </option>
 
-                  </select>
+                      <option value="90">
+                        Last 3 Months
+                      </option>
+
+                    </select>
+
+                    <ChevronDown size={15} />
+
+                  </div>
 
                 </div>
 
 
                 {/* BUTTON */}
 
-                <button
+                <motion.button
                   className="market-price-button"
                   disabled={
                     !cropName.trim() ||
                     !mandiName.trim()
                   }
                   onClick={handleViewPriceTrend}
+                  whileHover={
+                    cropName.trim() &&
+                    mandiName.trim()
+                      ? {
+                          scale: 1.02,
+                        }
+                      : {}
+                  }
+                  whileTap={{
+                    scale: 0.97,
+                  }}
                 >
-                  View Price Trend →
-                </button>
+                  <TrendingUp size={16} />
+
+                  View Trend
+
+                  <ArrowRight size={15} />
+                </motion.button>
 
               </div>
 
             </div>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.section>
 
 
         {/* =========================
             PRICE TREND
         ========================= */}
 
-        {showPriceTrend && priceData.length > 0 && (
+        {showPriceTrend &&
+          priceData.length > 0 && (
 
-          <div className="dashboard-section">
+            <motion.section
+              className="dashboard-section"
+              initial={{
+                opacity: 0,
+                y: 25,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.5,
+              }}
+            >
 
-            <div className="section-header">
-
-              <h2>
-                {cropName} Price Trend
-              </h2>
-
-              <p>
-                {mandiName} Mandi • Last{" "}
-                {period === "7"
-                  ? "7 Days"
-                  : period === "30"
-                  ? "30 Days"
-                  : "3 Months"}
-              </p>
-
-            </div>
-
-
-            <div className="price-trend-card">
-
-
-              {/* PRICE SUMMARY */}
-
-              <div className="price-summary">
+              <div className="section-header compact-header">
 
                 <div>
 
-                  <span>
-                    Latest Price
+                  <span className="section-tag">
+                    PRICE ANALYSIS
                   </span>
 
-                  <strong>
-                    ₹{priceData[priceData.length - 1].price}
-                  </strong>
+                  <h2>
+                    {cropName} Price Trend
+                  </h2>
 
-                  <small>
-                    per quintal
-                  </small>
+                  <p>
+                    {mandiName} Mandi • Last{" "}
+                    {period === "7"
+                      ? "7 Days"
+                      : period === "30"
+                      ? "30 Days"
+                      : "3 Months"}
+                  </p>
 
                 </div>
 
-
-                <div>
-
-                  <span>
-                    Lowest
-                  </span>
-
-                  <strong>
-                    ₹{minPrice}
-                  </strong>
-
-                </div>
-
-
-                <div>
-
-                  <span>
-                    Highest
-                  </span>
-
-                  <strong>
-                    ₹{maxPrice}
-                  </strong>
-
+                <div className="section-header-icon orange-icon">
+                  <TrendingUp size={22} />
                 </div>
 
               </div>
 
 
-              {/* GRAPH */}
+              <div className="price-trend-card">
 
-              <div className="price-chart">
+                {/* SUMMARY */}
 
-                <div className="chart-y-axis">
+                <div className="price-summary">
 
-                  <span>
-                    ₹2800
-                  </span>
+                  <motion.div
+                    whileHover={{
+                      y: -3,
+                    }}
+                  >
+                    <span>
+                      Latest Price
+                    </span>
 
-                  <span>
-                    ₹2700
-                  </span>
+                    <strong>
+                      ₹
+                      {priceData[
+                        priceData.length - 1
+                      ].price}
+                    </strong>
 
-                  <span>
-                    ₹2600
-                  </span>
+                    <small>
+                      per quintal
+                    </small>
+                  </motion.div>
 
-                  <span>
-                    ₹2500
-                  </span>
 
-                  <span>
-                    ₹2400
-                  </span>
+                  <motion.div
+                    whileHover={{
+                      y: -3,
+                    }}
+                  >
+                    <span>
+                      Lowest
+                    </span>
+
+                    <strong>
+                      ₹{minPrice}
+                    </strong>
+
+                  </motion.div>
+
+
+                  <motion.div
+                    whileHover={{
+                      y: -3,
+                    }}
+                  >
+                    <span>
+                      Highest
+                    </span>
+
+                    <strong>
+                      ₹{maxPrice}
+                    </strong>
+
+                  </motion.div>
 
                 </div>
 
 
-                <div className="chart-area">
+                {/* GRAPH */}
 
-                  <div className="chart-grid-lines">
+                <div className="price-chart">
 
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                  <div className="chart-y-axis">
+
+                    <span>
+                      ₹2800
+                    </span>
+
+                    <span>
+                      ₹2700
+                    </span>
+
+                    <span>
+                      ₹2600
+                    </span>
+
+                    <span>
+                      ₹2500
+                    </span>
+
+                    <span>
+                      ₹2400
+                    </span>
 
                   </div>
 
 
-                  <div className="chart-points">
+                  <div className="chart-area">
 
-                    {priceData.map((item, index) => {
+                    <div className="chart-grid-lines">
 
-                      const range =
-                        maxPrice - minPrice || 1;
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
 
-                      const bottom =
-                        ((item.price - minPrice) /
-                          range) *
-                          75 +
-                        10;
+                    </div>
 
-                      const left =
-                        (index /
-                          (priceData.length - 1)) *
-                          90 +
-                        5;
 
-                      return (
+                    <div className="chart-points">
 
-                        <div
-                          key={item.date}
-                          className="chart-point-wrapper"
-                          style={{
-                            left: `${left}%`,
-                            bottom: `${bottom}%`,
-                          }}
-                        >
+                      {priceData.map(
+                        (item, index) => {
 
-                          <div className="chart-point">
+                          const range =
+                            maxPrice -
+                              minPrice ||
+                            1;
 
-                            <span>
-                              ₹{item.price}
-                            </span>
+                          const bottom =
+                            ((item.price -
+                              minPrice) /
+                              range) *
+                              70 +
+                            10;
 
-                          </div>
+                          const left =
+                            (index /
+                              (priceData.length -
+                                1)) *
+                              90 +
+                            5;
 
-                          <small>
-                            {item.date}
-                          </small>
+                          return (
+                            <motion.div
+                              key={item.date}
+                              className="chart-point-wrapper"
+                              style={{
+                                left: `${left}%`,
+                                bottom: `${bottom}%`,
+                              }}
+                              initial={{
+                                opacity: 0,
+                                scale: 0,
+                              }}
+                              animate={{
+                                opacity: 1,
+                                scale: 1,
+                              }}
+                              transition={{
+                                delay:
+                                  index * 0.1,
+                                duration: 0.35,
+                              }}
+                            >
 
-                        </div>
+                              <div className="chart-point">
 
-                      );
+                                <span>
+                                  ₹{item.price}
+                                </span>
 
-                    })}
+                              </div>
+
+                              <small>
+                                {item.date}
+                              </small>
+
+                            </motion.div>
+                          );
+                        }
+                      )}
+
+                    </div>
 
                   </div>
 
                 </div>
 
+
+                <div className="chart-note">
+
+                  <TrendingUp size={15} />
+
+                  Showing available market price
+                  observations for {mandiName}.
+
+                </div>
+
               </div>
 
-
-              <div className="chart-note">
-
-                📊 Showing available market price
-                observations for {mandiName}.
-
-              </div>
-
-            </div>
-
-          </div>
-
-        )}
+            </motion.section>
+          )}
 
 
         {/* =========================
             QUICK ACTIONS
         ========================= */}
 
-        <div className="dashboard-section">
+        <motion.section
+          className="dashboard-section"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
 
-          <div className="section-header">
+          <div className="section-header compact-header">
 
-            <h2>
-              Quick Actions
-            </h2>
+            <div>
 
-            <p>
-              Manage your marketplace activities.
-            </p>
+              <span className="section-tag">
+                QUICK ACCESS
+              </span>
+
+              <h2>
+                Quick Actions
+              </h2>
+
+              <p>
+                Manage your marketplace activities.
+              </p>
+
+            </div>
 
           </div>
 
 
-          <div className="action-grid">
+          <motion.div
+            className="action-grid"
+            variants={containerVariants}
+          >
 
+            {/* ADD CROP */}
 
-            {/* Add Crop */}
-
-            <div
-              className="action-card"
+            <motion.div
+              className="action-card quick-action-item"
+              variants={cardVariants}
+              whileHover={{
+                y: -7,
+                scale: 1.015,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
               onClick={() =>
                 navigate("/farmer/add-crop")
               }
             >
 
-              <div className="action-icon">
-                🌱
+              <div className="action-card-top">
+
+                <div className="action-icon">
+                  <Plus size={21} />
+                </div>
+
+                <ArrowRight
+                  className="action-arrow"
+                  size={18}
+                />
+
               </div>
 
               <h3>
@@ -713,24 +1058,42 @@ function FarmerDashboard() {
                 buyers.
               </p>
 
-              <span>
-                Add Crop →
+              <span className="action-link">
+                Add Crop
+                <ArrowRight size={14} />
               </span>
 
-            </div>
+            </motion.div>
 
 
-            {/* My Crops */}
+            {/* MY CROPS */}
 
-            <div
-              className="action-card"
+            <motion.div
+              className="action-card quick-action-item"
+              variants={cardVariants}
+              whileHover={{
+                y: -7,
+                scale: 1.015,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
               onClick={() =>
                 navigate("/farmer/crops")
               }
             >
 
-              <div className="action-icon">
-                🌾
+              <div className="action-card-top">
+
+                <div className="action-icon">
+                  <Package size={21} />
+                </div>
+
+                <ArrowRight
+                  className="action-arrow"
+                  size={18}
+                />
+
               </div>
 
               <h3>
@@ -741,158 +1104,317 @@ function FarmerDashboard() {
                 View and manage your crop listings.
               </p>
 
-              <span>
-                View Crops →
+              <span className="action-link">
+                View Crops
+                <ArrowRight size={14} />
               </span>
 
-            </div>
+            </motion.div>
 
-          </div>
 
-        </div>
+            {/* NOTIFICATIONS */}
+
+            <motion.div
+              className="action-card quick-action-item"
+              variants={cardVariants}
+              whileHover={{
+                y: -7,
+                scale: 1.015,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              onClick={() =>
+                navigate("/farmer/notifications")
+              }
+            >
+
+              <div className="action-card-top">
+
+                <div className="action-icon">
+                  <Bell size={21} />
+                </div>
+
+                <ArrowRight
+                  className="action-arrow"
+                  size={18}
+                />
+
+              </div>
+
+              <h3>
+                Notifications
+              </h3>
+
+              <p>
+                Check buyer matches and marketplace
+                updates.
+              </p>
+
+              <span className="action-link">
+                View Updates
+                <ArrowRight size={14} />
+              </span>
+
+            </motion.div>
+
+          </motion.div>
+
+        </motion.section>
 
 
         {/* =========================
             RECENT CROPS
         ========================= */}
 
-        <div className="dashboard-section">
+        <motion.section
+          className="dashboard-section"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{
+            once: true,
+            amount: 0.15,
+          }}
+        >
 
-          <div className="section-header">
+          <div className="section-header compact-header">
 
-            <h2>
-              Recent Crops
-            </h2>
+            <div>
 
-            <p>
-              Your latest crop listings.
-            </p>
+              <span className="section-tag">
+                YOUR LISTINGS
+              </span>
+
+              <h2>
+                Recent Crops
+              </h2>
+
+              <p>
+                Your latest crop listings.
+              </p>
+
+            </div>
+
+            {crops.length > 3 && (
+
+              <motion.button
+                className="section-view-button"
+                onClick={() =>
+                  navigate("/farmer/crops")
+                }
+                whileHover={{
+                  x: 4,
+                }}
+              >
+                View All
+                <ArrowRight size={15} />
+              </motion.button>
+
+            )}
 
           </div>
 
 
-          {crops.length === 0 && !loading && (
+          {/* EMPTY */}
 
-            <div className="empty-state">
+          {crops.length === 0 &&
+            !loading && (
 
-              <div className="empty-icon">
-                🌱
-              </div>
-
-              <h3>
-                No crops yet
-              </h3>
-
-              <p>
-                Add your first crop to get started.
-              </p>
-
-              <button
-                onClick={() =>
-                  navigate("/farmer/add-crop")
-                }
+              <motion.div
+                className="empty-state"
+                initial={{
+                  opacity: 0,
+                  scale: 0.96,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
               >
-                Add Crop
-              </button>
 
-            </div>
+                <div className="empty-icon">
+                  <Sprout size={27} />
+                </div>
 
-          )}
+                <h3>
+                  No crops yet
+                </h3>
 
+                <p>
+                  Add your first crop to start
+                  connecting with buyers.
+                </p>
+
+                <motion.button
+                  onClick={() =>
+                    navigate("/farmer/add-crop")
+                  }
+                  whileHover={{
+                    scale: 1.04,
+                  }}
+                  whileTap={{
+                    scale: 0.97,
+                  }}
+                >
+                  <Plus size={16} />
+                  Add Crop
+                </motion.button>
+
+              </motion.div>
+            )}
+
+
+          {/* CROP CARDS */}
 
           {crops.length > 0 && (
 
-            <div className="my-crops-grid">
+            <motion.div
+              className="my-crops-grid"
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+            >
 
-              {crops.slice(0, 3).map((crop) => (
+              {crops
+                .slice(0, 3)
+                .map((crop) => (
 
-                <div
-                  className="my-crop-card"
-                  key={crop._id}
-                >
+                  <motion.div
+                    className="my-crop-card"
+                    key={crop._id}
+                    variants={cardVariants}
+                    whileHover={{
+                      y: -6,
+                    }}
+                  >
 
-                  <div className="my-crop-top">
+                    <div className="my-crop-top">
 
-                    <div className="my-crop-icon">
-                      🌾
-                    </div>
+                      <div className="my-crop-icon">
+                        <Wheat size={19} />
+                      </div>
 
-                    <span className="my-crop-status">
-                      {crop.status}
-                    </span>
-
-                  </div>
-
-
-                  <h2>
-                    {crop.cropName}
-                  </h2>
-
-
-                  <div className="my-crop-info">
-
-                    <div className="my-crop-info-item">
-
-                      <span>
-                        Quantity
+                      <span
+                        className={`my-crop-status ${getStatusClass(
+                          crop.status
+                        )}`}
+                      >
+                        {crop.status}
                       </span>
 
-                      <strong>
-                        {crop.quantity} kg
-                      </strong>
+                    </div>
+
+
+                    <div className="crop-title-row">
+
+                      <div>
+
+                        <span className="crop-label">
+                          CROP LISTING
+                        </span>
+
+                        <h3>
+                          {crop.cropName}
+                        </h3>
+
+                      </div>
+
+                      <ShoppingBasket
+                        size={18}
+                        className="crop-basket-icon"
+                      />
 
                     </div>
 
 
-                    <div className="my-crop-info-item">
+                    <div className="my-crop-info">
 
-                      <span>
-                        Expected Price
-                      </span>
+                      <div className="my-crop-info-item">
 
-                      <strong>
-                        ₹{crop.expectedPrice}/kg
-                      </strong>
+                        <span>
+                          Quantity
+                        </span>
+
+                        <strong>
+                          {crop.quantity} kg
+                        </strong>
+
+                      </div>
+
+
+                      <div className="my-crop-info-item">
+
+                        <span>
+                          Price
+                        </span>
+
+                        <strong>
+                          ₹
+                          {crop.expectedPrice ||
+                            "—"}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="my-crop-info-item">
+
+                        <span>
+                          Quality
+                        </span>
+
+                        <strong>
+                          {crop.quality ||
+                            "—"}
+                        </strong>
+
+                      </div>
+
+
+                      <div className="my-crop-info-item">
+
+                        <span>
+                          Grade
+                        </span>
+
+                        <strong>
+                          {crop.grade ||
+                            "—"}
+                        </strong>
+
+                      </div>
 
                     </div>
 
 
-                    <div className="my-crop-info-item">
+                    <motion.button
+                      className="crop-view-button"
+                      onClick={() =>
+                        navigate(
+                          "/farmer/crops"
+                        )
+                      }
+                      whileHover={{
+                        x: 3,
+                      }}
+                    >
+                      Manage Listing
+                      <ArrowRight
+                        size={14}
+                      />
+                    </motion.button>
 
-                      <span>
-                        Quality
-                      </span>
+                  </motion.div>
 
-                      <strong>
-                        {crop.quality}
-                      </strong>
+                ))}
 
-                    </div>
-
-
-                    <div className="my-crop-info-item">
-
-                      <span>
-                        Grade
-                      </span>
-
-                      <strong>
-                        {crop.grade}
-                      </strong>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              ))}
-
-            </div>
+            </motion.div>
 
           )}
 
-        </div>
+
+        </motion.section>
 
 
         {/* =========================
@@ -901,15 +1423,21 @@ function FarmerDashboard() {
 
         {crops.length > 3 && (
 
-          <button
+          <motion.button
             className="submit-button"
             onClick={() =>
               navigate("/farmer/crops")
             }
-            style={{ marginTop: "20px" }}
+            whileHover={{
+              scale: 1.02,
+            }}
+            whileTap={{
+              scale: 0.98,
+            }}
           >
             View All Crops
-          </button>
+            <ArrowRight size={16} />
+          </motion.button>
 
         )}
 

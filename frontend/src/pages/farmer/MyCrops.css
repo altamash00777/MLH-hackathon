@@ -1,0 +1,304 @@
+/* =========================
+   MY CROPS
+========================= */
+
+.my-crops-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.my-crops-title h1 {
+  margin: 0;
+  color: #164b28;
+  font-size: 27px;
+}
+
+.my-crops-title p {
+  margin: 5px 0;
+  color: #718078;
+  font-size: 13px;
+}
+
+.add-crop-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 9px;
+  background: #18552d;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-crop-btn:hover {
+  background: #0f3d20;
+}
+
+/* Grid */
+
+.my-crops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 15px;
+}
+
+/* Card */
+
+.my-crop-card {
+  background: #fff;
+  border: 1px solid #dfe8dc;
+  border-radius: 13px;
+  padding: 15px;
+
+  box-shadow: 0 5px 15px rgba(30, 70, 40, 0.06);
+  transition: 0.2s;
+}
+
+.my-crop-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 70, 40, 0.1);
+}
+
+/* Top */
+
+.my-crop-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-crop-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  background: #e3f0df;
+  font-size: 19px;
+}
+
+.my-crop-status {
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: #e6f2df;
+  color: #32703d;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Crop name */
+
+.my-crop-card h2 {
+  margin: 11px 0;
+  font-size: 18px;
+  color: #193f25;
+}
+
+/* Information */
+
+.my-crop-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.my-crop-info-item {
+  padding: 8px;
+  border-radius: 8px;
+  background: #f4f7f2;
+}
+
+.my-crop-info-item span {
+  display: block;
+  font-size: 10px;
+  color: #7a857d;
+  margin-bottom: 3px;
+}
+
+.my-crop-info-item strong {
+  display: block;
+  font-size: 12px;
+  color: #315a39;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Buttons */
+
+.my-crop-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.my-crop-buttons button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-crop-edit-btn {
+  border: 1px solid #2d7040;
+  background: #e8f3e4;
+  color: #236235;
+}
+
+.my-crop-delete-btn {
+  border: 1px solid #c8a85b;
+  background: #fff7df;
+  color: #8a681f;
+}
+
+.my-crop-edit-btn:hover {
+  background: #d8ebd3;
+}
+
+.my-crop-delete-btn:hover {
+  background: #f9edc9;
+}
+
+/* Empty */
+
+.my-crops-empty {
+  padding: 45px 20px;
+  text-align: center;
+  background: #fff;
+  border: 1px dashed #cbdac8;
+  border-radius: 14px;
+}
+
+/* .my-crops-empty-icon {
+  font-size: 35px;
+  margin-bottom: 8px;
+} */
+.my-crops-empty-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e9f7df;
+  border: 2px solid #2f8f46;
+}
+
+.my-crops-empty-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.my-crops-empty h3 {
+  margin: 5px;
+  color: #234a2d;
+}
+
+.my-crops-empty p {
+  color: #78837b;
+  font-size: 13px;
+}
+
+.my-crops-empty button {
+  border: none;
+  padding: 9px 15px;
+  border-radius: 8px;
+  background: #18552d;
+  color: white;
+  cursor: pointer;
+}
+
+/* Error */
+
+.error-message {
+  padding: 13px;
+  border-radius: 9px;
+  background: #fff0ed;
+  color: #a04435;
+  font-size: 13px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .my-crops-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .my-crops-title h1 {
+    font-size: 23px;
+  }
+
+  .add-crop-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .my-crops-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .my-crop-card {
+    padding: 13px;
+  }
+
+  .my-crop-info {
+    gap: 6px;
+  }
+
+  .my-crop-info-item {
+    padding: 7px;
+  }
+}
+
+/* .my-crops-page {
+  width: 100% !important;
+  min-height: 100vh !important;
+
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+
+  box-sizing: border-box;
+} */
+
+.my-crops-page {
+  min-height: 100vh !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  box-sizing: border-box;
+}
+.my-crop-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #e3f0df;
+  overflow: hidden;
+}
+
+.my-crop-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

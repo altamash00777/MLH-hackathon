@@ -17,11 +17,6 @@ const calculateNetRealization =
 const findFarmerMatches = async (req, res) => {
   try {
 
-    console.log(
-      "LOGGED IN FARMER ID:",
-      req.user._id
-    );
-
     const listings =
       await FarmerListing.find({
         farmerId: req.user._id,
@@ -33,34 +28,22 @@ const findFarmerMatches = async (req, res) => {
         status: "open"
       });
 
-    console.log(
-      "FARMER LISTINGS:",
-      listings.length
-    );
-
-    console.log(
-      "BUYER REQUIREMENTS:",
-      requirements.length
-    );
-
 
     // =================================================
     // CREATE / REUSE MATCHES
     // =================================================
 
-    for (const listing of listings) {
+const matchPromises = [];
 
-      for (const requirement of requirements) {
+for (const listing of listings) {
+  for (const requirement of requirements) {
+    matchPromises.push(
+      createMatch(listing, requirement)
+    );
+  }
+}
 
-        await createMatch(
-          listing,
-          requirement
-        );
-
-      }
-
-    }
-
+await Promise.all(matchPromises);
 
     // =================================================
     // GET MATCHES
@@ -275,18 +258,17 @@ const findBuyerMatches = async (req, res) => {
     // CREATE / REUSE MATCHES
     // =================================================
 
-    for (const listing of listings) {
+const matchPromises = [];
 
-      for (const requirement of requirements) {
+for (const listing of listings) {
+  for (const requirement of requirements) {
+    matchPromises.push(
+      createMatch(listing, requirement)
+    );
+  }
+}
 
-        await createMatch(
-          listing,
-          requirement
-        );
-
-      }
-
-    }
+await Promise.all(matchPromises);
 
 
     // =================================================

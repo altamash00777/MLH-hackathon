@@ -18,7 +18,7 @@ import HowItWorks from "../components/landing/HowItWorks";
 import Features from "../components/landing/Features";
 import SmartMatching from "../components/landing/SmartMatching";
 import MarketIntelligence from "../components/landing/MarketIntelligence";
-
+import farmImage from "../assets/f.jpeg"
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -528,11 +528,13 @@ const LandingPage = () => {
 
           <div className="visual-circle circle-main">
 
-            <div className="farm-emoji">
+            {/* <div className="farm-emoji">
               🌾
-            </div>
-
-          </div>
+            </div> */}
+<div className="farm-circle">
+  <img src={farmImage} alt="Farmer" 
+  className="farm-image" />
+</div>          </div>
 
 
 

@@ -1004,3 +1004,36 @@ html {
 
 
 }
+
+.farm-circle {
+  position: relative;
+  width: 390px;
+  height: 390px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  /* Your existing circle background */
+  background: linear-gradient(
+    145deg,
+    #f2f8d8,
+    #b9dda8
+  );
+
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.farm-image {
+  position: absolute;
+
+  /* THIS keeps it inside the circle */
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+}

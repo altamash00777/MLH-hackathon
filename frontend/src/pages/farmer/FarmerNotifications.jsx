@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
+import "./FarmerNotification.css"
 
 function FarmerNotifications() {
   const [notifications, setNotifications] = useState([]);
@@ -145,7 +146,7 @@ function FarmerNotifications() {
             HEADER
         ========================== */}
 
-        <div className="page-header">
+        <div className="page-headerN">
 
           <div>
 
@@ -292,7 +293,7 @@ function FarmerNotifications() {
                     key={notification._id}
                     className={
                       notification.isRead
-                        ? "notification-card read"
+                        ? "notification-card-read"
                         : "notification-card unread"
                     }
                     onClick={() =>
