@@ -1,7 +1,7 @@
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./Sidebar.css"
+import "./Sidebar.css";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -41,7 +41,6 @@ function Sidebar() {
         {isOpen ? "✕" : "☰"}
       </button>
 
-
       {/* ================================
           MOBILE OVERLAY
       ================================= */}
@@ -53,22 +52,32 @@ function Sidebar() {
         />
       )}
 
-
       {/* ================================
           SIDEBAR
       ================================= */}
 
-      <aside className={`sidebar ${isOpen ? "sidebar-open" : ""}`}>
+      <aside
+        className={`sidebar ${
+          isOpen ? "sidebar-open" : ""
+        }`}
+      >
 
-        {/* Logo */}
+        {/* ================================
+            LOGO
+        ================================= */}
+
         <div className="sidebar-logo">
           <span>🌱</span>
           <h2>Dishaa</h2>
         </div>
 
+        {/* ================================
+            NAVIGATION
+        ================================= */}
 
-        {/* Navigation */}
         <nav className="sidebar-nav">
+
+          {/* Dashboard */}
 
           <NavLink
             to="/farmer/dashboard"
@@ -82,6 +91,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Add Crop */}
+
           <NavLink
             to="/farmer/add-crop"
             onClick={handleNavClick}
@@ -93,6 +104,8 @@ function Sidebar() {
             Add Crop
           </NavLink>
 
+
+          {/* My Crops */}
 
           <NavLink
             to="/farmer/crops"
@@ -106,6 +119,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Matches */}
+
           <NavLink
             to="/farmer/matches"
             onClick={handleNavClick}
@@ -117,6 +132,36 @@ function Sidebar() {
             Matches
           </NavLink>
 
+
+          {/* Deals */}
+
+          <NavLink
+            to="/farmer/deals"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <span>📑</span>
+            Deals
+          </NavLink>
+
+
+          {/* Market Intelligence */}
+
+          <NavLink
+            to="/farmer/market-intelligence"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <span>📈</span>
+            Market Intelligence
+          </NavLink>
+
+
+          {/* AI Price Prediction */}
 
           <NavLink
             to="/farmer/ai-price-prediction"
@@ -130,6 +175,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Bidding */}
+
           <NavLink
             to="/farmer/bidding"
             onClick={handleNavClick}
@@ -141,6 +188,8 @@ function Sidebar() {
             Bidding
           </NavLink>
 
+
+          {/* FPO */}
 
           <NavLink
             to="/farmer/fpo"
@@ -154,6 +203,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Orders */}
+
           <NavLink
             to="/farmer/orders"
             onClick={handleNavClick}
@@ -165,6 +216,8 @@ function Sidebar() {
             Orders
           </NavLink>
 
+
+          {/* Payment */}
 
           <NavLink
             to="/farmer/payment"
@@ -178,6 +231,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Transaction */}
+
           <NavLink
             to="/farmer/transactions"
             onClick={handleNavClick}
@@ -189,6 +244,8 @@ function Sidebar() {
             Transaction
           </NavLink>
 
+
+          {/* Storage */}
 
           <NavLink
             to="/farmer/storage"
@@ -202,6 +259,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Verified Buyer */}
+
           <NavLink
             to="/farmer/verified-buyer"
             onClick={handleNavClick}
@@ -213,6 +272,8 @@ function Sidebar() {
             Verified Buyer
           </NavLink>
 
+
+          {/* Price Trend */}
 
           <NavLink
             to="/farmer/price-trend"
@@ -226,6 +287,8 @@ function Sidebar() {
           </NavLink>
 
 
+          {/* Notifications */}
+
           <NavLink
             to="/farmer/notifications"
             onClick={handleNavClick}
@@ -237,6 +300,8 @@ function Sidebar() {
             Notification
           </NavLink>
 
+
+          {/* Profile */}
 
           <NavLink
             to="/farmer/profile"
@@ -252,7 +317,10 @@ function Sidebar() {
         </nav>
 
 
-        {/* Logout */}
+        {/* ================================
+            LOGOUT
+        ================================= */}
+
         <button
           className="logout-button"
           onClick={handleLogout}

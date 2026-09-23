@@ -22,6 +22,11 @@ import Bidding from "./pages/farmer/Bidding";
 import FPO from "./pages/farmer/FPO";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound/NotFound";
+import FarmerDeals from "./pages/farmer/FarmerDeals";
+import BuyerDeals from "./pages/buyer/BuyerDeals";
+import MarketIntelligence from "./pages/farmer/MarketIntelligence";
+
+
 
 function App() {
   return (
@@ -140,12 +145,37 @@ function App() {
     </ProtectedRoute>
   }
 />
+
+
+<Route
+  path="/farmer/market-intelligence"
+  element={
+    <ProtectedRoute role="farmer">
+      <MarketIntelligence />
+    </ProtectedRoute>
+  }
+/>
+
+
+
+
+
 <Route path="/farmer/fpo" element={<FPO />} />
 
 
 <Route path="/Landing" element={<LandingPage />} />
 
 <Route path="*" element={<NotFound />} />
+
+<Route
+  path="/farmer/deals"
+  element={<FarmerDeals />}
+/>
+
+<Route
+  path="/buyer/deals"
+  element={<BuyerDeals />}
+/>
 
 
       </Routes>

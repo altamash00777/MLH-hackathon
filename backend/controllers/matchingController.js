@@ -2,6 +2,13 @@ const FarmerListing = require("../models/FarmerListing");
 const BuyerRequirement = require("../models/BuyerRequirement");
 const Match = require("../models/Match");
 const Notification = require("../models/Notification");
+const Deal = require("../models/Deal");
+
+const calculateDistance =
+  require("../utils/distanceCalculator");
+
+const calculateTransportCost =
+  require("../utils/transportCalculator");
 
 const { createMatch } =
   require("../utils/matchGenerator");
@@ -33,17 +40,20 @@ const findFarmerMatches = async (req, res) => {
     // CREATE / REUSE MATCHES
     // =================================================
 
-const matchPromises = [];
+    const matchPromises = [];
 
-for (const listing of listings) {
-  for (const requirement of requirements) {
-    matchPromises.push(
-      createMatch(listing, requirement)
-    );
-  }
-}
+    for (const listing of listings) {
+      for (const requirement of requirements) {
 
-await Promise.all(matchPromises);
+        matchPromises.push(
+          createMatch(listing, requirement)
+        );
+
+      }
+    }
+
+    await Promise.all(matchPromises);
+
 
     // =================================================
     // GET MATCHES
@@ -94,48 +104,36 @@ await Promise.all(matchPromises);
 
 
       // =================================================
-      // TEMPORARY LOGISTICS
-      // DISTANCE API REMOVED
+      // DISTANCE
       // =================================================
 
-      const distance = {
-
-        origin:
+      const distance =
+        await calculateDistance(
           listing.sellingLocation,
-
-        destination:
-          requirement.location,
-
-        distanceKm:
-          0,
-
-        durationMinutes:
-          0
-
-      };
+          requirement.location
+        );
 
 
-      const transport = {
+      // =================================================
+      // TRANSPORT
+      // =================================================
 
-        quantity:
-          matchedQuantity,
+      const transport =
+        calculateTransportCost({
 
-        distanceKm:
-          0,
+          quantity:
+            matchedQuantity,
 
-        vehicleCapacity:
-          100,
+          distanceKm:
+            distance.distanceKm,
 
-        vehiclesRequired:
-          0,
+          vehicleCapacity:
+            100,
 
-        costPerKm:
-          50,
+          costPerKm:
+            50
 
-        transportCost:
-          0
-
-      };
+        });
 
 
       // =================================================
@@ -161,7 +159,7 @@ await Promise.all(matchPromises);
             requirement.expectedPrice,
 
           transportCost:
-            0,
+            transport.transportCost,
 
           storageCost:
             0,
@@ -258,35 +256,38 @@ const findBuyerMatches = async (req, res) => {
     // CREATE / REUSE MATCHES
     // =================================================
 
-const matchPromises = [];
+    const matchPromises = [];
 
-for (const listing of listings) {
-  for (const requirement of requirements) {
-    matchPromises.push(
-      createMatch(listing, requirement)
-    );
-  }
-}
+    for (const listing of listings) {
+      for (const requirement of requirements) {
 
-await Promise.all(matchPromises);
+        matchPromises.push(
+          createMatch(listing, requirement)
+        );
+
+      }
+    }
+
+    await Promise.all(matchPromises);
 
 
     // =================================================
     // GET MATCHES
     // =================================================
 
-const matches =
-  await Match.find({
-    buyerRequirementId: {
-      $in: requirements.map(
-        requirement =>
-          requirement._id
-      )
-    }
-  })
-    .populate("farmerId")
-    .populate("farmerListingId")
-    .populate("buyerRequirementId");
+    const matches =
+      await Match.find({
+        buyerRequirementId: {
+          $in: requirements.map(
+            requirement =>
+              requirement._id
+          )
+        }
+      })
+        .populate("farmerId")
+        .populate("farmerListingId")
+        .populate("buyerRequirementId");
+
 
     const result = [];
 
@@ -321,48 +322,36 @@ const matches =
 
 
       // =================================================
-      // TEMPORARY LOGISTICS
-      // DISTANCE API REMOVED
+      // DISTANCE
       // =================================================
 
-      const distance = {
-
-        origin:
+      const distance =
+        await calculateDistance(
           listing.sellingLocation,
-
-        destination:
-          requirement.location,
-
-        distanceKm:
-          0,
-
-        durationMinutes:
-          0
-
-      };
+          requirement.location
+        );
 
 
-      const transport = {
+      // =================================================
+      // TRANSPORT
+      // =================================================
 
-        quantity:
-          matchedQuantity,
+      const transport =
+        calculateTransportCost({
 
-        distanceKm:
-          0,
+          quantity:
+            matchedQuantity,
 
-        vehicleCapacity:
-          100,
+          distanceKm:
+            distance.distanceKm,
 
-        vehiclesRequired:
-          0,
+          vehicleCapacity:
+            100,
 
-        costPerKm:
-          50,
+          costPerKm:
+            50
 
-        transportCost:
-          0
-
-      };
+        });
 
 
       // =================================================
@@ -388,7 +377,7 @@ const matches =
             requirement.expectedPrice,
 
           transportCost:
-            0,
+            transport.transportCost,
 
           storageCost:
             0,
@@ -441,7 +430,6 @@ const matches =
     console.error(
       "Find Buyer Matches Error:",
       error
-
     );
 
     return res.status(500).json({
@@ -466,21 +454,40 @@ const matches =
 // =====================================================
 
 const contactMatch = async (req, res) => {
-  try {
-    const { matchId } = req.params;
 
-    const match = await Match.findById(matchId);
+  try {
+
+    const { matchId } =
+      req.params;
+
+
+    const match =
+      await Match.findById(matchId);
+
 
     if (!match) {
+
       return res.status(404).json({
+
         success: false,
-        message: "Match not found"
+
+        message:
+          "Match not found"
+
       });
+
     }
 
-    const loggedInUserId = req.user._id.toString();
-    const farmerId = match.farmerId.toString();
-    const buyerId = match.buyerId.toString();
+
+    const loggedInUserId =
+      req.user._id.toString();
+
+    const farmerId =
+      match.farmerId.toString();
+
+    const buyerId =
+      match.buyerId.toString();
+
 
     // =================================================
     // AUTHORIZATION
@@ -490,11 +497,18 @@ const contactMatch = async (req, res) => {
       loggedInUserId !== farmerId &&
       loggedInUserId !== buyerId
     ) {
+
       return res.status(403).json({
+
         success: false,
-        message: "Not authorized"
+
+        message:
+          "Not authorized"
+
       });
+
     }
+
 
     // =================================================
     // DUPLICATE CONTACT
@@ -504,20 +518,31 @@ const contactMatch = async (req, res) => {
       match.status === "contacted" ||
       match.status === "accepted"
     ) {
+
       return res.status(400).json({
+
         success: false,
-        message: "This match has already been contacted"
+
+        message:
+          "This match has already been contacted"
+
       });
+
     }
+
 
     // =================================================
     // UPDATE MATCH
     // =================================================
 
-    match.contactedBy = req.user._id;
-    match.status = "contacted";
+    match.contactedBy =
+      req.user._id;
+
+    match.status =
+      "contacted";
 
     await match.save();
+
 
     // =================================================
     // FIND RECEIVER
@@ -528,42 +553,73 @@ const contactMatch = async (req, res) => {
         ? match.buyerId
         : match.farmerId;
 
+
     // =================================================
     // CREATE NOTIFICATION
     // =================================================
 
     await Notification.create({
-      recipientId: receiverId,
-      senderId: req.user._id,
-      matchId: match._id,
-      type: "connection_accepted",
-      title: "New Connection Request",
-      message: "A user is interested in your crop match.",
-      isRead: false
+
+      recipientId:
+        receiverId,
+
+      senderId:
+        req.user._id,
+
+      matchId:
+        match._id,
+
+      type:
+        "connection_accepted",
+
+      title:
+        "New Connection Request",
+
+      message:
+        "A user is interested in your crop match.",
+
+      isRead:
+        false
+
     });
+
 
     // =================================================
     // RESPONSE
     // =================================================
 
     return res.status(200).json({
+
       success: true,
-      message: "Contact request sent successfully",
+
+      message:
+        "Contact request sent successfully",
+
       match
+
     });
 
   } catch (error) {
+
     console.error(
       "Contact Match Error:",
       error
     );
 
     return res.status(500).json({
+
       success: false,
-      message: "Error contacting match",
-      error: error.message
+
+      message:
+        "Error contacting match",
+
+      error:
+        error.message
+
     });
+
   }
+
 };
 
 
@@ -572,17 +628,34 @@ const contactMatch = async (req, res) => {
 // =====================================================
 
 const acceptMatch = async (req, res) => {
-  try {
-    const { matchId } = req.params;
 
-    const match = await Match.findById(matchId);
+  try {
+
+    const { matchId } =
+      req.params;
+
+
+    // =================================================
+    // FIND MATCH
+    // =================================================
+
+    const match =
+      await Match.findById(matchId);
+
 
     if (!match) {
+
       return res.status(404).json({
+
         success: false,
-        message: "Match not found"
+
+        message:
+          "Match not found"
+
       });
+
     }
+
 
     // =================================================
     // ONLY BUYER CAN ACCEPT
@@ -592,57 +665,364 @@ const acceptMatch = async (req, res) => {
       req.user._id.toString() !==
       match.buyerId.toString()
     ) {
+
       return res.status(403).json({
+
         success: false,
-        message: "Only the buyer can accept this match"
+
+        message:
+          "Only the buyer can accept this match"
+
       });
+
     }
 
+
     // =================================================
-    // UPDATE STATUS
+    // CHECK IF ALREADY ACCEPTED
     // =================================================
 
-    match.status = "accepted";
+    if (
+      match.status === "accepted"
+    ) {
+
+      return res.status(400).json({
+
+        success: false,
+
+        message:
+          "This match has already been accepted"
+
+      });
+
+    }
+
+
+    // =================================================
+    // GET LISTING
+    // =================================================
+
+    const listing =
+      await FarmerListing.findById(
+        match.farmerListingId
+      );
+
+
+    if (!listing) {
+
+      return res.status(404).json({
+
+        success: false,
+
+        message:
+          "Farmer listing not found"
+
+      });
+
+    }
+
+
+    // =================================================
+    // GET BUYER REQUIREMENT
+    // =================================================
+
+    const requirement =
+      await BuyerRequirement.findById(
+        match.buyerRequirementId
+      );
+
+
+    if (!requirement) {
+
+      return res.status(404).json({
+
+        success: false,
+
+        message:
+          "Buyer requirement not found"
+
+      });
+
+    }
+
+
+    // =================================================
+    // CALCULATE DEAL QUANTITY
+    // =================================================
+
+    const dealQuantity =
+      Math.min(
+        listing.quantity,
+        requirement.requiredQuantity
+      );
+
+
+    // =================================================
+    // CALCULATE DISTANCE
+    // =================================================
+
+    const distanceData =
+      await calculateDistance(
+
+        listing.sellingLocation,
+
+        requirement.location
+
+      );
+
+
+    // =================================================
+    // CALCULATE TRANSPORT
+    // =================================================
+
+    const transportData =
+      calculateTransportCost({
+
+        quantity:
+          dealQuantity,
+
+        distanceKm:
+          distanceData.distanceKm,
+
+        vehicleCapacity:
+          100,
+
+        costPerKm:
+          50
+
+      });
+
+
+    // =================================================
+    // AGREED PRICE
+    // =================================================
+
+    const agreedPrice =
+      requirement.expectedPrice;
+
+
+    const totalAmount =
+      dealQuantity *
+      agreedPrice;
+
+
+    // =================================================
+    // UPDATE MATCH
+    // =================================================
+
+    match.status =
+      "accepted";
 
     await match.save();
+
+
+    // =================================================
+    // CREATE DEAL
+    // =================================================
+
+    const deal =
+      await Deal.create({
+
+        matchId:
+          match._id,
+
+        farmerId:
+          match.farmerId,
+
+        buyerId:
+          match.buyerId,
+
+        farmerListingId:
+          match.farmerListingId,
+
+        buyerRequirementId:
+          match.buyerRequirementId,
+
+        cropName:
+          listing.cropName,
+
+        quantity:
+          dealQuantity,
+
+        agreedPrice:
+          agreedPrice,
+
+        totalAmount:
+          totalAmount,
+
+        status:
+          "confirmed",
+
+
+        // =============================================
+        // TASKS
+        // =============================================
+
+        tasks: {
+
+          farmer: {
+
+            quantityConfirmed:
+              false,
+
+            produceReady:
+              false
+
+          },
+
+          buyer: {
+
+            dealConfirmed:
+              true,
+
+            pickupConfirmed:
+              false
+
+          },
+
+          logistics: {
+
+            pickupScheduled:
+              false,
+
+            pickupCompleted:
+              false,
+
+            deliveryCompleted:
+              false
+
+          },
+
+          payment: {
+
+            completed:
+              false
+
+          }
+
+        },
+
+
+        // =============================================
+        // TRANSPORT
+        // =============================================
+
+        transport: {
+
+          distanceKm:
+            distanceData.distanceKm,
+
+          vehicleCount:
+            transportData.vehiclesRequired,
+
+          estimatedCost:
+            transportData.transportCost,
+
+          pickupDate:
+            null,
+
+          pickupTime:
+            null,
+
+          status:
+            "not_scheduled"
+
+        },
+
+
+        // =============================================
+        // PAYMENT
+        // =============================================
+
+        payment: {
+
+          amount:
+            totalAmount,
+
+          status:
+            "pending",
+
+          paidAt:
+            null
+
+        }
+
+      });
+
 
     // =================================================
     // NOTIFY FARMER
     // =================================================
 
     await Notification.create({
-      recipientId: match.farmerId,
-      senderId: req.user._id,
-      matchId: match._id,
-      type: "connection_accepted",
-      title: "Connection Accepted",
-      message: "Buyer accepted your crop match.",
-      isRead: false
+
+      recipientId:
+        match.farmerId,
+
+      senderId:
+        req.user._id,
+
+      matchId:
+        match._id,
+
+      type:
+        "connection_accepted",
+
+      title:
+        "Deal Created",
+
+      message:
+        `Buyer accepted your ${listing.cropName} match. Deal #${deal._id} has been created.`,
+
+      isRead:
+        false
+
     });
+
 
     // =================================================
     // RESPONSE
     // =================================================
 
     return res.status(200).json({
-      success: true,
-      message: "Match accepted successfully",
-      match
+
+      success:
+        true,
+
+      message:
+        "Match accepted and deal created successfully",
+
+      match,
+
+      deal
+
     });
 
   } catch (error) {
+
     console.error(
       "Accept Match Error:",
       error
     );
 
     return res.status(500).json({
-      success: false,
-      message: "Error accepting match",
-      error: error.message
+
+      success:
+        false,
+
+      message:
+        "Error accepting match",
+
+      error:
+        error.message
+
     });
+
   }
+
 };
+
+
 // =====================================================
 // EXPORTS
 // =====================================================

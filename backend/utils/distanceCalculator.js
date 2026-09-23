@@ -24,6 +24,12 @@ const calculateDistance = async (origin, destination) => {
       originFeature.geometry.coordinates;
 
 
+console.log("ORIGIN:", origin);
+console.log("ORIGIN COORDINATES:", originCoordinates);
+
+
+
+
     const destinationResponse = await axios.get(
       "https://api.openrouteservice.org/geocode/search",
       {
@@ -47,6 +53,15 @@ const calculateDistance = async (origin, destination) => {
     const destinationCoordinates =
       destinationFeature.geometry.coordinates;
 
+console.log("DESTINATION:", destination);
+console.log(
+  "DESTINATION COORDINATES:",
+  destinationCoordinates
+);
+
+
+
+
 
     // ORS uses [longitude, latitude]
     const routeResponse = await axios.get(
@@ -67,6 +82,17 @@ const calculateDistance = async (origin, destination) => {
 
     const route =
       routeResponse.data.features[0];
+
+console.log(
+  "ROUTE DISTANCE METERS:",
+  route.properties.summary.distance
+);
+
+console.log(
+  "ROUTE DURATION SECONDS:",
+  route.properties.summary.duration
+);
+
 
     if (!route) {
       throw new Error(

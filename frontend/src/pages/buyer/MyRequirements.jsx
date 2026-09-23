@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BuyerSidebar from "../../components/BuyerSidebar";
 import api from "../../services/api";
-
+import "./MyRequirement.css"
 function MyRequirements() {
   const navigate = useNavigate();
 

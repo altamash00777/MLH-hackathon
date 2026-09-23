@@ -1,0 +1,639 @@
+/* ================================
+   DEALS PAGE
+================================ */
+
+.deals-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f5f7f2;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.deals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+}
+
+.deals-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #5d7c45;
+}
+
+.deals-header h1 {
+  margin: 0;
+  color: #18351f;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.deals-header p {
+  margin: 8px 0 0;
+  color: #6d776e;
+  font-size: 14px;
+}
+
+.deal-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #dce5d8;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #315638;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.deals-error {
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border: 1px solid #f0caca;
+  border-radius: 12px;
+  background: #fff1f1;
+  color: #a53d3d;
+  font-size: 14px;
+}
+
+/* ================================
+   EMPTY STATE
+================================ */
+
+.empty-deals {
+  padding: 70px 20px;
+  border: 1px dashed #cbd8c5;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e8f0e3;
+  color: #4c754b;
+}
+
+.empty-deals h2 {
+  margin: 0 0 8px;
+  color: #24462b;
+}
+
+.empty-deals p {
+  margin: 0;
+  color: #788178;
+  font-size: 14px;
+}
+
+/* ================================
+   DEAL LIST
+================================ */
+
+.deals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ================================
+   DEAL CARD
+================================ */
+
+.deal-card {
+  overflow: hidden;
+  border: 1px solid #dfe7dc;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(35, 65, 40, 0.06);
+}
+
+/* ================================
+   CARD TOP
+================================ */
+
+.deal-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid #edf1eb;
+}
+
+.deal-crop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.crop-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #e8f1e4;
+  color: #426c42;
+}
+
+.deal-crop h2 {
+  margin: 0 0 4px;
+  color: #203d26;
+  font-size: 21px;
+}
+
+.deal-crop span {
+  color: #89928a;
+  font-size: 12px;
+}
+
+/* ================================
+   STATUS
+================================ */
+
+.deal-status {
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.deal-status.pending {
+  background: #fff4d8;
+  color: #8b6413;
+}
+
+.deal-status.confirmed {
+  background: #e9f2ff;
+  color: #35649b;
+}
+
+.deal-status.pickup-scheduled {
+  background: #eee9ff;
+  color: #6750a4;
+}
+
+.deal-status.in-transit {
+  background: #e4f1ff;
+  color: #27648d;
+}
+
+.deal-status.delivered {
+  background: #e8f4e6;
+  color: #3e713d;
+}
+
+.deal-status.payment-pending {
+  background: #fff1da;
+  color: #94601b;
+}
+
+.deal-status.completed {
+  background: #dff3e3;
+  color: #28653a;
+}
+
+.deal-status.cancelled {
+  background: #fbe6e6;
+  color: #a23c3c;
+}
+
+/* ================================
+   DETAILS
+================================ */
+
+.deal-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #e9eee7;
+  border-bottom: 1px solid #e9eee7;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 19px;
+  background: #ffffff;
+}
+
+.detail-item svg {
+  flex-shrink: 0;
+  color: #61835a;
+}
+
+.detail-item span {
+  display: block;
+  margin-bottom: 4px;
+  color: #8a928a;
+  font-size: 11px;
+}
+
+.detail-item strong {
+  display: block;
+  color: #29482e;
+  font-size: 14px;
+}
+
+/* ================================
+   COORDINATION
+================================ */
+
+.coordination-section {
+  padding: 24px;
+}
+
+.section-title {
+  margin-bottom: 20px;
+}
+
+.section-title h3 {
+  margin: 0 0 5px;
+  color: #29472e;
+  font-size: 17px;
+}
+
+.section-title span {
+  color: #89918a;
+  font-size: 12px;
+}
+
+/* ================================
+   TIMELINE
+================================ */
+
+.deal-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.timeline-step {
+  min-height: 105px;
+  padding: 15px;
+  border: 1px solid #e1e7df;
+  border-radius: 14px;
+  background: #fafcf9;
+}
+
+.timeline-step.completed {
+  border-color: #cde0c8;
+  background: #f2f8f0;
+}
+
+.timeline-icon {
+  margin-bottom: 11px;
+  color: #a4aca4;
+}
+
+.timeline-step.completed .timeline-icon {
+  color: #4d814d;
+}
+
+.timeline-step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #365339;
+  font-size: 13px;
+}
+
+.timeline-step span {
+  display: block;
+  color: #89918a;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* ================================
+   LOGISTICS
+================================ */
+
+.logistics-box {
+  margin: 0 24px 22px;
+  padding: 19px;
+  border: 1px solid #dfe7db;
+  border-radius: 15px;
+  background: #f7faf5;
+}
+
+.logistics-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 17px;
+}
+
+.logistics-header svg {
+  color: #4c744a;
+}
+
+.logistics-header h3 {
+  margin: 0;
+  color: #304b34;
+  font-size: 15px;
+}
+
+.logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.logistics-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: #8b938b;
+  font-size: 11px;
+}
+
+.logistics-grid strong {
+  color: #36563b;
+  font-size: 14px;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.deal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 16px 24px;
+  border-top: 1px solid #edf1eb;
+  background: #fbfcfa;
+}
+
+.deal-route {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #68736a;
+  font-size: 12px;
+}
+
+.deal-route svg {
+  color: #65865f;
+}
+
+.deal-created {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8a928a;
+  font-size: 11px;
+}
+
+/* ================================
+   LOADING
+================================ */
+
+.deals-loading {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #69746a;
+}
+
+.loading-spinner {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 12px;
+  border: 3px solid #dce6d8;
+  border-top-color: #4d7548;
+  border-radius: 50%;
+  animation: dealSpin 0.8s linear infinite;
+}
+
+@keyframes dealSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1100px) {
+  .deal-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .deal-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .logistics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .deals-page {
+    padding: 20px 15px;
+  }
+
+  .deals-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .deals-header h1 {
+    font-size: 26px;
+  }
+
+  .deal-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .deal-details {
+    grid-template-columns: 1fr;
+  }
+
+  .deal-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .logistics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .deal-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .deal-route {
+    flex-wrap: wrap;
+  }
+}
+
+/* ================================
+   ACTION REQUIRED
+================================ */
+
+.action-required {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 24px 0;
+  padding: 17px 18px;
+  border: 1px solid #e2e9df;
+  border-radius: 15px;
+  background: #f8faf7;
+}
+
+.action-required-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.action-required-content {
+  flex: 1;
+}
+
+.action-required-label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.action-required h3 {
+  margin: 0 0 3px;
+  font-size: 15px;
+}
+
+.action-required p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Action */
+
+.action-required.action {
+  border-color: #ead9ae;
+  background: #fffaf0;
+}
+
+.action-required.action .action-required-icon {
+  background: #f7e5b5;
+  color: #8b6413;
+}
+
+.action-required.action .action-required-label {
+  color: #9a731d;
+}
+
+.action-required.action h3 {
+  color: #624b1b;
+}
+
+.action-required.action p {
+  color: #83755a;
+}
+
+/* Waiting */
+
+.action-required.waiting {
+  border-color: #d9e2ec;
+  background: #f5f8fb;
+}
+
+.action-required.waiting .action-required-icon {
+  background: #dce9f5;
+  color: #4c7091;
+}
+
+.action-required.waiting .action-required-label {
+  color: #557695;
+}
+
+.action-required.waiting h3 {
+  color: #38536b;
+}
+
+.action-required.waiting p {
+  color: #6f7f8d;
+}
+
+/* Completed */
+
+.action-required.completed {
+  border-color: #cce1ca;
+  background: #f1f8ef;
+}
+
+.action-required.completed .action-required-icon {
+  background: #d9ecd6;
+  color: #39703d;
+}
+
+.action-required.completed .action-required-label {
+  color: #4e7c50;
+}
+
+.action-required.completed h3 {
+  color: #315d36;
+}
+
+.action-required.completed p {
+  color: #6e806f;
+}
+
+.deal-action-button {
+  margin-top: 12px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 9px;
+  background: #315f36;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.deal-action-button:hover {
+  background: #244b29;
+  transform: translateY(-1px);
+}
+
+.deal-action-button:active {
+  transform: translateY(0);
+}

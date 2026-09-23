@@ -1,3 +1,2324 @@
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { motion } from "framer-motion";
+// import { useTranslation } from "react-i18next";
+
+// import {
+//   Bell,
+//   Wheat,
+//   Sprout,
+//   TrendingUp,
+//   MapPin,
+//   Plus,
+//   ArrowRight,
+//   Package,
+//   ShoppingBasket,
+//   BarChart3,
+//   ChevronDown,
+//   Leaf,
+// } from "lucide-react";
+
+// import landBg from "../../assets/LAND.JPG";
+// import Sidebar from "../../components/Sidebar";
+// import api from "../../services/api";
+
+// import "./FarmerDashboard.css";
+
+// import wheatImage from "../../assets/crop.png";
+// import listImage from "../../assets/listing.png";
+// import hand from "../../assets/handshake.png";
+// import rupees from "../../assets/rupees.png";
+
+
+// function FarmerDashboard() {
+
+//   const { t } = useTranslation();
+
+//   const navigate = useNavigate();
+
+//   const [user, setUser] = useState(null);
+//   const [crops, setCrops] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   // =========================
+//   // MARKET PRICE STATES
+//   // =========================
+
+//   const [cropName, setCropName] = useState("");
+//   const [mandiName, setMandiName] = useState("");
+//   const [period, setPeriod] = useState("30");
+
+//   const [showMandiSuggestions, setShowMandiSuggestions] =
+//     useState(false);
+
+//   const [priceData, setPriceData] = useState([]);
+//   const [showPriceTrend, setShowPriceTrend] = useState(false);
+
+
+//   // =========================
+//   // MANDI DATA
+//   // =========================
+
+//   const mandiList = [
+//     "Varanasi",
+//     "Lucknow",
+//     "Kanpur",
+//     "Agra",
+//     "Prayagraj",
+//     "Gorakhpur",
+//     "Ayodhya",
+//     "Meerut",
+//     "Bareilly",
+//     "Jaunpur",
+//   ];
+
+
+//   // =========================
+//   // ANIMATION VARIANTS
+//   // =========================
+
+//   const containerVariants = {
+//     hidden: {},
+
+//     show: {
+//       transition: {
+//         staggerChildren: 0.08,
+//       },
+//     },
+//   };
+
+
+//   const cardVariants = {
+//     hidden: {
+//       opacity: 0,
+//       y: 20,
+//     },
+
+//     show: {
+//       opacity: 1,
+//       y: 0,
+
+//       transition: {
+//         duration: 0.45,
+//         ease: "easeOut",
+//       },
+//     },
+//   };
+
+
+//   const fadeUp = {
+//     hidden: {
+//       opacity: 0,
+//       y: 25,
+//     },
+
+//     show: {
+//       opacity: 1,
+//       y: 0,
+
+//       transition: {
+//         duration: 0.55,
+//         ease: "easeOut",
+//       },
+//     },
+//   };
+
+
+//   // =========================
+//   // FETCH USER + CROPS
+//   // =========================
+
+//   useEffect(() => {
+
+//     const storedUser = localStorage.getItem("user");
+
+//     if (storedUser) {
+
+//       try {
+
+//         setUser(JSON.parse(storedUser));
+
+//       } catch (error) {
+
+//         console.error(
+//           "User parsing error:",
+//           error
+//         );
+
+//       }
+
+//     }
+
+//     fetchCrops();
+
+//   }, []);
+
+
+//   const fetchCrops = async () => {
+
+//     try {
+
+//       const response =
+//         await api.get("/farmer/listings");
+
+//       console.log(
+//         "Dashboard crops:",
+//         response.data
+//       );
+
+//       const data =
+//         response.data.listings ||
+//         response.data;
+
+//       setCrops(data);
+
+//     } catch (error) {
+
+//       console.error(
+//         "Dashboard error:",
+//         error
+//       );
+
+//     } finally {
+
+//       setLoading(false);
+
+//     }
+
+//   };
+
+
+//   // =========================
+//   // STATS
+//   // =========================
+
+//   const totalCrops =
+//     crops.length;
+
+
+//   const activeCrops =
+//     crops.filter(
+//       (crop) =>
+//         crop.status === "active"
+//     ).length;
+
+
+//   const matchedCrops =
+//     crops.filter(
+//       (crop) =>
+//         crop.status === "matched"
+//     ).length;
+
+
+//   const soldCrops =
+//     crops.filter(
+//       (crop) =>
+//         crop.status === "sold"
+//     ).length;
+
+
+//   // =========================
+//   // MANDI SEARCH
+//   // =========================
+
+//   const filteredMandis =
+//     mandiList.filter((mandi) =>
+//       mandi
+//         .toLowerCase()
+//         .includes(
+//           mandiName.toLowerCase()
+//         )
+//     );
+
+
+//   // =========================
+//   // PRICE DATA
+//   // =========================
+
+//   const generatePriceData = () => {
+
+//     return [
+
+//       {
+//         date: "20 Aug",
+//         price: 2400,
+//       },
+
+//       {
+//         date: "21 Aug",
+//         price: 2500,
+//       },
+
+//       {
+//         date: "22 Aug",
+//         price: 2600,
+//       },
+
+//       {
+//         date: "23 Aug",
+//         price: 2550,
+//       },
+
+//       {
+//         date: "24 Aug",
+//         price: 2700,
+//       },
+
+//       {
+//         date: "25 Aug",
+//         price: 2800,
+//       },
+
+//     ];
+
+//   };
+
+
+//   // =========================
+//   // VIEW PRICE TREND
+//   // =========================
+
+//   const handleViewPriceTrend = () => {
+
+//     if (
+//       !cropName.trim() ||
+//       !mandiName.trim()
+//     ) {
+
+//       return;
+
+//     }
+
+//     const data =
+//       generatePriceData();
+
+//     setPriceData(data);
+
+//     setShowPriceTrend(true);
+
+//     console.log(
+//       "Crop:",
+//       cropName
+//     );
+
+//     console.log(
+//       "Mandi:",
+//       mandiName
+//     );
+
+//     console.log(
+//       "Period:",
+//       period
+//     );
+
+//   };
+
+
+//   // =========================
+//   // PRICE HELPERS
+//   // =========================
+
+//   const maxPrice =
+//     priceData.length > 0
+//       ? Math.max(
+//           ...priceData.map(
+//             (item) =>
+//               item.price
+//           )
+//         )
+//       : 0;
+
+
+//   const minPrice =
+//     priceData.length > 0
+//       ? Math.min(
+//           ...priceData.map(
+//             (item) =>
+//               item.price
+//           )
+//         )
+//       : 0;
+
+
+//   // =========================
+//   // TRANSLATED PERIOD LABEL
+//   // =========================
+
+//   const periodLabel =
+//     period === "7"
+//       ? t("last7Days")
+//       : period === "30"
+//       ? t("last30Days")
+//       : t("last3Months");
+
+
+//   // =========================
+//   // STATUS CLASS
+//   // =========================
+
+//   const getStatusClass = (
+//     status
+//   ) => {
+
+//     if (
+//       status === "active"
+//     ) {
+
+//       return "status-active";
+
+//     }
+
+//     if (
+//       status === "matched"
+//     ) {
+
+//       return "status-matched";
+
+//     }
+
+//     if (
+//       status === "sold"
+//     ) {
+
+//       return "status-sold";
+
+//     }
+
+//     return "status-inactive";
+
+//   };
+
+
+//   return (
+
+//     <div className="dashboard-layout">
+
+//       {/* =========================
+//           BACKGROUND MOTION
+//       ========================= */}
+
+//       <div className="background-orb green"></div>
+
+//       <div className="background-orb orange"></div>
+
+
+//       {/* =========================
+//           SIDEBAR
+//       ========================= */}
+
+//       <Sidebar />
+
+
+//       {/* =========================
+//           MAIN
+//       ========================= */}
+
+//       <main
+//         className="dashboard-main my-crops-page"
+//         style={{
+//           backgroundImage:
+//             `url(${landBg})`,
+//         }}
+//       >
+
+
+//         {/* =========================
+//             HEADER
+//         ========================= */}
+
+//         <motion.div
+//           className="dashboard-header"
+//           variants={fadeUp}
+//           initial="hidden"
+//           animate="show"
+//         >
+
+//           <div className="dashboard-heading">
+
+//             <span className="dashboard-eyebrow">
+
+//               <Leaf size={13} />
+
+//               {t("farmerDashboard")}
+
+//             </span>
+
+
+//             <h1>
+
+//               {t("welcome")},{" "}
+
+//               <span>
+//                 {user?.name ||
+//                   t("farmer")}
+//               </span>{" "}
+
+//               👋
+
+//             </h1>
+
+
+//             <p>
+//               {t(
+//                 "dashboardDescription"
+//               )}
+//             </p>
+
+//           </div>
+
+
+//           <div className="header-actions">
+
+
+//             {/* Notification */}
+
+//             <motion.button
+//               className="notification-button"
+
+//               onClick={() =>
+//                 navigate(
+//                   "/farmer/notifications"
+//                 )
+//               }
+
+//               title={t(
+//                 "notifications"
+//               )}
+
+//               whileHover={{
+//                 scale: 1.08,
+//                 y: -2,
+//               }}
+
+//               whileTap={{
+//                 scale: 0.95,
+//               }}
+//             >
+
+//               <Bell size={19} />
+
+//               <span className="notification-dot"></span>
+
+//             </motion.button>
+
+
+//             {/* Profile */}
+
+//             <motion.div
+//               className="profile-circle"
+
+//               onClick={() =>
+//                 navigate(
+//                   "/farmer/profile"
+//                 )
+//               }
+
+//               title={t(
+//                 "viewProfile"
+//               )}
+
+//               whileHover={{
+//                 scale: 1.08,
+//               }}
+
+//               whileTap={{
+//                 scale: 0.95,
+//               }}
+//             >
+
+//               {user?.name
+//                 ? user.name
+//                     .charAt(0)
+//                     .toUpperCase()
+//                 : "F"}
+
+//             </motion.div>
+
+//           </div>
+
+//         </motion.div>
+
+
+//         {/* =========================
+//             STAT CARDS
+//         ========================= */}
+
+//         <motion.div
+//           className="stats-grid"
+
+//           variants={
+//             containerVariants
+//           }
+
+//           initial="hidden"
+//           animate="show"
+//         >
+
+
+//           {/* TOTAL */}
+
+//           <motion.div
+//             className="stat-card stat-green"
+
+//             variants={
+//               cardVariants
+//             }
+
+//             whileHover={{
+//               y: -6,
+//               scale: 1.02,
+//             }}
+//           >
+
+//             <div className="stat-card-top">
+
+//               <div className="stat-icon">
+
+//                 <img
+//                   src={wheatImage}
+//                   alt="Wheat"
+//                 />
+
+//               </div>
+
+
+//               <span className="stat-label">
+
+//                 {t("total")}
+
+//               </span>
+
+//             </div>
+
+
+//             <div className="stat-bottom">
+
+//               <h2>
+
+//                 {loading
+//                   ? "..."
+//                   : totalCrops}
+
+//               </h2>
+
+
+//               <span>
+
+//                 {t(
+//                   "cropListings"
+//                 )}
+
+//               </span>
+
+//             </div>
+
+//           </motion.div>
+
+
+
+//           {/* ACTIVE */}
+
+//           <motion.div
+//             className="stat-card stat-active-card"
+
+//             variants={
+//               cardVariants
+//             }
+
+//             whileHover={{
+//               y: -6,
+//               scale: 1.02,
+//             }}
+//           >
+
+//             <div className="stat-card-top">
+
+//               <div className="stat-icon">
+
+//                 <img
+//                   src={listImage}
+//                   alt="Sprout"
+//                 />
+
+//               </div>
+
+
+//               <span className="stat-label">
+
+//                 {t("active")}
+
+//               </span>
+
+//             </div>
+
+
+//             <div className="stat-bottom">
+
+//               <h2>
+
+//                 {loading
+//                   ? "..."
+//                   : activeCrops}
+
+//               </h2>
+
+
+//               <span>
+
+//                 {t(
+//                   "available"
+//                 )}
+
+//               </span>
+
+//             </div>
+
+//           </motion.div>
+
+
+
+//           {/* MATCHED */}
+
+//           <motion.div
+//             className="stat-card stat-match-card"
+
+//             variants={
+//               cardVariants
+//             }
+
+//             whileHover={{
+//               y: -6,
+//               scale: 1.02,
+//             }}
+//           >
+
+//             <div className="stat-card-top">
+
+//               <div className="stat-icon">
+
+//                 <img
+//                   src={hand}
+//                   alt="Handshake"
+//                 />
+
+//               </div>
+
+
+//               <span className="stat-label">
+
+//                 {t("matched")}
+
+//               </span>
+
+//             </div>
+
+
+//             <div className="stat-bottom">
+
+//               <h2>
+
+//                 {loading
+//                   ? "..."
+//                   : matchedCrops}
+
+//               </h2>
+
+
+//               <span>
+
+//                 {t(
+//                   "buyerMatches"
+//                 )}
+
+//               </span>
+
+//             </div>
+
+//           </motion.div>
+
+
+
+//           {/* SOLD */}
+
+//           <motion.div
+//             className="stat-card stat-sold-card"
+
+//             variants={
+//               cardVariants
+//             }
+
+//             whileHover={{
+//               y: -6,
+//               scale: 1.02,
+//             }}
+//           >
+
+//             <div className="stat-card-top">
+
+//               <div className="stat-icon">
+
+//                 <img
+//                   src={rupees}
+//                   alt="Money"
+//                 />
+
+//               </div>
+
+
+//               <span className="stat-label">
+
+//                 {t("sold")}
+
+//               </span>
+
+//             </div>
+
+
+//             <div className="stat-bottom">
+
+//               <h2>
+
+//                 {loading
+//                   ? "..."
+//                   : soldCrops}
+
+//               </h2>
+
+
+//               <span>
+
+//                 {t(
+//                   "completed"
+//                 )}
+
+//               </span>
+
+//             </div>
+
+//           </motion.div>
+
+//         </motion.div>
+
+
+
+//         {/* =========================
+//             MARKET PRICE
+//         ========================= */}
+
+//         <motion.section
+//           className="dashboard-section market-price-section"
+
+//           variants={
+//             fadeUp
+//           }
+
+//           initial="hidden"
+
+//           whileInView="show"
+
+//           viewport={{
+//             once: true,
+//             amount: 0.15,
+//           }}
+//         >
+
+//           <div className="section-header compact-header">
+
+//             <div>
+
+//               <span className="section-tag">
+
+//                 {t(
+//                   "marketIntelligence"
+//                 )}
+
+//               </span>
+
+
+//               <h2>
+
+//                 {t(
+//                   "marketPrices"
+//                 )}
+
+//               </h2>
+
+
+//               <p>
+
+//                 {t(
+//                   "marketPriceDescription"
+//                 )}
+
+//               </p>
+
+//             </div>
+
+
+//             <div className="section-header-icon">
+
+//               <TrendingUp
+//                 size={22}
+//               />
+
+//             </div>
+
+//           </div>
+
+
+
+//           <motion.div
+//             className="market-price-card"
+
+//             whileHover={{
+//               y: -4,
+//             }}
+
+//             transition={{
+//               duration: 0.25,
+//             }}
+//           >
+
+//             <div className="market-price-icon">
+
+//               <BarChart3
+//                 size={24}
+//               />
+
+//             </div>
+
+
+//             <div className="market-price-content">
+
+//               <h3>
+
+//                 {t(
+//                   "checkCropPrice"
+//                 )}
+
+//               </h3>
+
+
+//               <p>
+
+//                 {t(
+//                   "cropPriceDescription"
+//                 )}
+
+//               </p>
+
+
+//               <div className="market-price-form">
+
+
+//                 {/* CROP */}
+
+//                 <div className="market-price-input">
+
+//                   <label>
+
+//                     {t(
+//                       "cropName"
+//                     )}
+
+//                   </label>
+
+
+//                   <input
+//                     type="text"
+
+//                     placeholder={t(
+//                       "enterCropExample"
+//                     )}
+
+//                     value={
+//                       cropName
+//                     }
+
+//                     onChange={(e) =>
+//                       setCropName(
+//                         e.target.value
+//                       )
+//                     }
+//                   />
+
+//                 </div>
+
+
+
+//                 {/* MANDI */}
+
+//                 <div className="market-price-input mandi-input">
+
+//                   <label>
+
+//                     {t(
+//                       "mandi"
+//                     )}
+
+//                   </label>
+
+
+//                   <div className="input-with-icon">
+
+//                     <MapPin
+//                       size={15}
+//                     />
+
+
+//                     <input
+//                       type="text"
+
+//                       placeholder={t(
+//                         "enterMandiExample"
+//                       )}
+
+//                       value={
+//                         mandiName
+//                       }
+
+//                       onChange={(e) => {
+
+//                         setMandiName(
+//                           e.target.value
+//                         );
+
+//                         setShowMandiSuggestions(
+//                           true
+//                         );
+
+//                       }}
+
+//                       onFocus={() =>
+//                         setShowMandiSuggestions(
+//                           true
+//                         )
+//                       }
+//                     />
+
+//                   </div>
+
+
+
+//                   {showMandiSuggestions &&
+//                     mandiName &&
+//                     filteredMandis.length >
+//                       0 && (
+
+//                       <motion.div
+//                         className="mandi-suggestions"
+
+//                         initial={{
+//                           opacity: 0,
+//                           y: -5,
+//                         }}
+
+//                         animate={{
+//                           opacity: 1,
+//                           y: 0,
+//                         }}
+//                       >
+
+//                         {filteredMandis.map(
+//                           (mandi) => (
+
+//                             <div
+//                               key={mandi}
+
+//                               className="mandi-suggestion"
+
+//                               onClick={() => {
+
+//                                 setMandiName(
+//                                   mandi
+//                                 );
+
+//                                 setShowMandiSuggestions(
+//                                   false
+//                                 );
+
+//                               }}
+//                             >
+
+//                               <MapPin
+//                                 size={14}
+//                               />
+
+//                               {mandi}
+
+//                             </div>
+
+//                           )
+//                         )}
+
+//                       </motion.div>
+
+//                     )}
+
+//                 </div>
+
+
+
+//                 {/* PERIOD */}
+
+//                 <div className="market-price-input">
+
+//                   <label>
+
+//                     {t(
+//                       "history"
+//                     )}
+
+//                   </label>
+
+
+//                   <div className="select-wrapper">
+
+//                     <select
+//                       value={
+//                         period
+//                       }
+
+//                       onChange={(e) =>
+//                         setPeriod(
+//                           e.target.value
+//                         )
+//                       }
+//                     >
+
+//                       <option value="7">
+
+//                         {t(
+//                           "last7Days"
+//                         )}
+
+//                       </option>
+
+
+//                       <option value="30">
+
+//                         {t(
+//                           "last30Days"
+//                         )}
+
+//                       </option>
+
+
+//                       <option value="90">
+
+//                         {t(
+//                           "last3Months"
+//                         )}
+
+//                       </option>
+
+//                     </select>
+
+
+//                     <ChevronDown
+//                       size={15}
+//                     />
+
+//                   </div>
+
+//                 </div>
+
+
+
+//                 {/* BUTTON */}
+
+//                 <motion.button
+//                   className="market-price-button"
+
+//                   disabled={
+//                     !cropName.trim() ||
+//                     !mandiName.trim()
+//                   }
+
+//                   onClick={
+//                     handleViewPriceTrend
+//                   }
+
+//                   whileHover={
+//                     cropName.trim() &&
+//                     mandiName.trim()
+//                       ? {
+//                           scale: 1.02,
+//                         }
+//                       : {}
+//                   }
+
+//                   whileTap={{
+//                     scale: 0.97,
+//                   }}
+//                 >
+
+//                   <TrendingUp
+//                     size={16}
+//                   />
+
+
+//                   {t(
+//                     "viewTrend"
+//                   )}
+
+
+//                   <ArrowRight
+//                     size={15}
+//                   />
+
+//                 </motion.button>
+
+//               </div>
+
+//             </div>
+
+//           </motion.div>
+
+//         </motion.section>
+
+
+
+//         {/* =========================
+//             PRICE TREND
+//         ========================= */}
+
+//         {showPriceTrend &&
+//           priceData.length > 0 && (
+
+//             <motion.section
+//               className="dashboard-section"
+
+//               initial={{
+//                 opacity: 0,
+//                 y: 25,
+//               }}
+
+//               animate={{
+//                 opacity: 1,
+//                 y: 0,
+//               }}
+
+//               transition={{
+//                 duration: 0.5,
+//               }}
+//             >
+
+//               <div className="section-header compact-header">
+
+//                 <div>
+
+//                   <span className="section-tag">
+
+//                     {t(
+//                       "priceAnalysis"
+//                     )}
+
+//                   </span>
+
+
+//                   <h2>
+
+//                     {cropName}{" "}
+//                     {t(
+//                       "priceTrend"
+//                     )}
+
+//                   </h2>
+
+
+//                   <p>
+
+//                     {mandiName}{" "}
+//                     {t("mandi")}{" "}
+//                     •{" "}
+//                     {periodLabel}
+
+//                   </p>
+
+//                 </div>
+
+
+//                 <div className="section-header-icon orange-icon">
+
+//                   <TrendingUp
+//                     size={22}
+//                   />
+
+//                 </div>
+
+//               </div>
+
+
+
+//               <div className="price-trend-card">
+
+
+//                 {/* SUMMARY */}
+
+//                 <div className="price-summary">
+
+
+//                   {/* LATEST */}
+
+//                   <motion.div
+//                     whileHover={{
+//                       y: -3,
+//                     }}
+//                   >
+
+//                     <span>
+
+//                       {t(
+//                         "latestPrice"
+//                       )}
+
+//                     </span>
+
+
+//                     <strong>
+
+//                       ₹
+//                       {
+//                         priceData[
+//                           priceData.length -
+//                             1
+//                         ].price
+//                       }
+
+//                     </strong>
+
+
+//                     <small>
+
+//                       {t(
+//                         "perQuintal"
+//                       )}
+
+//                     </small>
+
+//                   </motion.div>
+
+
+
+//                   {/* LOWEST */}
+
+//                   <motion.div
+//                     whileHover={{
+//                       y: -3,
+//                     }}
+//                   >
+
+//                     <span>
+
+//                       {t(
+//                         "lowest"
+//                       )}
+
+//                     </span>
+
+
+//                     <strong>
+
+//                       ₹
+//                       {minPrice}
+
+//                     </strong>
+
+//                   </motion.div>
+
+
+
+//                   {/* HIGHEST */}
+
+//                   <motion.div
+//                     whileHover={{
+//                       y: -3,
+//                     }}
+//                   >
+
+//                     <span>
+
+//                       {t(
+//                         "highest"
+//                       )}
+
+//                     </span>
+
+
+//                     <strong>
+
+//                       ₹
+//                       {maxPrice}
+
+//                     </strong>
+
+//                   </motion.div>
+
+//                 </div>
+
+
+
+//                 {/* GRAPH */}
+
+//                 <div className="price-chart">
+
+
+//                   <div className="chart-y-axis">
+
+//                     <span>
+//                       ₹2800
+//                     </span>
+
+//                     <span>
+//                       ₹2700
+//                     </span>
+
+//                     <span>
+//                       ₹2600
+//                     </span>
+
+//                     <span>
+//                       ₹2500
+//                     </span>
+
+//                     <span>
+//                       ₹2400
+//                     </span>
+
+//                   </div>
+
+
+
+//                   <div className="chart-area">
+
+
+//                     <div className="chart-grid-lines">
+
+//                       <div></div>
+//                       <div></div>
+//                       <div></div>
+//                       <div></div>
+//                       <div></div>
+
+//                     </div>
+
+
+
+//                     <div className="chart-points">
+
+//                       {priceData.map(
+//                         (
+//                           item,
+//                           index
+//                         ) => {
+
+//                           const range =
+//                             maxPrice -
+//                               minPrice ||
+//                             1;
+
+
+//                           const bottom =
+//                             (
+//                               (
+//                                 item.price -
+//                                 minPrice
+//                               ) /
+//                               range
+//                             ) *
+//                               70 +
+//                             10;
+
+
+//                           const left =
+//                             (
+//                               index /
+//                               (
+//                                 priceData.length -
+//                                 1
+//                               )
+//                             ) *
+//                               90 +
+//                             5;
+
+
+//                           return (
+
+//                             <motion.div
+//                               key={
+//                                 item.date
+//                               }
+
+//                               className="chart-point-wrapper"
+
+//                               style={{
+//                                 left:
+//                                   `${left}%`,
+
+//                                 bottom:
+//                                   `${bottom}%`,
+//                               }}
+
+//                               initial={{
+//                                 opacity: 0,
+//                                 scale: 0,
+//                               }}
+
+//                               animate={{
+//                                 opacity: 1,
+//                                 scale: 1,
+//                               }}
+
+//                               transition={{
+//                                 delay:
+//                                   index *
+//                                   0.1,
+
+//                                 duration:
+//                                   0.35,
+//                               }}
+//                             >
+
+//                               <div className="chart-point">
+
+//                                 <span>
+
+//                                   ₹
+//                                   {
+//                                     item.price
+//                                   }
+
+//                                 </span>
+
+//                               </div>
+
+
+//                               <small>
+
+//                                 {
+//                                   item.date
+//                                 }
+
+//                               </small>
+
+//                             </motion.div>
+
+//                           );
+
+//                         }
+//                       )}
+
+//                     </div>
+
+//                   </div>
+
+//                 </div>
+
+
+
+//                 {/* CHART NOTE */}
+
+//                 <div className="chart-note">
+
+//                   <TrendingUp
+//                     size={15}
+//                   />
+
+
+//                   {t(
+//                     "marketPriceObservation",
+//                     {
+//                       mandi:
+//                         mandiName,
+//                     }
+//                   )}
+
+//                 </div>
+
+//               </div>
+
+//             </motion.section>
+
+//           )}
+
+
+
+//         {/* =========================
+//             QUICK ACTIONS
+//         ========================= */}
+
+//         <motion.section
+//           className="dashboard-section"
+
+//           variants={
+//             fadeUp
+//           }
+
+//           initial="hidden"
+
+//           whileInView="show"
+
+//           viewport={{
+//             once: true,
+//             amount: 0.15,
+//           }}
+//         >
+
+//           <div className="section-header compact-header">
+
+//             <div>
+
+//               <span className="section-tag">
+
+//                 {t(
+//                   "quickAccess"
+//                 )}
+
+//               </span>
+
+
+//               <h2>
+
+//                 {t(
+//                   "quickActions"
+//                 )}
+
+//               </h2>
+
+
+//               <p>
+
+//                 {t(
+//                   "manageMarketplaceActivities"
+//                 )}
+
+//               </p>
+
+//             </div>
+
+//           </div>
+
+
+
+//           <motion.div
+//             className="action-grid"
+
+//             variants={
+//               containerVariants
+//             }
+//           >
+
+
+//             {/* ADD CROP */}
+
+//             <motion.div
+//               className="action-card quick-action-item"
+
+//               variants={
+//                 cardVariants
+//               }
+
+//               whileHover={{
+//                 y: -7,
+//                 scale: 1.015,
+//               }}
+
+//               whileTap={{
+//                 scale: 0.98,
+//               }}
+
+//               onClick={() =>
+//                 navigate(
+//                   "/farmer/add-crop"
+//                 )
+//               }
+//             >
+
+//               <div className="action-card-top">
+
+//                 <div className="action-icon">
+
+//                   <Plus
+//                     size={21}
+//                   />
+
+//                 </div>
+
+
+//                 <ArrowRight
+//                   className="action-arrow"
+//                   size={18}
+//                 />
+
+//               </div>
+
+
+//               <h3>
+
+//                 {t(
+//                   "addNewCrop"
+//                 )}
+
+//               </h3>
+
+
+//               <p>
+
+//                 {t(
+//                   "listCropReachBuyers"
+//                 )}
+
+//               </p>
+
+
+//               <span className="action-link">
+
+//                 {t(
+//                   "addCrop"
+//                 )}
+
+//                 <ArrowRight
+//                   size={14}
+//                 />
+
+//               </span>
+
+//             </motion.div>
+
+
+
+//             {/* MY CROPS */}
+
+//             <motion.div
+//               className="action-card quick-action-item"
+
+//               variants={
+//                 cardVariants
+//               }
+
+//               whileHover={{
+//                 y: -7,
+//                 scale: 1.015,
+//               }}
+
+//               whileTap={{
+//                 scale: 0.98,
+//               }}
+
+//               onClick={() =>
+//                 navigate(
+//                   "/farmer/crops"
+//                 )
+//               }
+//             >
+
+//               <div className="action-card-top">
+
+//                 <div className="action-icon">
+
+//                   <Package
+//                     size={21}
+//                   />
+
+//                 </div>
+
+
+//                 <ArrowRight
+//                   className="action-arrow"
+//                   size={18}
+//                 />
+
+//               </div>
+
+
+//               <h3>
+
+//                 {t(
+//                   "myCrops"
+//                 )}
+
+//               </h3>
+
+
+//               <p>
+
+//                 {t(
+//                   "viewManageCropListings"
+//                 )}
+
+//               </p>
+
+
+//               <span className="action-link">
+
+//                 {t(
+//                   "viewCrops"
+//                 )}
+
+//                 <ArrowRight
+//                   size={14}
+//                 />
+
+//               </span>
+
+//             </motion.div>
+
+
+
+//             {/* NOTIFICATIONS */}
+
+//             <motion.div
+//               className="action-card quick-action-item"
+
+//               variants={
+//                 cardVariants
+//               }
+
+//               whileHover={{
+//                 y: -7,
+//                 scale: 1.015,
+//               }}
+
+//               whileTap={{
+//                 scale: 0.98,
+//               }}
+
+//               onClick={() =>
+//                 navigate(
+//                   "/farmer/notifications"
+//                 )
+//               }
+//             >
+
+//               <div className="action-card-top">
+
+//                 <div className="action-icon">
+
+//                   <Bell
+//                     size={21}
+//                   />
+
+//                 </div>
+
+
+//                 <ArrowRight
+//                   className="action-arrow"
+//                   size={18}
+//                 />
+
+//               </div>
+
+
+//               <h3>
+
+//                 {t(
+//                   "notifications"
+//                 )}
+
+//               </h3>
+
+
+//               <p>
+
+//                 {t(
+//                   "checkBuyerMatchesUpdates"
+//                 )}
+
+//               </p>
+
+
+//               <span className="action-link">
+
+//                 {t(
+//                   "viewUpdates"
+//                 )}
+
+//                 <ArrowRight
+//                   size={14}
+//                 />
+
+//               </span>
+
+//             </motion.div>
+
+//           </motion.div>
+
+//         </motion.section>
+
+
+
+//         {/* =========================
+//             RECENT CROPS
+//         ========================= */}
+
+//         <motion.section
+//           className="dashboard-section"
+
+//           variants={
+//             fadeUp
+//           }
+
+//           initial="hidden"
+
+//           whileInView="show"
+
+//           viewport={{
+//             once: true,
+//             amount: 0.15,
+//           }}
+//         >
+
+//           <div className="section-header compact-header">
+
+//             <div>
+
+//               <span className="section-tag">
+
+//                 {t(
+//                   "yourListings"
+//                 )}
+
+//               </span>
+
+
+//               <h2>
+
+//                 {t(
+//                   "recentCrops"
+//                 )}
+
+//               </h2>
+
+
+//               <p>
+
+//                 {t(
+//                   "latestCropListings"
+//                 )}
+
+//               </p>
+
+//             </div>
+
+
+//             {crops.length > 3 && (
+
+//               <motion.button
+//                 className="section-view-button"
+
+//                 onClick={() =>
+//                   navigate(
+//                     "/farmer/crops"
+//                   )
+//                 }
+
+//                 whileHover={{
+//                   x: 4,
+//                 }}
+//               >
+
+//                 {t(
+//                   "viewAll"
+//                 )}
+
+//                 <ArrowRight
+//                   size={15}
+//                 />
+
+//               </motion.button>
+
+//             )}
+
+//           </div>
+
+
+
+//           {/* =========================
+//               EMPTY STATE
+//           ========================= */}
+
+//           {crops.length === 0 &&
+//             !loading && (
+
+//               <motion.div
+//                 className="empty-state"
+
+//                 initial={{
+//                   opacity: 0,
+//                   scale: 0.96,
+//                 }}
+
+//                 animate={{
+//                   opacity: 1,
+//                   scale: 1,
+//                 }}
+//               >
+
+//                 <div className="empty-icon">
+
+//                   <Sprout
+//                     size={27}
+//                   />
+
+//                 </div>
+
+
+//                 <h3>
+
+//                   {t(
+//                     "noCropsYet"
+//                   )}
+
+//                 </h3>
+
+
+//                 <p>
+
+//                   {t(
+//                     "addFirstCrop"
+//                   )}
+
+//                 </p>
+
+
+//                 <motion.button
+//                   onClick={() =>
+//                     navigate(
+//                       "/farmer/add-crop"
+//                     )
+//                   }
+
+//                   whileHover={{
+//                     scale: 1.04,
+//                   }}
+
+//                   whileTap={{
+//                     scale: 0.97,
+//                   }}
+//                 >
+
+//                   <Plus
+//                     size={16}
+//                   />
+
+//                   {t(
+//                     "addCrop"
+//                   )}
+
+//                 </motion.button>
+
+//               </motion.div>
+
+//             )}
+
+
+
+//           {/* =========================
+//               CROP CARDS
+//           ========================= */}
+
+//           {crops.length > 0 && (
+
+//             <motion.div
+//               className="my-crops-grid"
+
+//               variants={
+//                 containerVariants
+//               }
+
+//               initial="hidden"
+
+//               animate="show"
+//             >
+
+//               {crops
+//                 .slice(0, 3)
+//                 .map((crop) => (
+
+//                   <motion.div
+//                     className="my-crop-card"
+
+//                     key={
+//                       crop._id
+//                     }
+
+//                     variants={
+//                       cardVariants
+//                     }
+
+//                     whileHover={{
+//                       y: -6,
+//                     }}
+//                   >
+
+
+//                     {/* TOP */}
+
+//                     <div className="my-crop-top">
+
+//                       <div className="my-crop-icon">
+
+//                         <Wheat
+//                           size={19}
+//                         />
+
+//                       </div>
+
+
+//                       <span
+//                         className={
+//                           `my-crop-status ${getStatusClass(
+//                             crop.status
+//                           )}`
+//                         }
+//                       >
+
+//                         {t(
+//                           crop.status
+//                         )}
+
+//                       </span>
+
+//                     </div>
+
+
+
+//                     {/* TITLE */}
+
+//                     <div className="crop-title-row">
+
+//                       <div>
+
+//                         <span className="crop-label">
+
+//                           {t(
+//                             "cropListing"
+//                           )}
+
+//                         </span>
+
+
+//                         <h3>
+
+//                           {
+//                             crop.cropName
+//                           }
+
+//                         </h3>
+
+//                       </div>
+
+
+//                       <ShoppingBasket
+//                         size={18}
+//                         className="crop-basket-icon"
+//                       />
+
+//                     </div>
+
+
+
+//                     {/* INFORMATION */}
+
+//                     <div className="my-crop-info">
+
+
+//                       {/* QUANTITY */}
+
+//                       <div className="my-crop-info-item">
+
+//                         <span>
+
+//                           {t(
+//                             "quantity"
+//                           )}
+
+//                         </span>
+
+
+//                         <strong>
+
+//                           {
+//                             crop.quantity
+//                           }{" "}
+
+//                           {t(
+//                             "kg"
+//                           )}
+
+//                         </strong>
+
+//                       </div>
+
+
+
+//                       {/* PRICE */}
+
+//                       <div className="my-crop-info-item">
+
+//                         <span>
+
+//                           {t(
+//                             "price"
+//                           )}
+
+//                         </span>
+
+
+//                         <strong>
+
+//                           ₹
+//                           {
+//                             crop.expectedPrice ||
+//                             "—"
+//                           }
+
+//                         </strong>
+
+//                       </div>
+
+
+
+//                       {/* QUALITY */}
+
+//                       <div className="my-crop-info-item">
+
+//                         <span>
+
+//                           {t(
+//                             "quality"
+//                           )}
+
+//                         </span>
+
+
+//                         <strong>
+
+//                           {
+//                             crop.quality ||
+//                             "—"
+//                           }
+
+//                         </strong>
+
+//                       </div>
+
+
+
+//                       {/* GRADE */}
+
+//                       <div className="my-crop-info-item">
+
+//                         <span>
+
+//                           {t(
+//                             "grade"
+//                           )}
+
+//                         </span>
+
+
+//                         <strong>
+
+//                           {
+//                             crop.grade ||
+//                             "—"
+//                           }
+
+//                         </strong>
+
+//                       </div>
+
+//                     </div>
+
+
+
+//                     {/* MANAGE LISTING */}
+
+//                     <motion.button
+//                       className="crop-view-button"
+
+//                       onClick={() =>
+//                         navigate(
+//                           "/farmer/crops"
+//                         )
+//                       }
+
+//                       whileHover={{
+//                         x: 3,
+//                       }}
+//                     >
+
+//                       {t(
+//                         "manageListing"
+//                       )}
+
+//                       <ArrowRight
+//                         size={14}
+//                       />
+
+//                     </motion.button>
+
+//                   </motion.div>
+
+//                 ))}
+
+//             </motion.div>
+
+//           )}
+
+//         </motion.section>
+
+
+
+//         {/* =========================
+//             VIEW ALL CROPS
+//         ========================= */}
+
+//         {crops.length > 3 && (
+
+//           <motion.button
+//             className="submit-button"
+
+//             onClick={() =>
+//               navigate(
+//                 "/farmer/crops"
+//               )
+//             }
+
+//             whileHover={{
+//               scale: 1.02,
+//             }}
+
+//             whileTap={{
+//               scale: 0.98,
+//             }}
+//           >
+
+//             {t(
+//               "viewAllCrops"
+//             )}
+
+//             <ArrowRight
+//               size={16}
+//             />
+
+//           </motion.button>
+
+//         )}
+
+//       </main>
+
+//     </div>
+
+//   );
+
+// }
+
+
+// export default FarmerDashboard;
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";

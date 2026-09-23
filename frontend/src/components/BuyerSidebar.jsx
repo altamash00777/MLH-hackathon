@@ -1,132 +1,184 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import "./BuyerSidebar.css";
 
 function BuyerSidebar() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
+    const confirmLogout = window.confirm(
+      "Are you sure you want to logout?"
+    );
+
+    if (!confirmLogout) return;
+
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
     navigate("/buyer/login");
   };
 
+  // Close sidebar when navigating on mobile
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <aside className="sidebar">
-
-      {/* Logo */}
-
-      <div className="sidebar-logo">
-
-        <span>🌾</span>
-
-        <h2>Dishaa</h2>
-
-      </div>
-
-
-      {/* Buyer Info */}
-
-      <div className="farmer-info">
-
-        <div className="farmer-avatar">
-          {user?.name
-            ?.charAt(0)
-            ?.toUpperCase() || "B"}
-        </div>
-
-        <div>
-
-          <h4>
-            {user?.name || "Buyer"}
-          </h4>
-
-          <p>
-            Buyer
-          </p>
-
-        </div>
-
-      </div>
-
-
-      {/* Navigation */}
-
-      <nav className="sidebar-nav">
-
-        <NavLink
-          to="/buyer/dashboard"
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>📊</span>
-          Dashboard
-        </NavLink>
-
-
-        <NavLink
-          to="/buyer/requirements"
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>📋</span>
-          My Requirements
-        </NavLink>
-
-
-        <NavLink
-          to="/buyer/add-requirement"
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>➕</span>
-          Post Requirement
-        </NavLink>
-
-
-<NavLink
-  to="/buyer/matches"
-  className={({ isActive }) =>
-    isActive ? "nav-item active" : "nav-item"
-  }
->
-  <span>🤝</span>
-  Farmer Matches
-</NavLink>
-
-
-
-
-
-      </nav>
-
-
-      {/* Logout */}
+    <>
+      {/* =========================================
+          MOBILE HAMBURGER
+      ========================================= */}
 
       <button
-        className="logout-button"
-        onClick={handleLogout}
+        className="buyer-mobile-menu-btn"
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-label="Toggle buyer menu"
+        aria-expanded={isOpen}
       >
-        <span>🚪</span>
-        Logout
+        {isOpen ? "✕" : "☰"}
       </button>
 
-    </aside>
+      {/* =========================================
+          MOBILE OVERLAY
+      ========================================= */}
+
+      {isOpen && (
+        <div
+          className="buyer-sidebar-overlay"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* =========================================
+          BUYER SIDEBAR
+      ========================================= */}
+
+      <aside
+        className={`buyer-sidebar ${
+          isOpen ? "buyer-sidebar-open" : ""
+        }`}
+      >
+
+        {/* =========================================
+            LOGO
+        ========================================= */}
+
+        <div className="buyer-sidebar-logo">
+          <span>🌾</span>
+          <h2>Dishaa</h2>
+        </div>
+
+        {/* =========================================
+            BUYER INFO
+        ========================================= */}
+
+        {/* <div className="buyer-info">
+          <div className="buyer-avatar">
+            {user?.name?.charAt(0)?.toUpperCase() || "B"}
+          </div>
+
+          <div className="buyer-user-details">
+            <h4>{user?.name || "Buyer"}</h4>
+            <p>Buyer</p>
+          </div>
+        </div> */}
+
+        {/* =========================================
+            NAVIGATION
+        ========================================= */}
+
+        <nav className="buyer-sidebar-nav">
+
+          {/* Dashboard */}
+          <NavLink
+            to="/buyer/dashboard"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive
+                ? "buyer-nav-item active"
+                : "buyer-nav-item"
+            }
+          >
+            <span>📊</span>
+            <span>Dashboard</span>
+          </NavLink>
+
+          {/* My Requirements */}
+          <NavLink
+            to="/buyer/requirements"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive
+                ? "buyer-nav-item active"
+                : "buyer-nav-item"
+            }
+          >
+            <span>📋</span>
+            <span>My Requirements</span>
+          </NavLink>
+
+          {/* Post Requirement */}
+          <NavLink
+            to="/buyer/add-requirement"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive
+                ? "buyer-nav-item active"
+                : "buyer-nav-item"
+            }
+          >
+            <span>➕</span>
+            <span>Post Requirement</span>
+          </NavLink>
+
+          {/* Farmer Matches */}
+          <NavLink
+            to="/buyer/matches"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive
+                ? "buyer-nav-item active"
+                : "buyer-nav-item"
+            }
+          >
+            <span>🤝</span>
+            <span>Farmer Matches</span>
+          </NavLink>
+
+          {/* Deals */}
+          <NavLink
+            to="/buyer/deals"
+            onClick={handleNavClick}
+            className={({ isActive }) =>
+              isActive
+                ? "buyer-nav-item active"
+                : "buyer-nav-item"
+            }
+          >
+            <span>📑</span>
+            <span>Deals</span>
+          </NavLink>
+
+        </nav>
+
+        {/* =========================================
+            LOGOUT
+        ========================================= */}
+
+        <button
+          className="buyer-logout-button"
+          onClick={handleLogout}
+        >
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+
+      </aside>
+    </>
   );
 }
 
 export default BuyerSidebar;
-
-

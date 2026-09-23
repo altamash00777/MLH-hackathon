@@ -1,4 +1,6 @@
 const FarmerListing = require("../models/FarmerListing");
+const Match = require("../models/Match");
+const Deal = require("../models/Deal");
 
 // ==========================================
 // CREATE CROP LISTING
@@ -36,7 +38,8 @@ const createListing = async (req, res) => {
 
     // Create listing
     const listing = await FarmerListing.create({
-      // IMPORTANT: farmer ID comes from authenticated user
+      // IMPORTANT:
+      // Farmer ID comes from authenticated user
       farmerId: req.user._id,
 
       cropName,
@@ -84,10 +87,11 @@ const getMyListings = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Get my listings error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
@@ -115,10 +119,11 @@ const getListingById = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Get listing by ID error:", error);
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };
@@ -205,10 +210,15 @@ const updateListing = async (req, res) => {
 
 // ==========================================
 // DELETE CROP
+// DELETE RELATED MATCHES + DEALS
 // ==========================================
 
 const deleteListing = async (req, res) => {
   try {
+    // ==========================================
+    // 1. FIND CROP
+    // ==========================================
+
     const listing = await FarmerListing.findOne({
       _id: req.params.id,
       farmerId: req.user._id
@@ -220,19 +230,75 @@ const deleteListing = async (req, res) => {
       });
     }
 
+    // ==========================================
+    // 2. FIND ALL MATCHES FOR THIS CROP
+    // ==========================================
+
+    const matches = await Match.find({
+      farmerListingId: listing._id
+    }).select("_id");
+
+    const matchIds = matches.map(
+      (match) => match._id
+    );
+
+    // ==========================================
+    // 3. DELETE RELATED DEALS
+    // ==========================================
+    // Delete deals using either:
+    // - related matchId
+    // - farmerListingId
+    //
+    // This also handles cases where the Match
+    // was already deleted.
+
+    await Deal.deleteMany({
+      $or: [
+        {
+          matchId: {
+            $in: matchIds
+          }
+        },
+        {
+          farmerListingId: listing._id
+        }
+      ]
+    });
+
+    // ==========================================
+    // 4. DELETE RELATED MATCHES
+    // ==========================================
+
+    await Match.deleteMany({
+      farmerListingId: listing._id
+    });
+
+    // ==========================================
+    // 5. DELETE FARMER CROP
+    // ==========================================
+
     await FarmerListing.deleteOne({
       _id: listing._id
     });
 
+    // ==========================================
+    // 6. SUCCESS RESPONSE
+    // ==========================================
+
     res.status(200).json({
-      message: "Crop listing deleted successfully"
+      message:
+        "Crop listing, related matches and deals deleted successfully"
     });
 
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Delete listing error:",
+      error
+    );
 
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
   }
 };

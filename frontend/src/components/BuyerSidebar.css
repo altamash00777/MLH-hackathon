@@ -1,32 +1,26 @@
 
-/* =========================================================
-   DISHAA SIDEBAR
-   Desktop + Mobile Hamburger
-========================================================= */
-
 :root {
-  --sidebar-width: 250px;
+  --buyer-sidebar-width: 250px;
 
-  --dark-green: #062e1a;
-  --deep-green: #041f12;
-  --green: #8fca55;
-  --light-green: #eaffb0;
-  --yellow: #ffd54f;
-  --brown: #5b3312;
+  --buyer-dark-green: #062e1a;
+  --buyer-deep-green: #041f12;
+  --buyer-green: #8fca55;
+  --buyer-light-green: #eaffb0;
+  --buyer-yellow: #ffd54f;
 }
 
 
 /* =========================================================
-   SIDEBAR
+   BUYER SIDEBAR
 ========================================================= */
 
-.sidebar {
+.buyer-sidebar {
   position: fixed;
 
   top: 0;
   left: 0;
 
-  width: var(--sidebar-width);
+  width: var(--buyer-sidebar-width);
   height: 100vh;
 
   padding: 20px 14px;
@@ -63,20 +57,20 @@
    SCROLLBAR
 ========================================================= */
 
-.sidebar::-webkit-scrollbar {
+.buyer-sidebar::-webkit-scrollbar {
   width: 5px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.buyer-sidebar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.buyer-sidebar::-webkit-scrollbar-thumb {
   background: rgba(183, 237, 114, 0.3);
   border-radius: 10px;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
+.buyer-sidebar::-webkit-scrollbar-thumb:hover {
   background: rgba(183, 237, 114, 0.55);
 }
 
@@ -85,7 +79,7 @@
    LOGO
 ========================================================= */
 
-.sidebar-logo {
+.buyer-sidebar-logo {
   width: 100%;
 
   display: flex;
@@ -104,18 +98,17 @@
   flex-shrink: 0;
 }
 
-.sidebar-logo span {
+.buyer-sidebar-logo span {
   font-size: 32px;
   line-height: 1;
-
   flex-shrink: 0;
 }
 
-.sidebar-logo h2 {
+.buyer-sidebar-logo h2 {
   margin: 0;
   padding: 0;
 
-  color: var(--light-green);
+  color: var(--buyer-light-green);
 
   font-size: 28px;
   font-weight: 800;
@@ -127,10 +120,75 @@
 
 
 /* =========================================================
+   BUYER INFO
+========================================================= */
+
+.buyer-info {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 4px 8px 15px;
+
+  margin-bottom: 5px;
+
+  flex-shrink: 0;
+}
+
+.buyer-avatar {
+  width: 38px;
+  height: 38px;
+
+  min-width: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(143, 202, 85, 0.2);
+
+  border: 1px solid rgba(183, 237, 114, 0.25);
+
+  color: var(--buyer-light-green);
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.buyer-user-details {
+  min-width: 0;
+}
+
+.buyer-user-details h4 {
+  margin: 0;
+
+  color: #f2f7f1;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buyer-user-details p {
+  margin: 3px 0 0;
+
+  color: #9eb5a2;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
    NAVIGATION
 ========================================================= */
 
-.sidebar-nav {
+.buyer-sidebar-nav {
   width: 100%;
 
   display: flex;
@@ -148,7 +206,7 @@
    NAV ITEM
 ========================================================= */
 
-.nav-item {
+.buyer-nav-item {
   width: 100%;
 
   min-height: 42px;
@@ -182,14 +240,12 @@
 
 
 /* =========================================================
-   ICON
+   NAV ICON
 ========================================================= */
 
-.nav-item span {
+.buyer-nav-item > span:first-child {
   width: 24px;
   min-width: 24px;
-
-  flex-shrink: 0;
 
   display: inline-flex;
 
@@ -206,7 +262,7 @@
    HOVER
 ========================================================= */
 
-.nav-item:hover {
+.buyer-nav-item:hover {
   color: #f2ffd9;
 
   background: rgba(183, 237, 114, 0.09);
@@ -219,8 +275,8 @@
    ACTIVE
 ========================================================= */
 
-.nav-item.active {
-  color: var(--light-green);
+.buyer-nav-item.active {
+  color: var(--buyer-light-green);
 
   background: linear-gradient(
     90deg,
@@ -228,7 +284,7 @@
     rgba(255, 213, 79, 0.07)
   );
 
-  border-left: 3px solid var(--green);
+  border-left: 3px solid var(--buyer-green);
 
   padding-left: 8px;
 
@@ -236,7 +292,7 @@
     0 0 15px rgba(143, 202, 85, 0.08);
 }
 
-.nav-item.active span {
+.buyer-nav-item.active > span:first-child {
   filter: drop-shadow(
     0 0 5px rgba(183, 237, 114, 0.35)
   );
@@ -247,7 +303,7 @@
    LOGOUT
 ========================================================= */
 
-.logout-button {
+.buyer-logout-button {
   width: 100%;
 
   min-height: 43px;
@@ -285,11 +341,11 @@
     transform 0.2s ease;
 }
 
-.logout-button span {
+.buyer-logout-button span:first-child {
   font-size: 16px;
 }
 
-.logout-button:hover {
+.buyer-logout-button:hover {
   background: rgba(122, 70, 24, 0.6);
 
   box-shadow:
@@ -300,10 +356,10 @@
 
 
 /* =========================================================
-   HAMBURGER
+   MOBILE HAMBURGER
 ========================================================= */
 
-.mobile-menu-btn {
+.buyer-mobile-menu-btn {
   display: none;
 
   position: fixed;
@@ -325,7 +381,7 @@
 
   background: #062e1a;
 
-  color: var(--light-green);
+  color: var(--buyer-light-green);
 
   font-size: 24px;
   line-height: 1;
@@ -342,7 +398,7 @@
     transform 0.2s ease;
 }
 
-.mobile-menu-btn:hover {
+.buyer-mobile-menu-btn:hover {
   background: #0a4725;
 
   transform: scale(1.04);
@@ -350,10 +406,10 @@
 
 
 /* =========================================================
-   OVERLAY
+   MOBILE OVERLAY
 ========================================================= */
 
-.sidebar-overlay {
+.buyer-sidebar-overlay {
   position: fixed;
 
   inset: 0;
@@ -376,11 +432,11 @@
 
 @media (max-width: 900px) {
 
-  .mobile-menu-btn {
+  .buyer-mobile-menu-btn {
     display: flex;
   }
 
-  .sidebar {
+  .buyer-sidebar {
     width: 250px;
     height: 100vh;
 
@@ -391,19 +447,19 @@
     z-index: 99998;
   }
 
-  .sidebar.sidebar-open {
+  .buyer-sidebar.buyer-sidebar-open {
     transform: translateX(0);
   }
 
-  .sidebar-logo h2 {
+  .buyer-sidebar-logo h2 {
     font-size: 25px;
   }
 
-  .sidebar-logo span {
+  .buyer-sidebar-logo span {
     font-size: 30px;
   }
 
-  .nav-item {
+  .buyer-nav-item {
     min-height: 42px;
 
     padding: 9px 10px;
@@ -411,7 +467,7 @@
     font-size: 14px;
   }
 
-  .logout-button {
+  .buyer-logout-button {
     min-height: 43px;
 
     font-size: 14px;
@@ -425,11 +481,11 @@
 
 @media (max-width: 400px) {
 
-  .sidebar {
+  .buyer-sidebar {
     width: 235px;
   }
 
-  .mobile-menu-btn {
+  .buyer-mobile-menu-btn {
     top: 10px;
     left: 10px;
 
