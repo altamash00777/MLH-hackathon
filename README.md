@@ -1,1243 +1,182 @@
-# 🌾 Disha — Farmer–Buyer Marketplace
+# 🌾 DISHA — Agricultural Market Coordination Platform
 
-> **Strengthening market linkages and price discovery for farmers**
+> **Connecting Farmers, Buyers & Market Intelligence**
 
-Disha is a full-stack farmer–buyer marketplace designed to connect farmers directly with potential buyers based on **crop, quantity, quality, grade, location, and price-related requirements**.
-
-The platform helps farmers discover suitable buyers and allows buyers to find farmers whose crop listings match their requirements. Disha aims to improve market access, reduce information gaps, and support better price discovery and transaction decisions.
+DISHA is a technology-based agricultural platform built for the **MLH Hackathon — Open Innovation**. It helps farmers and buyers discover suitable matches and coordinate the complete agricultural transaction from **matching to payment**.
 
 ---
 
-## 📌 Problem Statement
+## 🎯 Problem
 
-Farmers often face challenges such as:
+Farmers and buyers often have fragmented information about:
 
-* Limited access to reliable buyers
-* Dependence on intermediaries
-* Difficulty comparing multiple buyers
-* Lack of transparent price information
-* Transportation costs affecting actual earnings
-* Difficulty finding buyers for specific crop qualities and quantities
-* Fragmented information about market demand
-
-At the same time, buyers may struggle to find farmers offering the required:
-
-* Crop
-* Quantity
-* Quality
-* Grade
+* Crop availability
+* Quantity and quality
+* Price
 * Location
-* Price expectations
+* Pickup and delivery
+* Payment status
+* Market prices
 
-Disha addresses these problems through a digital farmer–buyer marketplace with intelligent matching and market information features.
-
----
-
-# 🎯 Objectives
-
-Disha aims to:
-
-* Connect farmers and buyers directly.
-* Improve market linkages.
-* Help farmers discover multiple suitable buyers.
-* Help buyers find suitable farmer listings.
-* Match listings and requirements using multiple parameters.
-* Provide price-related information for better decision-making.
-* Calculate estimated net realization after selling-related costs.
-* Provide a foundation for bidding and price discovery.
-* Support role-based farmer and buyer workflows.
-* Provide a scalable platform for future AI-based agricultural services.
+Finding a buyer is only one part of the problem. After a match, multiple activities still need to be coordinated.
 
 ---
 
-# 🚀 Key Features
+## 💡 Solution
 
-## 👨‍🌾 Farmer
+DISHA provides a single platform for:
 
-Farmers can:
+**Farmer → Buyer Matching → Deal → Pickup → Delivery → Payment**
 
-* Register and log in.
-* Create crop listings.
-* Specify crop quantity.
-* Specify crop quality.
-* Specify crop grade.
-* Add harvest date.
-* Add selling location.
-* View suitable buyer requirements.
-* Compare multiple potential buyers.
-* View match scores.
-* Contact matched buyers.
-* Accept suitable matches.
-* Receive notifications.
-* Track marketplace activity.
-* View price trends.
-* Explore estimated net realization.
-* Participate in future bidding workflows.
+### Key Features
+
+* 👨‍🌾 Farmer crop listings
+* 🏢 Buyer requirements
+* 🤝 Farmer-buyer matching
+* 📑 Deal coordination and task tracking
+* 🚚 Pickup & delivery coordination
+* 💰 Net realization / profit calculation
+* 💳 Payment tracking
+* 📊 Current mandi market intelligence
+* 🤖 AI-ready farmer assistant
 
 ---
 
-## 🛒 Buyer
+## ❄️ Snowflake Integration
 
-Buyers can:
+Snowflake is used as the **market intelligence and analytical data layer**.
 
-* Register and log in.
-* Create crop requirements.
-* Specify required quantity.
-* Specify quality.
-* Specify grade.
-* Specify location.
-* Specify expected price.
-* View suitable farmer listings.
-* View matching scores.
-* Contact farmers.
-* Accept suitable matches.
-* Receive notifications.
-* Manage their requirements.
+### MongoDB
 
----
-
-# 🤝 Intelligent Farmer–Buyer Matching
-
-Disha uses a matching system to identify suitable farmer–buyer pairs.
-
-The matching system considers multiple factors rather than relying only on the crop name.
-
-### Matching Parameters
-
-| Parameter |  Weight |
-| --------- | ------: |
-| Crop      |      30 |
-| Quality   |      20 |
-| Grade     |      15 |
-| Location  |      15 |
-| Price     |      10 |
-| Quantity  |      10 |
-| **Total** | **100** |
-
-The matching score can be represented as:
+Stores operational data:
 
 ```text
-Match Score =
-Crop Score
-+ Quality Score
-+ Grade Score
-+ Location Score
-+ Price Score
-+ Quantity Score
+Users
+Listings
+Requirements
+Matches
+Deals
+Transactions
+Payments
 ```
 
-A match can be considered suitable when the score reaches the configured threshold.
+### Snowflake
 
-Example:
+Stores and analyzes mandi market data:
 
 ```text
-Farmer Listing
--------------------------
-Crop: Wheat
-Quantity: 100 Quintals
-Quality: Premium
-Grade: A
-Location: Lucknow
-Price: ₹2,400/quintal
-
-Buyer Requirement
--------------------------
-Crop: Wheat
-Quantity: 80 Quintals
-Quality: Premium
-Grade: A
-Location: Lucknow
-Expected Price: ₹2,350/quintal
-
-Match Score: 85/100
+Crop
+State
+District
+Market
+Variety
+Grade
+Min Price
+Max Price
+Modal Price
+Arrival Date
 ```
 
-The exact scoring logic can be modified according to project requirements.
+Market data is collected from the **Government of India data.gov.in Mandi API**, imported into Snowflake, and exposed through the backend to the React **Market Intelligence** dashboard.
+
+```text
+data.gov.in
+     ↓
+Snowflake
+     ↓
+Market Intelligence API
+     ↓
+React Dashboard
+     ↓
+Farmer
+```
+
+This allows farmers to view current market prices and compare markets for their selected crop.
 
 ---
 
-# 💰 Net Realization
-
-A key concept in Disha is helping farmers understand the amount they may actually receive after selling-related expenses.
-
-The platform can consider:
+## 🔄 How DISHA Works
 
 ```text
-Gross Value
-      ↓
-Transportation Cost
-      ↓
-Selling / Market Costs
-      ↓
-Other Applicable Costs
-      ↓
-Net Realization
-```
-
-### Basic Formula
-
-```text
-Gross Value =
-Quantity × Selling Price
-```
-
-```text
-Net Realization =
-Gross Value
-- Transportation Cost
-- Selling Costs
-- Other Applicable Costs
-```
-
-The platform can also display:
-
-```text
-Net Realization per Quintal
-```
-
-This can help farmers compare potential buyers based not only on the offered price but also on associated costs.
-
----
-
-# 📊 Price Discovery
-
-Disha is designed to incorporate market price information so that farmers can make more informed selling decisions.
-
-Potential price information includes:
-
-* Mandi prices
-* Historical price trends
-* Market/location-based prices
-* Buyer offers
-* Bidding prices
-* AI-based price predictions
-
-The system can use government/public market datasets and APIs where available.
-
----
-
-# 🏷️ Bidding
-
-The platform can support a bidding workflow where multiple buyers compete for a farmer's crop listing.
-
-Example:
-
-```text
-Farmer:
-Wheat — 100 Quintals
-
-Buyer A → ₹2,350/quintal
-Buyer B → ₹2,420/quintal
-Buyer C → ₹2,390/quintal
-```
-
-The farmer can compare available offers before making a decision.
-
-The bidding module can be extended in the future with:
-
-* Real-time bidding
-* Bid expiration
-* Automatic bid ranking
-* Buyer verification
-* Notifications
-* Bid history
-
----
-
-# 👥 FPO Support
-
-Disha can also support **Farmer Producer Organizations (FPOs)**.
-
-Instead of selling small quantities individually, multiple farmers can combine their produce.
-
-Example:
-
-```text
-Farmer A → 200 Quintals
-Farmer B → 500 Quintals
-Farmer C → 300 Quintals
--------------------------
-Total     → 1000 Quintals
-```
-
-This can help create larger aggregated lots for buyers who require higher quantities.
-
----
-
-# 🔔 Notifications
-
-The notification system can inform users about:
-
-* New matches
-* Buyer interest
-* Farmer interest
-* Match acceptance
-* Contact requests
-* Bidding activity
-* Requirement updates
-* Marketplace events
-
----
-
-# 🔐 Authentication & Authorization
-
-Disha uses role-based authentication.
-
-### User Roles
-
-```text
-User
-├── Farmer
-└── Buyer
-```
-
-Authentication is implemented using:
-
-* JWT
-* Password-based authentication
-* Protected routes
-* Role-based authorization
-
-Example:
-
-```text
-protect
-   ↓
-authenticate JWT
-   ↓
-authorize role
-   ↓
-Allow / Reject Request
-```
-
-Farmers cannot access buyer-only operations, and buyers cannot access farmer-only operations.
-
----
-
-# 🏗️ System Architecture
-
-```text
-                         ┌─────────────────────┐
-                         │     Disha Web App    │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │   React Frontend    │
-                         │      + Vite         │
-                         └──────────┬──────────┘
-                                    │ REST API
-                                    ▼
-                         ┌─────────────────────┐
-                         │ Node.js + Express   │
-                         │       Backend       │
-                         └──────────┬──────────┘
-                                    │
-                 ┌──────────────────┼──────────────────┐
-                 │                  │                  │
-                 ▼                  ▼                  ▼
-          Authentication       Matching          Marketplace
-              JWT              Engine              APIs
-                 │                  │                  │
-                 └──────────────────┼──────────────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │   MongoDB Atlas     │
-                         │      Database       │
-                         └─────────────────────┘
+Farmer Creates Listing
+          ↓
+Buyer Creates Requirement
+          ↓
+Matching Engine
+          ↓
+Deal Created
+          ↓
+Task Coordination
+          ↓
+Pickup & Delivery
+          ↓
+Payment
+          ↓
+Transaction Completed
 ```
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-## Frontend
+**Frontend**
 
 * React.js
 * Vite
-* JavaScript
-* HTML5
-* CSS3
-* Framer Motion
-* Lucide React
+* CSS
 
-## Backend
+**Backend**
 
 * Node.js
 * Express.js
-* REST APIs
-* JWT Authentication
-* bcrypt / password hashing
-* CORS
+* REST API
+* JWT
 
-## Database
+**Databases**
 
-* MongoDB
-* Mongoose
-* MongoDB Atlas
+* MongoDB — transactional data
+* Snowflake — market intelligence
 
-## Development & Testing
+**External Services**
 
-* Visual Studio Code
-* Git
-* GitHub
-* Postman
-* MongoDB Compass
+* Government of India data.gov.in
+* OpenRouteService
 
-## Future / AI Components
+**AI**
 
-* Python
-* Machine Learning
-* AI-based Price Prediction
-* Market Analytics
-* Intelligent Recommendation Systems
+* Snowflake Cortex / DISHA Sahayak — planned AI intelligence layer
 
 ---
 
-# 📁 Project Structure
+## 🌟 Why DISHA?
 
-A typical project structure is:
+DISHA is designed not just as a marketplace, but as a **coordination platform**.
 
-```text
-Disha/
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── context/
-│   │   ├── assets/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   ├── package.json
-│   └── vite.config.js
-│
-├── backend/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   ├── config/
-│   ├── server.js
-│   ├── package.json
-│   └── .env
-│
-├── .gitignore
-└── README.md
-```
+It connects:
 
-> Folder names may differ depending on the final project structure.
+> **Matching + Market Intelligence + Deal Coordination + Logistics + Payment**
+
+into one workflow, reducing information fragmentation between farmers and buyers.
 
 ---
 
-# 🗄️ Database Structure
+## 🚀 Future Scope
 
-The main MongoDB database is:
-
-```text
-farmer
-```
-
-### Collections
-
-```text
-farmer
-│
-├── users
-├── farmerlistings
-├── buyerrequirements
-├── matches
-└── notifications
-```
+* 🤖 DISHA Sahayak AI assistant
+* 📈 Advanced market analytics
+* 🧠 Snowflake Cortex integration
+* 🚛 Logistics provider coordination
+* 🏪 Storage coordination
+* 👥 FPO group transactions
 
 ---
 
-## 👤 Users
+## 🏆 Hackathon
 
-Stores authentication and user information.
+**MLH Hackathon — Open Innovation**
 
-Example:
+### Project: DISHA
 
-```json
-{
-  "name": "Farmer Name",
-  "email": "farmer@example.com",
-  "role": "farmer"
-}
-```
-
-Possible roles:
-
-```text
-farmer
-buyer
-```
+> *Turning fragmented agricultural transactions into one coordinated workflow.*
 
 ---
-
-## 🌾 Farmer Listings
-
-Stores crop listings created by farmers.
-
-Example fields:
-
-```text
-cropName
-quantity
-quality
-grade
-harvestDate
-sellingLocation
-price / mandiPrice
-status
-farmer
-```
-
-Possible listing statuses:
-
-```text
-active
-matched
-sold
-inactive
-```
-
----
-
-## 🛒 Buyer Requirements
-
-Stores crop requirements posted by buyers.
-
-Example fields:
-
-```text
-cropName
-requiredQuantity
-quality
-grade
-location
-expectedPrice
-buyer
-status
-```
-
----
-
-## 🤝 Matches
-
-Stores relationships between farmer listings and buyer requirements.
-
-Example:
-
-```text
-farmerListing
-buyerRequirement
-farmer
-buyer
-matchScore
-status
-```
-
-Possible statuses include:
-
-```text
-pending
-contacted
-accepted
-rejected
-```
-
----
-
-## 🔔 Notifications
-
-Stores user notifications.
-
-Example:
-
-```text
-recipient
-message
-type
-read
-createdAt
-```
-
----
-
-# 🔌 API Structure
-
-The backend exposes REST APIs.
-
-## Authentication
-
-```text
-POST /api/auth/register
-POST /api/auth/login
-```
-
----
-
-## Farmer Listings
-
-```text
-GET    /api/farmer/listings
-POST   /api/farmer/listings
-GET    /api/farmer/listings/:id
-PATCH  /api/farmer/listings/:id
-DELETE /api/farmer/listings/:id
-```
-
----
-
-## Buyer Requirements
-
-```text
-GET    /api/buyer/requirements
-POST   /api/buyer/requirements
-GET    /api/buyer/requirements/:id
-PATCH  /api/buyer/requirements/:id
-DELETE /api/buyer/requirements/:id
-```
-
----
-
-## Matching
-
-```text
-GET   /api/matches/farmer
-GET   /api/matches/buyer
-POST  /api/matches/:matchId/contact
-PATCH /api/matches/:matchId/accept
-```
-
----
-
-## Notifications
-
-```text
-GET /api/notifications
-PATCH /api/notifications/:id/read
-```
-
-> Exact endpoints may vary depending on the current backend implementation.
-
----
-
-# ⚙️ Local Installation
-
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/altamash00777/SIH.git
-```
-
-Move into the project:
-
-```bash
-cd SIH
-```
-
----
-
-# 🔧 Backend Setup
-
-Move into the backend directory:
-
-```bash
-cd backend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create a `.env` file:
-
-```env
-PORT=5000
-
-MONGODB_URL=mongodb://127.0.0.1:27017/farmer
-
-JWT_SECRET=your_jwt_secret
-```
-
-If using MongoDB Atlas:
-
-```env
-MONGODB_URL=mongodb+srv://USERNAME:PASSWORD@cluster.mongodb.net/farmer
-```
-
-Start the backend:
-
-```bash
-npm run dev
-```
-
-or:
-
-```bash
-npm start
-```
-
-The backend will normally run on:
-
-```text
-http://localhost:5000
-```
-
----
-
-# 🎨 Frontend Setup
-
-Open another terminal.
-
-Move to the frontend directory:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The frontend will normally be available at:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 🔐 Environment Variables
-
-Never commit your `.env` file to GitHub.
-
-Example:
-
-```env
-PORT=5000
-MONGODB_URL=your_mongodb_connection_string
-JWT_SECRET=your_secret
-```
-
-Add this to `.gitignore`:
-
-```gitignore
-.env
-node_modules/
-dist/
-```
-
-### ⚠️ Security
-
-Never expose:
-
-* MongoDB passwords
-* JWT secrets
-* API keys
-* SMTP credentials
-* Cloud credentials
-
----
-
-# ☁️ MongoDB Atlas
-
-Disha supports MongoDB Atlas for remote database hosting.
-
-The production architecture can use:
-
-```text
-Frontend
-   ↓
-Deployed Backend
-   ↓
-MongoDB Atlas
-```
-
-Instead of:
-
-```text
-Frontend
-   ↓
-Local Backend
-   ↓
-localhost MongoDB
-```
-
-This allows the deployed application to access the same remote database.
-
----
-
-# 🧪 Testing
-
-API testing can be performed using **Postman**.
-
-Test areas include:
-
-### Authentication
-
-```text
-Register
-Login
-JWT authentication
-```
-
-### Farmer
-
-```text
-Create listing
-View listing
-Update listing
-Delete listing
-View matches
-```
-
-### Buyer
-
-```text
-Create requirement
-View requirements
-Update requirement
-Delete requirement
-View matches
-```
-
-### Matching
-
-```text
-Generate matches
-View matches
-Contact match
-Accept match
-```
-
-### Database
-
-MongoDB Compass or MongoDB Atlas can be used to inspect:
-
-```text
-users
-farmerlistings
-buyerrequirements
-matches
-notifications
-```
-
----
-
-# 📱 User Flow
-
-## Farmer Flow
-
-```text
-Register / Login
-       ↓
-Farmer Dashboard
-       ↓
-Create Crop Listing
-       ↓
-Enter Crop Details
-       ↓
-System Finds Matching Buyers
-       ↓
-Compare Multiple Buyers
-       ↓
-Contact Buyer
-       ↓
-Accept Match
-       ↓
-Transaction / Sale
-```
-
----
-
-## Buyer Flow
-
-```text
-Register / Login
-       ↓
-Buyer Dashboard
-       ↓
-Create Requirement
-       ↓
-Enter Required Crop Details
-       ↓
-System Finds Matching Farmers
-       ↓
-View Match Scores
-       ↓
-Contact Farmer
-       ↓
-Accept Match
-       ↓
-Transaction
-```
-
----
-
-# 🌱 Future Scope
-
-Disha can be extended with:
-
-### 🤖 AI Price Prediction
-
-Predict future crop prices using:
-
-* Historical mandi prices
-* Crop
-* Location
-* Season
-* Market trends
-* Demand
-* Supply
-
----
-
-### 📍 Distance & Transportation
-
-Calculate:
-
-```text
-Farmer Location
-       ↓
-Buyer / Market Location
-       ↓
-Distance
-       ↓
-Estimated Transportation Cost
-       ↓
-Net Realization
-```
-
----
-
-### 💰 Advanced Bidding
-
-Implement:
-
-* Real-time bids
-* Bid timers
-* Automatic bidding
-* Bid history
-* Farmer-controlled acceptance
-* Buyer notifications
-
----
-
-### 📊 Market Analytics
-
-Provide:
-
-* Price trends
-* Demand trends
-* Supply information
-* Regional comparison
-* Historical price analysis
-
----
-
-### 📄 Digital Transactions
-
-Future versions can support:
-
-* Digital invoices
-* Order tracking
-* Payment records
-* Transaction history
-* Digital agreements
-
----
-
-### 🏢 FPO Marketplace
-
-Enable FPOs to:
-
-* Aggregate farmer produce
-* Create bulk listings
-* Negotiate with buyers
-* Manage large orders
-* Improve collective market access
-
----
-
-# 🔒 Security Considerations
-
-Disha uses several security practices:
-
-* JWT-based authentication
-* Password hashing
-* Protected API routes
-* Role-based authorization
-* Environment variables for secrets
-* MongoDB Atlas authentication
-* CORS configuration
-
-Production deployment should additionally include:
-
-* HTTPS
-* Secure cookies where applicable
-* Rate limiting
-* Input validation
-* Request sanitization
-* Proper secret management
-* Restricted database access
-* Production logging and monitoring
-
----
-
-# 📈 Scalability
-
-The application is designed around a modular architecture:
-
-```text
-React
-  ↓
-REST API
-  ↓
-Express
-  ↓
-MongoDB
-```
-
-Future services can be added without completely redesigning the system:
-
-```text
-                    ┌── Price Prediction
-                    │
-                    ├── Market Analytics
-                    │
-React → API Gateway ├── Matching Engine
-                    │
-                    ├── Bidding
-                    │
-                    ├── Notifications
-                    │
-                    └── Transportation
-                              │
-                              ▼
-                         MongoDB Atlas
-```
-
----
-
-# 🎨 UI Modules
-
-The Disha dashboard can include modules such as:
-
-```text
-Dashboard
-Notifications
-Orders
-Payments
-Transactions
-Storage
-Verified Buyers
-Price Trends
-Bidding
-FPO
-AI Price Prediction
-```
-
-The application supports a farmer/buyer-oriented dashboard experience with role-specific navigation.
-
----
-
-# 🌐 Deployment
-
-Production deployment can follow:
-
-```text
-GitHub
-   │
-   ├───────────────┐
-   ▼               ▼
-Frontend         Backend
-   │               │
-   ▼               ▼
-Web Hosting     Node Hosting
-                   │
-                   ▼
-             MongoDB Atlas
-```
-
-### Production Environment Variables
-
-Backend:
-
-```env
-PORT=5000
-MONGODB_URL=mongodb+srv://USERNAME:PASSWORD@CLUSTER/farmer
-JWT_SECRET=YOUR_SECRET
-```
-
-Frontend:
-
-```env
-VITE_API_URL=https://your-backend-url
-```
-
-The frontend should use the deployed backend URL instead of:
-
-```text
-http://localhost:5000
-```
-
----
-
-# 🧑‍💻 Development Workflow
-
-Recommended workflow:
-
-```text
-Feature Idea
-     ↓
-Frontend UI
-     ↓
-Backend API
-     ↓
-MongoDB Model
-     ↓
-Postman Testing
-     ↓
-Frontend Integration
-     ↓
-Local Testing
-     ↓
-Git Commit
-     ↓
-GitHub
-     ↓
-Deployment
-```
-
----
-
-# 📂 Git Workflow
-
-Create a feature branch:
-
-```bash
-git checkout -b feature-name
-```
-
-Add changes:
-
-```bash
-git add .
-```
-
-Commit:
-
-```bash
-git commit -m "Add feature"
-```
-
-Push:
-
-```bash
-git push origin feature-name
-```
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome.
-
-### Steps
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Test the application.
-5. Commit your changes.
-6. Push the branch.
-7. Open a Pull Request.
-
-Example:
-
-```bash
-git checkout -b feature/new-feature
-git add .
-git commit -m "Add new feature"
-git push origin feature/new-feature
-```
-
----
-
-# ⚠️ Disclaimer
-
-Disha is a technology prototype intended to improve farmer–buyer market connectivity and price discovery.
-
-Displayed prices, transportation costs, estimated net realization, matching scores, and predictions may depend on available data and configured algorithms and should be independently verified before making financial or agricultural decisions.
-
----
-
-# 🏆 Project Context
-
-**Project:** Disha — Farmer–Buyer Marketplace
-
-**Theme:**
-
-> Strengthening market linkages and price discovery for farmers
-
-**Primary Users:**
-
-* Farmers
-* Buyers
-* FPOs
-
-**Core Concept:**
-
-```text
-Farmer Produce
-      +
-Buyer Demand
-      ↓
-Intelligent Matching
-      ↓
-Price Comparison
-      ↓
-Better Market Linkage
-      ↓
-Potentially Better Selling Decisions
-```
-
----
-
-# 👨‍💻 Team
-
-**Disha — Farmer–Buyer Marketplace**
-
-Developed as an agricultural technology project focused on improving market connectivity and price discovery.
-
----
-
-# ⭐ Support
-
-If you find the project useful, consider giving the repository a ⭐ on GitHub.
-
----
-
-## 📜 License
-
-This project can be released under the MIT License.
-
-See `LICENSE` for details.
