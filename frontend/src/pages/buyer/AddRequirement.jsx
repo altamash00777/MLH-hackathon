@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BuyerSidebar from "../../components/BuyerSidebar";
+import "./AddRequirement.css"
+
 
 function AddRequirement() {
   const navigate = useNavigate();

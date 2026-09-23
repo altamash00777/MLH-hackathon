@@ -57,7 +57,7 @@ function BuyerDashboard() {
               </p>
 
               <h2>
-                0
+                4
               </h2>
 
             </div>
@@ -78,7 +78,7 @@ function BuyerDashboard() {
               </p>
 
               <h2>
-                0
+                2
               </h2>
 
             </div>
@@ -99,7 +99,7 @@ function BuyerDashboard() {
               </p>
 
               <h2>
-                0
+                1
               </h2>
 
             </div>
@@ -120,7 +120,7 @@ function BuyerDashboard() {
               </p>
 
               <h2>
-                0
+                1
               </h2>
 
             </div>
