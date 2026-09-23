@@ -10,10 +10,7 @@ function MyMatches() {
   const [contactingId, setContactingId] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  // ================================
-  // Fetch Farmer Matches
-  // ================================
-
+  
   const fetchMatches = async () => {
     try {
       setLoading(true);
@@ -45,61 +42,6 @@ function MyMatches() {
     }
   };
 
-
-  // ================================
-  // Contact Buyer
-  // ================================
-
-  // const handleContact = async (matchId) => {
-  //   try {
-  //     setContactingId(matchId);
-  //     setError("");
-  //     setSuccessMessage("");
-
-  //     const token = localStorage.getItem("token");
-
-  //     const response = await axios.post(
-  //       `http://localhost:5000/api/matches/${matchId}/contact`,
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     setSuccessMessage(
-  //       response.data.message ||
-  //       "Connection request sent successfully"
-  //     );
-
-  //     // Update UI immediately
-  //     setMatches((prevMatches) =>
-  //       prevMatches.map((item) =>
-  //         item.match?._id === matchId
-  //           ? {
-  //               ...item,
-  //               match: {
-  //                 ...item.match,
-  //                 status: "contacted",
-  //               },
-  //             }
-  //           : item
-  //       )
-  //     );
-
-  //   } catch (error) {
-  //     console.error("Contact Match Error:", error);
-
-  //     alert(
-  //       error.response?.data?.message ||
-  //       "Failed to contact buyer"
-  //     );
-
-  //   } finally {
-  //     setContactingId(null);
-  //   }
-  // };
 
 const handleContact = async (matchId) => {
   try {

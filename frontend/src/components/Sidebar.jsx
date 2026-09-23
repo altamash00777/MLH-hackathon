@@ -22,16 +22,12 @@ function Sidebar() {
     navigate("/farmer/login");
   };
 
-  // Close sidebar after clicking a menu item on mobile
   const handleNavClick = () => {
     setIsOpen(false);
   };
 
   return (
     <>
-      {/* ================================
-          MOBILE HAMBURGER
-      ================================= */}
 
       <button
         className="mobile-menu-btn"
@@ -41,10 +37,7 @@ function Sidebar() {
         {isOpen ? "✕" : "☰"}
       </button>
 
-      {/* ================================
-          MOBILE OVERLAY
-      ================================= */}
-
+    
       {isOpen && (
         <div
           className="sidebar-overlay"

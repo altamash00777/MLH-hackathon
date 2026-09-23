@@ -140,34 +140,7 @@ const handleDelete = async (id) => {
           </div>
         )}
 
-        {/* No crops */}
-
-        {/* {!loading && !error && crops.length === 0 && (
-          <div className="my-crops-empty">
-
-            <div className="my-crops-empty-icon">
-              🌱
-            </div>
-
-            <h3>
-              No crops listed yet
-            </h3>
-
-            <p>
-              Add your first crop to start
-              connecting with buyers.
-            </p>
-
-            <button
-              onClick={() =>
-                navigate("/farmer/add-crop")
-              }
-            >
-              Add Your First Crop
-            </button>
-
-          </div>
-        )} */}
+      
 
 {!loading && !error && crops.length === 0 && (
   <div className="my-crops-empty">

@@ -137,11 +137,6 @@ function FarmerDashboard() {
       setLoading(false);
     }
   };
-
-  // =========================
-  // STATS
-  // =========================
-
   const totalCrops = crops.length;
 
   const activeCrops = crops.filter(
@@ -966,10 +961,6 @@ function FarmerDashboard() {
 
         </motion.section>
 
-
-        {/* =========================
-            VIEW ALL
-        ========================= */}
 
         {crops.length > 3 && (
 

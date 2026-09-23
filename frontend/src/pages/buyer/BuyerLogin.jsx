@@ -1,6 +1,3 @@
-// src/pages/buyer/BuyerLogin.jsx
-
-
 
 import { useState } from "react";
 import axios from "axios";
@@ -169,14 +166,10 @@ function BuyerLogin() {
       </motion.div>
 
 
-      {/* ================= MAIN ================= */}
-
       <main className="buyer-auth-main">
 
         <div className="buyer-auth-wrapper">
 
-
-          {/* ================= LEFT INTRO ================= */}
 
           <motion.div
             className="buyer-auth-intro"

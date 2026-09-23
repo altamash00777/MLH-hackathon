@@ -3,18 +3,10 @@ import Sidebar from "../../components/Sidebar";
 import "./FPO.css";
 
 function FPO() {
-  // =====================================================
-  // CURRENT FARMER
-  // =====================================================
 
   const user = JSON.parse(localStorage.getItem("user"));
 
   const farmerName = user?.name || "You";
-
-
-  // =====================================================
-  // MOCK FPO DATA
-  // =====================================================
 
   const [fpos, setFpos] = useState([
     {
@@ -83,11 +75,6 @@ function FPO() {
       ],
     },
   ]);
-
-
-  // =====================================================
-  // STATES
-  // =====================================================
 
   const [selectedFPO, setSelectedFPO] = useState(null);
 

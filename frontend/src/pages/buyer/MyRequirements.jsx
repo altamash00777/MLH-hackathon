@@ -10,9 +10,6 @@ function MyRequirements() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // ================================
-  // Fetch Requirements
-  // ================================
 
   const fetchRequirements = async () => {
     try {
@@ -83,10 +80,6 @@ function MyRequirements() {
       );
     }
   };
-
-  // ================================
-  // Load on page open / refresh
-  // ================================
 
   useEffect(() => {
     fetchRequirements();
