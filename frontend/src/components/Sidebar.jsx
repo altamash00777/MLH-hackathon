@@ -220,7 +220,7 @@ function Sidebar() {
           {/* Payment */}
 
           <NavLink
-            to="/farmer/payment"
+            to="/farmer/payments"
             onClick={handleNavClick}
             className={({ isActive }) =>
               isActive ? "nav-item active" : "nav-item"

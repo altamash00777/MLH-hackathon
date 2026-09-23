@@ -4,7 +4,7 @@ const {
 } = require("../config/snowflake");
 
 // =========================================================
-// Farmer-Friendly Crop Mapping
+// CROP MAPPING
 // =========================================================
 
 const CROP_MAPPING = {
@@ -32,7 +32,9 @@ const CROP_MAPPING = {
     "Red gram/Arhar/Tur(whole)",
   ],
 
-  Bajra: ["Bajra(Pearl Millet/Cumbu)"],
+  Bajra: [
+    "Bajra(Pearl Millet/Cumbu)",
+  ],
 
   Groundnut: [
     "Groundnut",
@@ -41,8 +43,10 @@ const CROP_MAPPING = {
   ],
 };
 
+
 // =========================================================
-// Get Available Crops
+// GET AVAILABLE CROPS
+// GET /api/market-intelligence/crops
 // =========================================================
 
 const getAvailableCrops = async (req, res) => {
@@ -54,8 +58,10 @@ const getAvailableCrops = async (req, res) => {
       count: crops.length,
       crops,
     });
+
   } catch (error) {
-    console.error("❌ Market Intelligence Error:");
+
+    console.error("❌ Market Intelligence Crop Error:");
     console.error(error.message);
 
     res.status(500).json({
@@ -65,85 +71,150 @@ const getAvailableCrops = async (req, res) => {
   }
 };
 
+
 // =========================================================
-// Get Current Crop Market Prices
+// GET AVAILABLE STATES
+// GET /api/market-intelligence/states
+// =========================================================
+
+const getAvailableStates = async (req, res) => {
+  let connection;
+
+  try {
+
+    connection = await connectSnowflake();
+
+    const query = `
+      SELECT DISTINCT
+        TRIM(STATE) AS STATE
+      FROM MANDI_PRICES
+      WHERE STATE IS NOT NULL
+        AND TRIM(STATE) <> ''
+      ORDER BY STATE
+    `;
+
+    const rows = await executeQuery(
+      connection,
+      query
+    );
+
+    const states = rows
+      .map((row) => row.STATE)
+      .filter(Boolean);
+
+    res.status(200).json({
+      success: true,
+      count: states.length,
+      states,
+    });
+
+  } catch (error) {
+
+    console.error("❌ State Fetch Error:");
+    console.error(error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch available states",
+    });
+  }
+};
+
+
+// =========================================================
+// GET CROP MARKET INTELLIGENCE
+//
+// GET /api/market-intelligence/trend/:crop
+//
+// Optional:
+// ?state=Uttar Pradesh
 // =========================================================
 
 const getCropPriceTrend = async (req, res) => {
+
+  let connection;
+
   try {
+
     const { crop } = req.params;
     const { state } = req.query;
 
+
     // =====================================================
-    // Validate Crop
+    // VALIDATE CROP
     // =====================================================
 
     if (!crop) {
+
       return res.status(400).json({
         success: false,
         message: "Crop is required",
       });
+
     }
 
-    // Find farmer-friendly crop name
+
+    // =====================================================
+    // FIND CROP
+    // =====================================================
+
     const cropName = Object.keys(CROP_MAPPING).find(
-      (name) => name.toLowerCase() === crop.toLowerCase()
+      (name) =>
+        name.toLowerCase() === crop.toLowerCase()
     );
 
+
     if (!cropName) {
+
       return res.status(404).json({
         success: false,
         message: "Crop not supported",
       });
+
     }
 
-    // Raw commodity names stored in Snowflake
+
     const commodities = CROP_MAPPING[cropName];
 
+
     // =====================================================
-    // Connect to Snowflake
+    // CONNECT TO SNOWFLAKE
     // =====================================================
 
-    const connection = await connectSnowflake();
+    connection = await connectSnowflake();
+
+
+    // =====================================================
+    // CREATE SQL PLACEHOLDERS
+    // =====================================================
 
     const placeholders = commodities
       .map(() => "?")
       .join(", ");
 
-    // =====================================================
-    // 1. CURRENT PRICE SUMMARY
-    // =====================================================
-
-    const summaryQuery = `
-      SELECT
-        MAX(ARRIVAL_DATE) AS LATEST_DATE,
-
-        AVG(MODAL_PRICE) AS AVERAGE_PRICE,
-
-        MIN(MODAL_PRICE) AS MIN_PRICE,
-
-        MAX(MODAL_PRICE) AS MAX_PRICE
-
-      FROM MANDI_PRICES
-
-      WHERE COMMODITY IN (${placeholders})
-
-      ${state ? "AND STATE = ?" : ""}
-    `;
-
-    const summaryRows = await executeQuery(
-      connection,
-      summaryQuery,
-      state ? [...commodities, state] : commodities
-    );
-
-    const summary = summaryRows[0];
 
     // =====================================================
-    // 2. LATEST MARKET PRICES
+    // LATEST MARKET DATA
+    //
+    // IMPORTANT:
+    //
+    // We DON'T use:
+    //
+    // ARRIVAL_DATE = MAX(ARRIVAL_DATE)
+    //
+    // because that removes markets whose latest
+    // available data is from another date.
+    //
+    // Instead, ROW_NUMBER() gets the latest record
+    // independently for every:
+    //
+    // STATE + DISTRICT + MARKET + COMMODITY
+    // + VARIETY + GRADE
+    //
+    // This preserves multiple varieties.
     // =====================================================
 
-    const latestQuery = `
+    const latestMarketsQuery = `
       SELECT
         STATE,
         DISTRICT,
@@ -160,42 +231,151 @@ const getCropPriceTrend = async (req, res) => {
 
       WHERE COMMODITY IN (${placeholders})
 
-      ${state ? "AND STATE = ?" : ""}
+      ${
+        state
+          ? `
+            AND UPPER(TRIM(STATE))
+                = UPPER(TRIM(?))
+          `
+          : ""
+      }
 
-      AND ARRIVAL_DATE = (
-        SELECT MAX(ARRIVAL_DATE)
+      QUALIFY ROW_NUMBER() OVER (
+        PARTITION BY
+          STATE,
+          DISTRICT,
+          MARKET,
+          COMMODITY,
+          VARIETY,
+          GRADE
+
+        ORDER BY
+          ARRIVAL_DATE DESC
+      ) = 1
+
+      ORDER BY
+        MODAL_PRICE DESC
+    `;
+
+
+    const latestMarkets = await executeQuery(
+      connection,
+      latestMarketsQuery,
+      state
+        ? [
+            ...commodities,
+            state,
+          ]
+        : commodities
+    );
+
+
+    // =====================================================
+    // SUMMARY
+    //
+    // IMPORTANT:
+    //
+    // Summary is also calculated ONLY from the latest
+    // available record of each market/variety/grade.
+    //
+    // So summary and table now use the same data.
+    // =====================================================
+
+    const summaryQuery = `
+      SELECT
+
+        MAX(ARRIVAL_DATE)
+          AS LATEST_DATE,
+
+        AVG(MODAL_PRICE)
+          AS AVERAGE_PRICE,
+
+        MIN(MODAL_PRICE)
+          AS MIN_PRICE,
+
+        MAX(MODAL_PRICE)
+          AS MAX_PRICE
+
+      FROM (
+
+        SELECT
+          STATE,
+          DISTRICT,
+          MARKET,
+          COMMODITY,
+          VARIETY,
+          GRADE,
+          ARRIVAL_DATE,
+          MODAL_PRICE
 
         FROM MANDI_PRICES
 
         WHERE COMMODITY IN (${placeholders})
 
-        ${state ? "AND STATE = ?" : ""}
-      )
+        ${
+          state
+            ? `
+              AND UPPER(TRIM(STATE))
+                  = UPPER(TRIM(?))
+            `
+            : ""
+        }
 
-      ORDER BY MODAL_PRICE DESC
+        QUALIFY ROW_NUMBER() OVER (
+          PARTITION BY
+            STATE,
+            DISTRICT,
+            MARKET,
+            COMMODITY,
+            VARIETY,
+            GRADE
+
+          ORDER BY
+            ARRIVAL_DATE DESC
+        ) = 1
+
+      ) latest_data
     `;
 
-    const latestRows = await executeQuery(
+
+    const summaryRows = await executeQuery(
       connection,
-      latestQuery,
+      summaryQuery,
       state
         ? [
             ...commodities,
             state,
-            ...commodities,
-            state,
           ]
-        : [
-            ...commodities,
-            ...commodities,
-          ]
+        : commodities
     );
 
+
+    const summary = summaryRows[0] || {};
+
+
     // =====================================================
-    // 3. SEND RESPONSE
+    // FORMAT SUMMARY
+    // =====================================================
+
+    const latestDate =
+      summary.LATEST_DATE || null;
+
+    const averagePrice =
+      Number(summary.AVERAGE_PRICE || 0);
+
+    const minimumPrice =
+      Number(summary.MIN_PRICE || 0);
+
+    const maximumPrice =
+      Number(summary.MAX_PRICE || 0);
+
+
+    // =====================================================
+    // RESPONSE
     // =====================================================
 
     res.status(200).json({
+
       success: true,
 
       crop: cropName,
@@ -203,79 +383,61 @@ const getCropPriceTrend = async (req, res) => {
       state: state || "All India",
 
       summary: {
-        latestDate: summary.LATEST_DATE,
 
-        averagePrice: Number(
-          summary.AVERAGE_PRICE || 0
-        ),
+        latestDate,
 
-        minimumPrice: Number(
-          summary.MIN_PRICE || 0
-        ),
+        averagePrice,
 
-        maximumPrice: Number(
-          summary.MAX_PRICE || 0
-        ),
+        minimumPrice,
+
+        maximumPrice,
+
       },
 
-      latestMarkets: latestRows,
+      latestMarkets,
+
     });
+
+
   } catch (error) {
-    console.error("❌ Crop Market Intelligence Error:");
+
+    console.error(
+      "❌ Crop Market Intelligence Error:"
+    );
+
     console.error(error.message);
 
     res.status(500).json({
+
       success: false,
-      message: "Failed to fetch current crop market data",
+
+      message:
+        "Failed to fetch current crop market data",
+
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : undefined,
+
     });
+
   }
-};
 
-// =========================================================
-// Export
-// =========================================================
-
-const getAvailableStates = async (req, res) => {
-  try {
-    const connection = await connectSnowflake();
-
-    const query = `
-      SELECT DISTINCT STATE
-      FROM MANDI_PRICES
-      WHERE STATE IS NOT NULL
-        AND TRIM(STATE) <> ''
-      ORDER BY STATE
-    `;
-
-    const rows = await executeQuery(connection, query);
-
-    const states = rows
-      .map((row) => row.STATE)
-      .filter(Boolean);
-
-    res.status(200).json({
-      success: true,
-      count: states.length,
-      states,
-    });
-
-  } catch (error) {
-    console.error("❌ State Fetch Error:");
-    console.error(error.message);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch available states",
-    });
-  }
 };
 
 
-
+// =========================================================
+// EXPORTS
+// =========================================================
 
 module.exports = {
+
   getAvailableCrops,
+
   getAvailableStates,
+
   getCropPriceTrend,
+
   CROP_MAPPING,
+
 };

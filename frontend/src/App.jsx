@@ -25,6 +25,8 @@ import NotFound from "./pages/NotFound/NotFound";
 import FarmerDeals from "./pages/farmer/FarmerDeals";
 import BuyerDeals from "./pages/buyer/BuyerDeals";
 import MarketIntelligence from "./pages/farmer/MarketIntelligence";
+import FarmerTransactions from "./pages/farmer/FarmerTransactions";
+import FarmerPayments from "./pages/farmer/FarmerPayments";
 
 
 
@@ -156,16 +158,30 @@ function App() {
   }
 />
 
+<Route
+  path="/farmer/transactions"
+  element={
+    <ProtectedRoute role="farmer">
+      <FarmerTransactions />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/farmer/payments"
+  element={
+    <ProtectedRoute role="farmer">
+      <FarmerPayments />
+    </ProtectedRoute>
+  }
+/>
 
 
 
-
-<Route path="/farmer/fpo" element={<FPO />} />
-
-
-<Route path="/Landing" element={<LandingPage />} />
-
-<Route path="*" element={<NotFound />} />
+<Route
+  path="/farmer/fpo"
+  element={<FPO />}
+/>
 
 <Route
   path="/farmer/deals"
@@ -175,6 +191,16 @@ function App() {
 <Route
   path="/buyer/deals"
   element={<BuyerDeals />}
+/>
+
+<Route
+  path="/Landing"
+  element={<LandingPage />}
+/>
+
+<Route
+  path="*"
+  element={<NotFound />}
 />
 
 

@@ -1,0 +1,620 @@
+/* =========================================
+   PAYMENT PAGE
+========================================= */
+
+.payment-page {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  padding: 32px;
+  box-sizing: border-box;
+  background: #f4f6ef;
+  color: #26382b;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.payment-eyebrow {
+  margin: 0 0 7px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #71816f;
+}
+
+.payment-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 750;
+  color: #24372a;
+}
+
+.payment-header p:last-child {
+  margin: 7px 0 0;
+  font-size: 14px;
+  color: #71816f;
+}
+
+.payment-header-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #e2eadb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
+
+.payment-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e0e6dc;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.summary-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.total-icon {
+  background: #e8efe3;
+  color: #426344;
+}
+
+.paid-icon {
+  background: #e5f1e7;
+  color: #387147;
+}
+
+.pending-icon {
+  background: #f5eddc;
+  color: #9a762e;
+}
+
+.count-icon {
+  background: #e8e9ef;
+  color: #565b71;
+}
+
+.summary-card span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #7b8879;
+}
+
+.summary-card strong {
+  display: block;
+  font-size: 18px;
+  color: #26382b;
+}
+
+
+/* =========================================
+   PAYMENT SECTION
+========================================= */
+
+.payment-section {
+  background: #ffffff;
+  border: 1px solid #e0e6dc;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.section-top {
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #e7ebe3;
+}
+
+.section-top h2 {
+  margin: 0;
+  font-size: 19px;
+  color: #26382b;
+}
+
+.section-top p {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: #7b8879;
+}
+
+
+/* =========================================
+   FILTER
+========================================= */
+
+.payment-filter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
+  background: #f1f4ee;
+  border-radius: 9px;
+}
+
+.payment-filter button {
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 7px;
+  color: #71816f;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.payment-filter button:hover {
+  color: #26382b;
+}
+
+.payment-filter button.filter-active {
+  background: #ffffff;
+  color: #315637;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.payment-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.payment-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+}
+
+.payment-table thead {
+  background: #f8f9f6;
+}
+
+.payment-table th {
+  padding: 13px 18px;
+  text-align: left;
+  border-bottom: 1px solid #e3e8df;
+  color: #788477;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  white-space: nowrap;
+}
+
+.payment-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #edf0eb;
+  vertical-align: middle;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.payment-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.payment-table tbody tr:hover {
+  background: #fafbf9;
+}
+
+.payment-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   TABLE CONTENT
+========================================= */
+
+.payment-id {
+  font-weight: 700;
+  color: #365b3c;
+  font-size: 12px;
+}
+
+.transaction-id {
+  color: #697769;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.crop-cell strong,
+.buyer-cell strong {
+  display: block;
+  color: #2b3d30;
+  font-weight: 700;
+}
+
+.crop-cell span,
+.buyer-cell span {
+  display: block;
+  margin-top: 3px;
+  color: #879286;
+  font-size: 11px;
+}
+
+.amount {
+  color: #2d5035;
+  font-size: 14px;
+}
+
+.method {
+  color: #596759;
+  font-size: 12px;
+}
+
+.due-date {
+  color: #5f6c5e;
+  font-size: 12px;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-paid {
+  background: #e8f3e9;
+  color: #367045;
+}
+
+.status-paid .status-dot {
+  background: #4e8a5a;
+}
+
+.status-pending {
+  background: #f7f0df;
+  color: #92722f;
+}
+
+.status-pending .status-dot {
+  background: #b58a35;
+}
+
+
+/* =========================================
+   VIEW BUTTON
+========================================= */
+
+.view-button {
+  border: 1px solid #d6ded2;
+  background: #ffffff;
+  color: #46654a;
+  padding: 7px 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.view-button:hover {
+  background: #eef4ea;
+  border-color: #bfcdbb;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-payment {
+  padding: 55px 20px;
+  text-align: center;
+}
+
+.empty-payment div {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.empty-payment h3 {
+  margin: 0;
+  color: #334636;
+}
+
+.empty-payment p {
+  margin: 7px 0 0;
+  color: #7b8879;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.payment-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(26, 38, 29, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.payment-modal {
+  width: min(680px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #dce4d9;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================
+   MODAL HEADER
+========================================= */
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid #e7ebe3;
+}
+
+.modal-header p {
+  margin: 0 0 5px;
+  color: #849080;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #2d4031;
+}
+
+.modal-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f4ef;
+  color: #647063;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: #e7ece4;
+}
+
+
+/* =========================================
+   MODAL STATUS
+========================================= */
+
+.modal-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: #f8faf7;
+  border-bottom: 1px solid #e7ebe3;
+}
+
+.modal-amount {
+  font-size: 21px;
+  color: #2e5035;
+}
+
+
+/* =========================================
+   MODAL DETAILS
+========================================= */
+
+.modal-grid {
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+
+.detail-item {
+  min-width: 0;
+}
+
+.detail-item span {
+  display: block;
+  margin-bottom: 5px;
+  color: #879286;
+  font-size: 11px;
+}
+
+.detail-item strong {
+  display: block;
+  color: #354637;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+
+/* =========================================
+   MODAL FOOTER
+========================================= */
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e7ebe3;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-details-button {
+  border: none;
+  background: #365c3d;
+  color: #ffffff;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.close-details-button:hover {
+  background: #2d4e33;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .payment-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .payment-page {
+    padding: 26px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+  .payment-page {
+    margin-left: 0;
+    width: 100%;
+    padding: 70px 20px 25px;
+  }
+
+  .payment-header h1 {
+    font-size: 27px;
+  }
+
+  .payment-header-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .payment-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .section-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .payment-filter {
+    width: 100%;
+  }
+
+  .payment-filter button {
+    flex: 1;
+  }
+
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+  .payment-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .payment-header {
+    align-items: flex-start;
+  }
+
+  .payment-header-icon {
+    display: none;
+  }
+
+  .summary-card {
+    padding: 15px;
+  }
+
+  .section-top {
+    padding: 18px;
+  }
+
+  .modal-header,
+  .modal-status-row,
+  .modal-grid,
+  .modal-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
