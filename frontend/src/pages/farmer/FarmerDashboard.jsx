@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import DishaAssistant from "../../components/DishaAssistant";
 
 import {
   Bell,
@@ -983,6 +984,8 @@ function FarmerDashboard() {
         )}
 
       </main>
+
+ <DishaAssistant />
 
     </div>
   );

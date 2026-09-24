@@ -1,0 +1,852 @@
+
+.disha-floating-button {
+  position: fixed;
+
+  right: 28px;
+  bottom: 28px;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 10px 18px 10px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 14px;
+
+  background: #254b2c;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+
+  transition: all 0.2s ease;
+}
+
+.disha-floating-button:hover {
+  background: #1e4125;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+}
+.disha-floating-mark {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #d6bb62;
+
+  color: #243c27;
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+
+/* Button text */
+
+.disha-floating-content {
+  display: flex;
+  flex-direction: column;
+
+  text-align: left;
+}
+
+.disha-floating-content strong {
+  font-size: 14px;
+
+  letter-spacing: 0.8px;
+}
+
+.disha-floating-content small {
+  margin-top: 2px;
+
+  color: #cbdacb;
+
+  font-size: 10px;
+}
+
+
+.disha-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+.disha-backdrop {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(20, 32, 22, 0.60);
+
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+}
+
+
+/* =====================================================
+   MAIN PANEL
+===================================================== */
+
+.disha-chat-panel {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(920px, 90vw);
+
+  height: 88vh;
+
+  max-height: 850px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #f5f1e6;
+
+  border: 1px solid rgba(40, 70, 43, 0.15);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.38);
+
+  animation: dishaOpen 0.25s ease;
+}
+
+@keyframes dishaOpen {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.disha-header {
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 18px 24px;
+
+  background: #254b2c;
+
+  color: white;
+}
+
+
+/* Brand */
+
+.disha-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.disha-brand-mark {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #d6bb62;
+
+  color: #243c27;
+
+  font-size: 18px;
+
+  font-weight: 800;
+}
+
+.disha-brand h2 {
+  margin: 0;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+.disha-brand p {
+  margin: 3px 0 0;
+
+  color: #cbdacb;
+
+  font-size: 11px;
+}
+
+
+/* Close */
+
+.disha-close {
+  width: 38px;
+  height: 38px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  color: white;
+
+  font-size: 25px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.disha-close:hover {
+  background:
+    rgba(255, 255, 255, 0.20);
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.disha-welcome {
+  flex-shrink: 0;
+
+  padding: 25px 32px 18px;
+
+  background: #f5f1e6;
+
+  border-bottom: 1px solid #e2dfd4;
+}
+
+.disha-welcome-label {
+  margin-bottom: 8px;
+
+  color: #6b8068;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+.disha-welcome h1 {
+  max-width: 700px;
+
+  margin: 0;
+
+  color: #294e2e;
+
+  font-size: 27px;
+
+  line-height: 1.25;
+
+  font-weight: 700;
+}
+
+.disha-welcome p {
+  max-width: 680px;
+
+  margin: 9px 0 0;
+
+  color: #697365;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   QUICK HELP
+===================================================== */
+
+.disha-quick-section {
+  flex-shrink: 0;
+
+  padding: 14px 25px 16px;
+
+  background: #f5f1e6;
+}
+
+.disha-section-title {
+  margin-bottom: 9px;
+
+  color: #697767;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  text-transform: uppercase;
+}
+
+.disha-quick-buttons {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 9px;
+}
+
+.disha-quick-buttons button {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  padding: 10px;
+
+  border: 1px solid #d9ddd2;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #294e2e;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.disha-quick-buttons button:hover {
+  background: #edf2e9;
+
+  border-color: #9caf96;
+
+  transform: translateY(-1px);
+}
+
+
+/* Number */
+
+.quick-icon {
+  width: 29px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #e6eddf;
+
+  color: #416443;
+
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+
+/* Quick text */
+
+.disha-quick-buttons button span:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.disha-quick-buttons strong {
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.disha-quick-buttons small {
+  margin-top: 2px;
+
+  color: #7a8376;
+
+  font-size: 9px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   CONVERSATION
+===================================================== */
+
+.disha-conversation {
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: #eeeade;
+}
+
+
+/* Conversation header */
+
+.disha-conversation-header {
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 13px 25px;
+
+  background: #f5f1e6;
+
+  border-top: 1px solid #e2dfd4;
+
+  border-bottom: 1px solid #dedbcf;
+}
+
+.disha-conversation-header span:first-child {
+  color: #7a8575;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+}
+
+.disha-conversation-header h3 {
+  margin: 3px 0 0;
+
+  color: #294e2e;
+
+  font-size: 15px;
+}
+
+
+/* Status */
+
+.disha-live-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: #667263;
+
+  font-size: 10px;
+}
+
+.disha-live-status span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #6d9a60;
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.disha-messages {
+  flex: 1;
+
+  min-height: 0;
+
+  padding: 17px 25px;
+
+  overflow-y: auto;
+}
+
+.disha-messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.disha-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.disha-messages::-webkit-scrollbar-thumb {
+  background: #c5c9bd;
+
+  border-radius: 10px;
+}
+
+
+/* Message row */
+
+.disha-message-row {
+  display: flex;
+
+  gap: 8px;
+
+  margin-bottom: 13px;
+}
+
+.assistant-row {
+  justify-content: flex-start;
+}
+
+.user-row {
+  justify-content: flex-end;
+}
+
+
+/* DISHA message mark */
+
+.disha-message-mark {
+  width: 28px;
+  height: 28px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #315b36;
+
+  color: white;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+
+/* Assistant */
+
+.disha-assistant-message {
+  max-width: 70%;
+
+  padding: 11px 14px;
+
+  border:
+    1px solid #e0e0d8;
+
+  border-radius:
+    4px 13px 13px 13px;
+
+  background: white;
+
+  color: #3e483d;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+
+/* User */
+
+.disha-user-message {
+  max-width: 70%;
+
+  padding: 11px 14px;
+
+  border-radius:
+    13px 4px 13px 13px;
+
+  background: #315b36;
+
+  color: white;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+
+/* =====================================================
+   TYPING
+===================================================== */
+
+.disha-typing {
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 12px 15px;
+
+  border-radius:
+    4px 13px 13px 13px;
+
+  background: white;
+}
+
+.disha-typing span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #668064;
+
+  animation:
+    dishaTyping 1.1s infinite;
+}
+
+.disha-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.disha-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dishaTyping {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-3px);
+  }
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.disha-input-area {
+  flex-shrink: 0;
+
+  padding: 12px 25px 10px;
+
+  background: #f5f1e6;
+
+  border-top: 1px solid #dedbcf;
+}
+
+.disha-input-box {
+  display: flex;
+
+  gap: 8px;
+}
+
+.disha-input-box input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d1d7cb;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: white;
+
+  color: #354035;
+
+  font-size: 13px;
+}
+
+.disha-input-box input:focus {
+  border-color: #6c8967;
+}
+
+.disha-input-box button {
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #315b36;
+
+  color: white;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.disha-input-box button:hover:not(:disabled) {
+  background: #244a29;
+}
+
+.disha-input-box button:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+
+/* Footer */
+
+.disha-input-area p {
+  margin: 6px 0 0;
+
+  color: #899183;
+
+  font-size: 9px;
+
+  text-align: center;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 750px) {
+
+  .disha-chat-panel {
+    width: 100vw;
+
+    height: 100vh;
+
+    max-height: none;
+
+    border-radius: 0;
+  }
+
+  .disha-header {
+    padding: 15px 17px;
+  }
+
+  .disha-welcome {
+    padding: 20px 18px 15px;
+  }
+
+  .disha-welcome h1 {
+    font-size: 23px;
+  }
+
+  .disha-welcome p {
+    font-size: 12px;
+  }
+
+  .disha-quick-section {
+    padding: 12px 15px;
+  }
+
+  .disha-quick-buttons {
+    display: flex;
+
+    overflow-x: auto;
+  }
+
+  .disha-quick-buttons button {
+    min-width: 155px;
+  }
+
+  .disha-messages {
+    padding: 15px;
+  }
+
+  .disha-assistant-message,
+  .disha-user-message {
+    max-width: 82%;
+  }
+
+  .disha-input-area {
+    padding: 11px 15px 9px;
+  }
+
+  .disha-floating-button {
+    right: 18px;
+    bottom: 18px;
+  }
+}

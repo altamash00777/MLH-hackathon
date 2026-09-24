@@ -36,10 +36,6 @@ const AddCrop = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  /* =====================================================
-     HANDLE INPUT CHANGE
-  ===================================================== */
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -59,40 +55,22 @@ const AddCrop = () => {
     }));
   };
 
-  /* =====================================================
-     HANDLE CROP IMAGES
-  ===================================================== */
-
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files || []);
 
     setCropImages(files);
   };
 
-  /* =====================================================
-     HANDLE AI IMAGE
-  ===================================================== */
-
   const handleAIUpload = (e) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
-
-    /*
-      Currently this is a demo/showcase feature.
-      Later this can be connected to the actual
-      AI crop assessment API/model.
-    */
 
     setAiAssessment({
       fileName: file.name,
       status: "Image uploaded",
     });
   };
-
-  /* =====================================================
-     SUBMIT FORM
-  ===================================================== */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -199,15 +177,8 @@ const AddCrop = () => {
   return (
     <div className="dashboard-layout add-crop-layout">
 
-      {/* =================================================
-          SIDEBAR
-      ================================================= */}
-
       <Sidebar />
 
-      {/* =================================================
-          MAIN CONTENT
-      ================================================= */}
 
       <main className="dashboard-main add-crop-main">
 
@@ -217,9 +188,6 @@ const AddCrop = () => {
 
           <div className="add-crop-container">
 
-            {/* =================================================
-                PAGE HEADER
-            ================================================= */}
 
             <div className="page-header">
 
@@ -236,22 +204,11 @@ const AddCrop = () => {
 
             </div>
 
-
-            {/* =================================================
-                SUCCESS MESSAGE
-            ================================================= */}
-
             {message && (
               <div className="success-message">
                 {message}
               </div>
             )}
-
-
-            {/* =================================================
-                ERROR MESSAGE
-            ================================================= */}
-
             {error && (
               <div className="error-message">
                 {error}
@@ -347,9 +304,6 @@ const AddCrop = () => {
 
                   </div>
 
-
-                  {/* Quantity */}
-
                   <div className="form-group">
 
                     <label>
@@ -367,9 +321,6 @@ const AddCrop = () => {
                     />
 
                   </div>
-
-
-                  {/* Quality */}
 
                   <div className="form-group">
 
@@ -408,9 +359,6 @@ const AddCrop = () => {
 
                   </div>
 
-
-                  {/* Grade */}
-
                   <div className="form-group">
 
                     <label>
@@ -444,9 +392,6 @@ const AddCrop = () => {
 
                   </div>
 
-
-                  {/* Harvest Date */}
-
                   <div className="form-group">
 
                     <label>
@@ -462,9 +407,6 @@ const AddCrop = () => {
                     />
 
                   </div>
-
-
-                  {/* Selling Location */}
 
                   <div className="form-group">
 
@@ -485,9 +427,6 @@ const AddCrop = () => {
 
                   </div>
 
-
-                  {/* Expected Price */}
-
                   <div className="form-group">
 
                     <label>
@@ -505,9 +444,6 @@ const AddCrop = () => {
                     />
 
                   </div>
-
-
-                  {/* Production Cost */}
 
                   <div className="form-group">
 
@@ -528,10 +464,6 @@ const AddCrop = () => {
                     />
 
                   </div>
-
-
-                  {/* Other Expenses */}
-
                   <div className="form-group">
 
                     <label>

@@ -333,9 +333,6 @@ setMatches((prevMatches) =>
                   </div>
 
 
-                  {/* =========================
-                      FARMER DETAILS
-                  ========================== */}
 
                   <div className="match-details">
 
@@ -425,13 +422,9 @@ setMatches((prevMatches) =>
                   </div>
 
 
-                  {/* =========================
-                      LOGISTICS
-                  ========================== */}
-
                   <div className="realization-section">
 
-                    <h3>
+                    {/* <h3>
                       🚛 Logistics
                     </h3>
 
@@ -441,7 +434,7 @@ setMatches((prevMatches) =>
 
                         <span>
                           Distance
-                        </span>
+                        </span> */}
 
                         <strong>
                           {distance?.distanceKm || 0} km
@@ -450,7 +443,7 @@ setMatches((prevMatches) =>
                       </div>
 
 
-                      <div>
+                      {/* <div>
 
                         <span>
                           Travel Time
@@ -460,10 +453,10 @@ setMatches((prevMatches) =>
                           {distance?.durationMinutes || 0} min
                         </strong>
 
-                      </div>
+                      </div> */}
 
 
-                      <div>
+                      {/* <div>
 
                         <span>
                           Vehicles
@@ -473,10 +466,10 @@ setMatches((prevMatches) =>
                           {transport?.vehiclesRequired || 0}
                         </strong>
 
-                      </div>
+                      </div> */}
 
 
-                      <div>
+                      {/* <div>
 
                         <span>
                           Transport Cost
@@ -492,14 +485,14 @@ setMatches((prevMatches) =>
 
                     </div>
 
-                  </div>
+                  </div> */}
 
 
                   {/* =========================
                       NET REALIZATION
                   ========================== */}
 
-                  <div className="realization-section net-section">
+                  {/* <div className="realization-section net-section">
 
                     <h3>
                       💰 Net Realization
@@ -520,9 +513,9 @@ setMatches((prevMatches) =>
                         </strong>
 
                       </div>
+ */}
 
-
-                      <div>
+                      {/* <div>
 
                         <span>
                           Total Selling Cost
@@ -534,10 +527,10 @@ setMatches((prevMatches) =>
                           ).toLocaleString("en-IN")}
                         </strong>
 
-                      </div>
+                      </div> */}
 
 
-                      <div>
+                      {/* <div>
 
                         <span>
                           Break-even Price
@@ -549,10 +542,10 @@ setMatches((prevMatches) =>
                           ).toFixed(2)}/q
                         </strong>
 
-                      </div>
+                      </div> */}
 
 
-                      <div className="net-highlight">
+                      {/* <div className="net-highlight">
 
                         <span>
                           Net Amount Received
@@ -564,10 +557,10 @@ setMatches((prevMatches) =>
                           ).toLocaleString("en-IN")}
                         </strong>
 
-                      </div>
+                      </div> */}
 
 
-                      <div className="profit-highlight">
+                      {/* <div className="profit-highlight">
 
                         <span>
                           Profit
@@ -586,9 +579,9 @@ setMatches((prevMatches) =>
 
                         <span>
                           Profit / Quintal
-                        </span>
+                        </span> */}
 
-                        <strong>
+                        {/* <strong>
                           ₹{Number(
                             net?.profitPerQuintal || 0
                           ).toFixed(2)}
@@ -598,7 +591,7 @@ setMatches((prevMatches) =>
 
                     </div>
 
-                  </div>
+                  </div> */}
 
 
                   {/* =========================
