@@ -204,7 +204,7 @@ const handleDelete = async (id) => {
                   <div className="my-crop-info-item">
                     <span>Quantity</span>
                     <strong>
-                      {crop.quantity} kg
+                      {crop.quantity} Quintals
                     </strong>
                   </div>
 
@@ -225,7 +225,7 @@ const handleDelete = async (id) => {
                   <div className="my-crop-info-item">
                     <span>Expected Price</span>
                     <strong>
-                      ₹{crop.expectedPrice}/kg
+                      ₹{crop.expectedPrice}/quintals
                     </strong>
                   </div>
 

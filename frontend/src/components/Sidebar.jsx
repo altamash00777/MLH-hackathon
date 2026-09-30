@@ -111,7 +111,6 @@ function Sidebar() {
             My Crops
           </NavLink>
 
-
           {/* Matches */}
 
           <NavLink
@@ -184,17 +183,18 @@ function Sidebar() {
 
           {/* FPO */}
 
-          <NavLink
-            to="/farmer/fpo"
-            onClick={handleNavClick}
-            className={({ isActive }) =>
-              isActive ? "nav-item active" : "nav-item"
-            }
-          >
-            <span>🏢</span>
-            FPO / Group Transaction
-          </NavLink>
-
+<NavLink
+  to="/farmer/fpos"
+  onClick={handleNavClick}
+  className={({ isActive }) =>
+    isActive
+      ? "nav-item active"
+      : "nav-item"
+  }
+>
+  <span>🌾</span>
+  <span>FPO Center</span>
+</NavLink>
 
           {/* Orders */}
 

@@ -15,10 +15,22 @@ const farmerListingSchema = new mongoose.Schema(
     },
 
     quantity: {
-      type: Number,
-      required: true,
-      min: 1
-    },
+  type: Number,
+  required: true,
+  min: 1
+},
+
+availableQuantity: {
+  type: Number,
+  required: true,
+  min: 0
+},
+
+reservedQuantity: {
+  type: Number,
+  default: 0,
+  min: 0
+},
 
     quality: {
       type: String,

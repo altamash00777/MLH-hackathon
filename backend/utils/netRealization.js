@@ -9,19 +9,8 @@ const calculateNetRealization = ({
   marketCharges = 0
 }) => {
 
-  // =====================================================
-  // PRODUCTION COST
-  // productionCostPerQuintal is per quintal
-  // =====================================================
-
   const productionCost =
     totalQuantity * productionCostPerQuintal;
-
-
-  // =====================================================
-  // OTHER EXPENSES
-  // otherExpenses is also per quintal
-  // =====================================================
 
   const totalOtherExpenses =
     totalQuantity * otherExpenses;

@@ -71,24 +71,6 @@ function BuyerSidebar() {
           <h2>Dishaa</h2>
         </div>
 
-        {/* =========================================
-            BUYER INFO
-        ========================================= */}
-
-        {/* <div className="buyer-info">
-          <div className="buyer-avatar">
-            {user?.name?.charAt(0)?.toUpperCase() || "B"}
-          </div>
-
-          <div className="buyer-user-details">
-            <h4>{user?.name || "Buyer"}</h4>
-            <p>Buyer</p>
-          </div>
-        </div> */}
-
-        {/* =========================================
-            NAVIGATION
-        ========================================= */}
 
         <nav className="buyer-sidebar-nav">
 
@@ -147,6 +129,40 @@ function BuyerSidebar() {
             <span>🤝</span>
             <span>Farmer Matches</span>
           </NavLink>
+
+
+{/* FPO Marketplace */}
+<NavLink
+  to="/buyer/fpos"
+  onClick={handleNavClick}
+  className={({ isActive }) =>
+    isActive
+      ? "buyer-nav-item active"
+      : "buyer-nav-item"
+  }
+>
+  <span>🌾</span>
+  <span>FPO Marketplace</span>
+</NavLink>
+
+{/* My FPO Purchases */}
+<NavLink
+  to="/buyer/fpo-purchases"
+  onClick={handleNavClick}
+  className={({ isActive }) =>
+    isActive
+      ? "buyer-nav-item active"
+      : "buyer-nav-item"
+  }
+>
+  <span>🛒</span>
+  <span>FPO Purchases</span>
+</NavLink>
+
+
+
+
+
 
           {/* Deals */}
           <NavLink

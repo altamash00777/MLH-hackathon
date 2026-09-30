@@ -1,4 +1,4 @@
-const BuyerRequirement = require("../models/BuyerRequirement");
+ const BuyerRequirement = require("../models/BuyerRequirement");
 
 
 // ==========================================

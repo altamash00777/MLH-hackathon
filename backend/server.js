@@ -14,6 +14,7 @@ const mandiRoutes = require("./routes/mandiRoutes");
 const dealRoutes = require("./routes/dealRoutes");
 const marketIntelligenceRoutes = require("./routes/marketIntelligenceRoutes");
 const chatbotRoutes = require("./routes/chatbot");
+const fpoRoutes = require("./routes/fpoRoutes");
 
 
 const app = express();
@@ -39,7 +40,7 @@ app.use("/api/mandi", mandiRoutes);
 app.use("/api/deals", dealRoutes);
 app.use("/api/market-intelligence", marketIntelligenceRoutes);
 app.use("/api/chatbot", chatbotRoutes);
-
+app.use("/api/fpo", fpoRoutes);
 
 
 app.get("/", (req, res) => {

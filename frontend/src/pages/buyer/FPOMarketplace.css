@@ -1,0 +1,500 @@
+.fpo-marketplace {
+  background: #f5f8f3;
+  min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.fpo-marketplace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    #166534,
+    #2e7d32
+  );
+  padding: 32px 36px;
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(22, 101, 52, 0.15);
+}
+
+.fpo-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+.fpo-marketplace-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 750;
+}
+
+.fpo-marketplace-header p {
+  margin: 8px 0 0;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.fpo-header-icon {
+  width: 74px;
+  height: 74px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.fpo-search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.fpo-search-box {
+  flex: 1;
+  max-width: 650px;
+  height: 52px;
+  background: white;
+  border: 1px solid #dce5da;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+}
+
+.fpo-search-box span {
+  font-size: 18px;
+}
+
+.fpo-search-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  color: #1f2937;
+}
+
+.fpo-search-box input::placeholder {
+  color: #9ca3af;
+}
+
+.fpo-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.fpo-count strong {
+  color: #166534;
+  font-size: 20px;
+}
+
+/* =========================
+   FPO GRID
+========================= */
+
+.fpo-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(320px, 1fr)
+  );
+  gap: 22px;
+}
+
+/* =========================
+   FPO CARD
+========================= */
+
+.fpo-card {
+  background: white;
+  border: 1px solid #e1e9df;
+  border-radius: 20px;
+  padding: 22px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.fpo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 35px rgba(22, 101, 52, 0.12);
+  border-color: #b7d3b5;
+}
+
+/* =========================
+   CARD TOP
+========================= */
+
+.fpo-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.crop-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #edf7ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.fpo-status {
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.fpo-status.open {
+  background: #e8f7ed;
+  color: #16803c;
+}
+
+.fpo-status.full {
+  background: #fff4dc;
+  color: #a16207;
+}
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.fpo-card h2 {
+  margin: 18px 0 5px;
+  color: #17221a;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.fpo-crop {
+  margin: 0;
+  color: #4b7f51;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   QUANTITY
+========================= */
+
+.fpo-quantity-box {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin: 20px 0;
+  padding: 17px;
+  background: #f6faf5;
+  border: 1px solid #e4eee2;
+  border-radius: 15px;
+}
+
+.fpo-quantity-box div {
+  text-align: center;
+}
+
+.fpo-quantity-box span {
+  display: block;
+  font-size: 11px;
+  color: #7a847c;
+  margin-bottom: 5px;
+}
+
+.fpo-quantity-box strong {
+  display: block;
+  font-size: 25px;
+  color: #166534;
+}
+
+.fpo-quantity-box small {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quantity-divider {
+  width: 1px;
+  height: 38px;
+  background: #d5dfd3;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.fpo-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.fpo-detail {
+  background: #fafcf9;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.fpo-detail span {
+  display: block;
+  font-size: 11px;
+  color: #7b847c;
+  margin-bottom: 4px;
+}
+
+.fpo-detail strong {
+  display: block;
+  font-size: 13px;
+  color: #29352c;
+}
+
+.fpo-detail small {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+/* =========================
+   LEADER
+========================= */
+
+.fpo-leader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid #edf0ec;
+  border-bottom: 1px solid #edf0ec;
+}
+
+.leader-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #dff0df;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 750;
+  font-size: 15px;
+}
+
+.fpo-leader div:nth-child(2) {
+  flex: 1;
+}
+
+.fpo-leader span {
+  display: block;
+  font-size: 10px;
+  color: #8a938b;
+  margin-bottom: 2px;
+}
+
+.fpo-leader strong {
+  font-size: 13px;
+  color: #273329;
+}
+
+.member-count {
+  font-size: 18px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.view-fpo-btn {
+  width: 100%;
+  border: none;
+  background: #166534;
+  color: white;
+  border-radius: 12px;
+  height: 46px;
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.view-fpo-btn:hover {
+  background: #14532d;
+  transform: translateY(-1px);
+}
+
+.view-fpo-btn span {
+  font-size: 18px;
+}
+
+/* =========================
+   STATES
+========================= */
+
+.fpo-state-card {
+  background: white;
+  border: 1px solid #e1e9df;
+  border-radius: 20px;
+  padding: 55px 30px;
+  text-align: center;
+  color: #4b5563;
+}
+
+.fpo-state-card h3 {
+  margin: 15px 0 7px;
+  color: #26352a;
+}
+
+.fpo-state-card p {
+  margin: 0;
+  color: #7b847c;
+  font-size: 14px;
+}
+
+.state-icon {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  border-radius: 50%;
+  background: #edf7ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.error-state {
+  border-color: #f0d5d5;
+}
+
+.retry-btn {
+  margin-top: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9px;
+  background: #166534;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.fpo-loader {
+  width: 38px;
+  height: 38px;
+  border: 4px solid #dcebd9;
+  border-top-color: #166534;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: fpoSpin 0.8s linear infinite;
+}
+
+@keyframes fpoSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .fpo-marketplace-header {
+    padding: 25px;
+  }
+
+  .fpo-marketplace-header h1 {
+    font-size: 27px;
+  }
+
+  .fpo-grid {
+    grid-template-columns: repeat(
+      2,
+      minmax(280px, 1fr)
+    );
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+  .fpo-marketplace-header {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .fpo-marketplace-header h1 {
+    font-size: 24px;
+  }
+
+  .fpo-marketplace-header p {
+    font-size: 13px;
+  }
+
+  .fpo-header-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 28px;
+  }
+
+  .fpo-search-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fpo-search-box {
+    max-width: none;
+  }
+
+  .fpo-count {
+    justify-content: flex-end;
+  }
+
+  .fpo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fpo-card {
+    padding: 18px;
+  }
+
+  .fpo-quantity-box strong {
+    font-size: 22px;
+  }
+}

@@ -27,7 +27,9 @@ import BuyerDeals from "./pages/buyer/BuyerDeals";
 import MarketIntelligence from "./pages/farmer/MarketIntelligence";
 import FarmerTransactions from "./pages/farmer/FarmerTransactions";
 import FarmerPayments from "./pages/farmer/FarmerPayments";
-
+import FPOMarketplace from "./pages/buyer/FPOMarketplace";
+import FPODetails from "./pages/buyer/FPODetails";
+import FPOCenter from "./pages/farmer/FPOCenter";
 
 
 function App() {
@@ -202,6 +204,23 @@ function App() {
   path="*"
   element={<NotFound />}
 />
+<Route
+  path="/buyer/fpos"
+  element={<FPOMarketplace />}
+/>
+<Route
+  path="/buyer/fpos/:fpoId"
+  element={<FPODetails />}
+/>
+
+<Route
+  path="/farmer/fpos"
+  element={<FPOCenter />}
+/>
+
+
+
+
 
 
       </Routes>

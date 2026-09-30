@@ -37,21 +37,20 @@ const createListing = async (req, res) => {
     }
 
     // Create listing
-    const listing = await FarmerListing.create({
-      // IMPORTANT:
-      // Farmer ID comes from authenticated user
-      farmerId: req.user._id,
-
-      cropName,
-      quantity,
-      quality,
-      grade,
-      harvestDate,
-      sellingLocation,
-      expectedPrice,
-      productionCostPerQuintal,
-      otherExpenses: otherExpenses || 0
-    });
+const listing = await FarmerListing.create({
+  farmerId: req.user._id,
+  cropName,
+  quantity: Number(quantity),
+  availableQuantity: Number(quantity),
+  reservedQuantity: 0,
+  quality,
+  grade,
+  harvestDate,
+  sellingLocation,
+  expectedPrice,
+  productionCostPerQuintal,
+  otherExpenses
+});
 
     res.status(201).json({
       message: "Crop listing created successfully",
