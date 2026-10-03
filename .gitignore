@@ -1,0 +1,44 @@
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+ai-service/venv/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# =========================
+# Datasets
+# =========================
+
+ai-service/dataset/
+ai-service/crops/wheat/dataset/
+
+# =========================
+# Jupyter
+# =========================
+
+.ipynb_checkpoints/
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE
+# =========================
+
+.vscode/
+.idea/
