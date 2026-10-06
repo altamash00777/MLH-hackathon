@@ -1,14 +1,16 @@
-const Groq = require("groq-sdk");
+const OpenAI = require("openai");
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
+const cortex = new OpenAI({
+  apiKey: process.env.CORTEX_PAT,
+  baseURL: `${process.env.CORTEX_ACCOUNT_URL}/api/v2/cortex/v1`,
 });
 
-const getGroqResponse = async (message) => {
+const getCortexResponse = async (message) => {
   try {
-    const completion = await groq.chat.completions.create({
-      model: "openai/gpt-oss-120b",
+    console.log("Sending request to Snowflake Cortex...");
 
+    const completion = await cortex.chat.completions.create({
+      model: "llama3.1-8b",
       messages: [
         {
           role: "system",
@@ -44,17 +46,33 @@ Your behavior:
           content: message,
         },
       ],
-
       temperature: 0.4,
     });
 
-    return completion.choices[0].message.content;
+    const response = completion.choices?.[0]?.message?.content;
+
+    if (!response) {
+      throw new Error("Snowflake Cortex returned an empty response");
+    }
+
+    console.log("Snowflake Cortex response received.");
+
+    return response;
   } catch (error) {
-    console.error("Groq API Error:", error);
+    console.error("Snowflake Cortex API Error:");
+
+    if (error.status) {
+      console.error("Status:", error.status);
+    }
+
+    if (error.message) {
+      console.error("Message:", error.message);
+    }
+
     throw error;
   }
 };
 
 module.exports = {
-  getGroqResponse,
+  getCortexResponse,
 };

@@ -17,9 +17,6 @@ const calculateNetRealization =
   require("../utils/netRealization");
 
 
-// =====================================================
-// FARMER MATCHES
-// =====================================================
 
 const findFarmerMatches = async (req, res) => {
   try {
@@ -36,10 +33,6 @@ const findFarmerMatches = async (req, res) => {
       });
 
 
-    // =================================================
-    // CREATE / REUSE MATCHES
-    // =================================================
-
     const matchPromises = [];
 
     for (const listing of listings) {
@@ -53,11 +46,6 @@ const findFarmerMatches = async (req, res) => {
     }
 
     await Promise.all(matchPromises);
-
-
-    // =================================================
-    // GET MATCHES
-    // =================================================
 
     const matches =
       await Match.find({
@@ -74,10 +62,6 @@ const findFarmerMatches = async (req, res) => {
     const result = [];
 
 
-    // =================================================
-    // CALCULATE DETAILS
-    // =================================================
-
     for (const match of matches) {
 
       const listing =
@@ -91,21 +75,11 @@ const findFarmerMatches = async (req, res) => {
         continue;
       }
 
-
-      // =================================================
-      // MATCHED QUANTITY
-      // =================================================
-
       const matchedQuantity =
         Math.min(
           listing.quantity,
           requirement.requiredQuantity
         );
-
-
-      // =================================================
-      // DISTANCE
-      // =================================================
 
       const distance =
         await calculateDistance(
@@ -113,10 +87,6 @@ const findFarmerMatches = async (req, res) => {
           requirement.location
         );
 
-
-      // =================================================
-      // TRANSPORT
-      // =================================================
 
       const transport =
         calculateTransportCost({
@@ -1023,18 +993,10 @@ const acceptMatch = async (req, res) => {
 };
 
 
-// =====================================================
-// EXPORTS
-// =====================================================
-
 module.exports = {
 
   findFarmerMatches,
-
   findBuyerMatches,
-
   contactMatch,
-
   acceptMatch
-
 };

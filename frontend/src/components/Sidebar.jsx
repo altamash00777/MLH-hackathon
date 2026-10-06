@@ -111,6 +111,20 @@ function Sidebar() {
             My Crops
           </NavLink>
 
+{/* Crop Analyzer */}
+
+<NavLink
+  to="/farmer/crop-analyzer"
+  onClick={handleNavClick}
+  className={({ isActive }) =>
+    isActive ? "nav-item active" : "nav-item"
+  }
+>
+  <span>🔬</span>
+  Crop Analyzer
+</NavLink>
+
+
           {/* Matches */}
 
           <NavLink

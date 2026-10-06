@@ -30,7 +30,7 @@ import FarmerPayments from "./pages/farmer/FarmerPayments";
 import FPOMarketplace from "./pages/buyer/FPOMarketplace";
 import FPODetails from "./pages/buyer/FPODetails";
 import FPOCenter from "./pages/farmer/FPOCenter";
-
+import CropAnalyzer from "./pages/farmer/CropAnalyzer";
 
 function App() {
   return (
@@ -218,7 +218,10 @@ function App() {
   element={<FPOCenter />}
 />
 
-
+<Route
+  path="/farmer/crop-analyzer"
+  element={<CropAnalyzer />}
+/>
 
 
 
