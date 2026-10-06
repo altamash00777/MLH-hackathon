@@ -1,182 +1,314 @@
-# 🌾 DISHA — Agricultural Market Coordination Platform
+# 🌾 DISHA — KissanConnect
 
-> **Connecting Farmers, Buyers & Market Intelligence**
+### AI-Powered Farmer–Buyer Marketplace
 
-DISHA is a technology-based agricultural platform built for the **MLH Hackathon — Open Innovation**. It helps farmers and buyers discover suitable matches and coordinate the complete agricultural transaction from **matching to payment**.
+DISHA (KissanConnect) is a farmer-focused digital marketplace that directly connects **farmers with buyers**, helping reduce middlemen, improve price discovery, and make agricultural selling more transparent.
 
----
-
-## 🎯 Problem
-
-Farmers and buyers often have fragmented information about:
-
-* Crop availability
-* Quantity and quality
-* Price
-* Location
-* Pickup and delivery
-* Payment status
-* Market prices
-
-Finding a buyer is only one part of the problem. After a match, multiple activities still need to be coordinated.
+The platform combines **market intelligence, AI assistance, intelligent matching, FPO aggregation, and logistics estimation** into one system.
 
 ---
 
-## 💡 Solution
+## 🚀 Key Features
 
-DISHA provides a single platform for:
+### 👨‍🌾 Farmer
+- Create and manage crop listings
+- Set expected selling price and quantity
+- Find suitable buyers
+- View buyer requirements
+- Receive intelligent buyer matches
+- Join and contribute to FPOs
+- Track FPO purchases
+- View market price trends
+- Estimate transportation and selling costs
 
-**Farmer → Buyer Matching → Deal → Pickup → Delivery → Payment**
+### 🏢 Buyer
+- Create crop requirements
+- Discover matching farmers
+- Purchase from individual farmers or FPOs
+- View crop quantity, quality, grade and expected price
 
-### Key Features
+### 🤖 DISHA AI Assistant
+An AI-powered farmer assistant using **Snowflake Cortex AI**.
 
-* 👨‍🌾 Farmer crop listings
-* 🏢 Buyer requirements
-* 🤝 Farmer-buyer matching
-* 📑 Deal coordination and task tracking
-* 🚚 Pickup & delivery coordination
-* 💰 Net realization / profit calculation
-* 💳 Payment tracking
-* 📊 Current mandi market intelligence
-* 🤖 AI-ready farmer assistant
+It can:
+- Explain marketplace features
+- Help farmers understand crop selling
+- Explain buyer matching
+- Explain net realization
+- Explain transportation costs
+- Understand English, Hindi and Hinglish
+- Provide simple, farmer-friendly responses
+
+The AI is designed **not to invent real-time marketplace information** or claim that an action was performed unless the backend actually performs it.
 
 ---
 
-## ❄️ Snowflake Integration
+# ❄️ Snowflake Integration
 
-Snowflake is used as the **market intelligence and analytical data layer**.
+Snowflake is used in DISHA in **two separate ways**.
 
-### MongoDB
+## 1. 📊 Snowflake Market Intelligence
 
-Stores operational data:
+DISHA uses Snowflake to process and serve mandi price data.
+
+### Data Source
+
+Mandi data is obtained from the Government of India's **data.gov.in** platform.
+
+The data is stored and analyzed in Snowflake using:
 
 ```text
-Users
-Listings
-Requirements
-Matches
-Deals
-Transactions
-Payments
+Database
+SNOWFLAKE_LEARNING_DB
+
+Schema
+MARKET_INTELLIGENCE
+
+Table
+MANDI_PRICES
+
+Warehouse
+COMPUTE_WH
 ```
 
-### Snowflake
+The backend provides market intelligence such as:
 
-Stores and analyzes mandi market data:
+- Available crops
+- Available states
+- Crop price trends
+- Historical mandi prices
+- Market-based price information
+
+Example API endpoints:
 
 ```text
-Crop
-State
-District
-Market
-Variety
-Grade
-Min Price
-Max Price
-Modal Price
-Arrival Date
+/api/market-intelligence/crops
+/api/market-intelligence/states
+/api/market-intelligence/trend/:crop
 ```
 
-Market data is collected from the **Government of India data.gov.in Mandi API**, imported into Snowflake, and exposed through the backend to the React **Market Intelligence** dashboard.
+This allows farmers to make better selling decisions using real market data instead of static/mock information.
+
+---
+
+## 2. 🤖 Snowflake Cortex AI
+
+DISHA's chatbot uses **Snowflake Cortex AI** for natural-language assistance.
+
+The backend communicates with the Snowflake Cortex REST API using an OpenAI-compatible client.
+
+Architecture:
 
 ```text
-data.gov.in
-     ↓
-Snowflake
-     ↓
-Market Intelligence API
-     ↓
-React Dashboard
-     ↓
+React Chatbot
+      ↓
+Express Backend
+      ↓
+Cortex Service
+      ↓
+Snowflake Cortex AI
+      ↓
+AI Response
+      ↓
 Farmer
 ```
 
-This allows farmers to view current market prices and compare markets for their selected crop.
+The Cortex integration uses:
+
+```env
+CORTEX_ACCOUNT_URL=...
+CORTEX_PAT=...
+```
+
+A dedicated Snowflake account is used for Cortex AI, keeping the AI infrastructure separate from the existing mandi-data Snowflake account.
+
+### Why Cortex?
+
+- AI powered by Snowflake
+- Secure API-based integration
+- OpenAI-compatible API interface
+- Supports farmer-friendly natural-language interaction
+- Demonstrates practical Snowflake Cortex usage in the application
 
 ---
 
-## 🔄 How DISHA Works
+# 🧠 Intelligent Farmer–Buyer Matching
+
+DISHA calculates a compatibility score between farmer listings and buyer requirements.
+
+Example:
 
 ```text
-Farmer Creates Listing
-          ↓
-Buyer Creates Requirement
-          ↓
-Matching Engine
-          ↓
-Deal Created
-          ↓
-Task Coordination
-          ↓
-Pickup & Delivery
-          ↓
-Payment
-          ↓
-Transaction Completed
+Crop Match       → 30%
+Quantity Match   → 15%
+Quality Match    → 0%
+Grade Match      → 10%
+Location Match   → 10%
+Price Match      → 20%
+```
+
+The resulting score helps identify suitable buyers for farmers.
+
+---
+
+# 🚚 Logistics & Net Realization
+
+DISHA integrates transportation estimation to help farmers understand the actual economics of selling their crop.
+
+The system considers:
+
+- Distance
+- Estimated travel time
+- Transportation cost
+- Selling price
+- Production cost
+- Other expenses
+
+This helps calculate **net realization**, rather than looking only at the selling price.
+
+---
+
+# 👥 FPO Aggregation
+
+Farmers can join a **Farmer Producer Organization (FPO)** and contribute their produce.
+
+The system supports:
+
+- FPO creation
+- Joining FPOs
+- Crop contribution
+- Target quantity
+- Collected quantity
+- Buyer purchases
+- Remaining quantity
+- Purchase status tracking
+
+This allows multiple farmers to collectively fulfill larger buyer requirements.
+
+---
+
+# 🛠️ Technology Stack
+
+### Frontend
+- React
+- Vite
+- Framer Motion
+- Lucide Icons
+- CSS
+- i18n / Hindi support
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+- REST APIs
+
+### AI & Data
+- Snowflake Cortex AI
+- Snowflake Market Intelligence
+- Government mandi data
+- OpenRouteService
+
+---
+
+# 📁 Project Structure
+
+```text
+KissanConnect/
+│
+├── frontend/
+│   ├── src/
+│   └── ...
+│
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   │   ├── cortexService.js
+│   │   └── ...
+│   ├── middleware/
+│   ├── test-cortex.js
+│   ├── server.js
+│   └── .env
+│
+└── README.md
 ```
 
 ---
 
-## 🛠️ Tech Stack
+# ⚙️ Environment Variables
 
-**Frontend**
+Create a `.env` file inside the backend:
 
-* React.js
-* Vite
-* CSS
+```env
+PORT=5000
 
-**Backend**
+MONGODB_URL=your_mongodb_url
 
-* Node.js
-* Express.js
-* REST API
-* JWT
+JWT_SECRET=your_jwt_secret
 
-**Databases**
+ORS_API_KEY=your_ors_api_key
 
-* MongoDB — transactional data
-* Snowflake — market intelligence
+MANDI_API_KEY=your_mandi_api_key
 
-**External Services**
+# Existing Snowflake account for market intelligence
+SNOWFLAKE_ACCOUNT=your_account
+SNOWFLAKE_USERNAME=your_username
+SNOWFLAKE_PASSWORD=your_password
+SNOWFLAKE_WAREHOUSE=your_warehouse
+SNOWFLAKE_DATABASE=your_database
+SNOWFLAKE_SCHEMA=your_schema
 
-* Government of India data.gov.in
-* OpenRouteService
+# Separate Snowflake account for Cortex AI
+CORTEX_ACCOUNT_URL=your_cortex_account_url
+CORTEX_PAT=your_cortex_pat
+```
 
-**AI**
-
-* Snowflake Cortex / DISHA Sahayak — planned AI intelligence layer
-
----
-
-## 🌟 Why DISHA?
-
-DISHA is designed not just as a marketplace, but as a **coordination platform**.
-
-It connects:
-
-> **Matching + Market Intelligence + Deal Coordination + Logistics + Payment**
-
-into one workflow, reducing information fragmentation between farmers and buyers.
+**Never commit `.env` or expose your API keys/PATs publicly.**
 
 ---
 
-## 🚀 Future Scope
+# ▶️ Running the Project
 
-* 🤖 DISHA Sahayak AI assistant
-* 📈 Advanced market analytics
-* 🧠 Snowflake Cortex integration
-* 🚛 Logistics provider coordination
-* 🏪 Storage coordination
-* 👥 FPO group transactions
+### Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend communicates with the Express backend through REST APIs.
 
 ---
 
-## 🏆 Hackathon
+# 🌱 Vision
 
-**MLH Hackathon — Open Innovation**
+DISHA aims to create a more transparent agricultural marketplace where farmers can:
 
-### Project: DISHA
+**List → Discover Buyers → Match → Calculate Costs → Sell**
 
-> *Turning fragmented agricultural transactions into one coordinated workflow.*
+By combining **real market data, AI assistance, intelligent matching, FPO aggregation and logistics intelligence**, DISHA helps farmers make more informed selling decisions and connect directly with buyers.
 
 ---
+
+## 🏆 Project Highlights
+
+- 🌾 Direct farmer–buyer marketplace
+- 📊 Real mandi market intelligence using Snowflake
+- ❄️ Snowflake Cortex AI-powered assistant
+- 🤖 Intelligent buyer matching
+- 👥 FPO aggregation
+- 🚚 Logistics cost estimation
+- 💰 Net realization analysis
+- 🌐 Hindi / English / Hinglish farmer-friendly experience
